@@ -6,6 +6,7 @@ test commit:
 
 brian
 stan
+rina
 test commit
 yunji
 daniel li 2
