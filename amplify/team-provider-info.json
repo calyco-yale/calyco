@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-calyco-dev-130152-authRole",
+      "UnauthRoleArn": "arn:aws:iam::418767971351:role/amplify-calyco-dev-130152-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::418767971351:role/amplify-calyco-dev-130152-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-calyco-dev-130152-deployment",
+      "UnauthRoleName": "amplify-calyco-dev-130152-unauthRole",
+      "StackName": "amplify-calyco-dev-130152",
+      "StackId": "arn:aws:cloudformation:us-east-2:418767971351:stack/amplify-calyco-dev-130152/b1d8bb80-81ca-11eb-915c-06a8b2a10d8e",
+      "AmplifyAppId": "d9iwhds012x8y"
+    }
+  }
+}
