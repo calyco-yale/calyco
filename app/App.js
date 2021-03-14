@@ -11,7 +11,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground 
-        source= {require("./assets/calyco-cat-2.jpg")}
+        source= {require("../assets/calyco-cat-2.jpg")}
         style={{
           height:'100%',
           width:'100%',
