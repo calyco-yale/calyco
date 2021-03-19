@@ -15,9 +15,9 @@ import Colors from '../../src/constants/colors';
 
 class LoginComponent extends Component {
   render() {
-    // const {
-    //   loading, onLoginSubmit, onEmailChange, onPasswordChange, loginError, disableLogin,
-    // } = this.props;
+    const {
+      loading, onLoginSubmit, onEmailChange, onPasswordChange, loginError, disableLogin,
+    } = this.props;
 
     return (
       <AppBase
@@ -27,31 +27,29 @@ class LoginComponent extends Component {
       >
         <PrimaryText bold size={26}>Calyco</PrimaryText>
         <BR size={50} />
-        {/* {loginError && <PrimaryText>{loginError.message}</PrimaryText>} */}
+        {loginError && <PrimaryText>{loginError.message}</PrimaryText>}
         <BR size={50} />
 
         <TextInput
           autoCorrect={false}
-          // onChangeText={debounce(onEmailChange, 500)}
+          onChangeText={debounce(onEmailChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
-          defaultValue="Test@gmail.com"
           underlineColorAndroid="#B9B9B9"
           placeholder="Email Address"
         />
         <BR />
         <TextInput
           autoCorrect={false}
-          // onChangeText={debounce(onPasswordChange, 500)}
+          onChangeText={debounce(onPasswordChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
-          defaultValue="test123"
           underlineColorAndroid="#B9B9B9"
           secureTextEntry
           placeholder="Password"
@@ -65,9 +63,9 @@ class LoginComponent extends Component {
         <BR />
         <RoundButton
           title="Sign In"
-          // disabled={disableLogin}
-          // loading={loading}
-          // onPress={onLoginSubmit}
+          disabled={disableLogin}
+          loading={loading}
+          onPress={onLoginSubmit}
         />
         <BR size={10} />
         <RoundButton

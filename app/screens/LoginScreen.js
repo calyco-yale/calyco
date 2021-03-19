@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 
@@ -98,18 +98,19 @@ LoginScreen.propTypes = {
   authLogin: PropTypes.func.isRequired,
 };
 
-function initMapStateToProps(state) {
-  return {
-    loginError: state.auth.loginError,
-    loginLoading: state.auth.loginLoading,
-    loginMessage: state.auth.loginMessage,
-  };
-}
+// function initMapStateToProps(state) {
+//   return {
+//     loginError: state.auth.loginError,
+//     loginLoading: state.auth.loginLoading,
+//     loginMessage: state.auth.loginMessage,
+//   };
+// }
 
-function initMapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    authLogin,
-  }, dispatch);
-}
+// function initMapDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     authLogin,
+//   }, dispatch);
+// }
 
-export default connect(initMapStateToProps, initMapDispatchToProps)(LoginScreen);
+// export default connect(initMapStateToProps, initMapDispatchToProps)(LoginScreen);
+export default LoginScreen;

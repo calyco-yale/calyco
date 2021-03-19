@@ -6,6 +6,7 @@ import Amplify from 'aws-amplify'
 import config from '../aws-exports'
 import { isRequired } from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
 import LoginComponent from './components/Login'
+import AppRouter from './router.js'
 Amplify.configure(config)
 
 export default function App() {
@@ -32,14 +33,7 @@ export default function App() {
   //   </SafeAreaView>
   // );
   return (
-    <LoginComponent
-      //loading={loginLoading}
-      //loginError={loginError}
-      //disableLogin={disableLogin}
-      //onLoginSubmit={this.handleLoginSubmit}
-      //onEmailChange={this.handleEmailChange}
-      //onPasswordChange={this.handlePasswordChange}
-    />);
+    <AppRouter/>);
 }
 
 const styles = StyleSheet.create({
