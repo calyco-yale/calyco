@@ -1,0 +1,14 @@
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  dob: String!
+  events: [Event] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Event @model @key(name: "byUser", fields: ["userId"]) @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  date: String!
+  userId: ID!
+}
+ 
