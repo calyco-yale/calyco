@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import TextButton from '../base_components/TextButton';
 import { Actions } from 'react-native-router-flux';
 
 class UserComponent extends Component {

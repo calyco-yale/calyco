@@ -32,8 +32,8 @@ class SearchScreen extends Component {
     const { search, filteredData, allData } = this.state;
     if (text) {
       const newData = allData.filter(function (item) {
-        const itemData = item.name
-          ? item.name.toUpperCase()
+        const itemData = item.username
+          ? item.username.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -88,4 +88,5 @@ class SearchScreen extends Component {
     );
   }
 }
+
 export default SearchScreen;

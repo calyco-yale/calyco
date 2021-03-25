@@ -1,11 +1,12 @@
 import React from 'react';
 import { Drawer, Router, Scene } from 'react-native-router-flux';
 
-import {LoginScreen, SignupScreen, SearchScreen, UserProfileScreen} from './screens/LoginScreen';
+import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
-// import SignupScreen from './screens/SignupScreen';
-// import SearchScreen from './screens/SearchScreen';
+import SignupScreen from './screens/SignupScreen';
+import SearchScreen from './screens/SearchScreen';
+import UserProfileScreen from './screens/UserProfileScreen'
 // import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 // import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 // import CartScreen from './screens/CartScreen';

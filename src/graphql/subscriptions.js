@@ -21,46 +21,31 @@ export const onCreateUser = /* GraphQL */ `
           location
           public
           userID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -86,46 +71,31 @@ export const onUpdateUser = /* GraphQL */ `
           location
           public
           userID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -151,46 +121,31 @@ export const onDeleteUser = /* GraphQL */ `
           location
           public
           userID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
-          _version
-          _deleted
-          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
-        startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -217,25 +172,16 @@ export const onCreateEvent = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -262,25 +208,16 @@ export const onUpdateEvent = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -307,25 +244,16 @@ export const onDeleteEvent = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -347,25 +275,16 @@ export const onCreateFriendship = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -387,25 +306,16 @@ export const onUpdateFriendship = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -427,25 +337,16 @@ export const onDeleteFriendship = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -467,25 +368,16 @@ export const onCreateFriendRequest = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -507,25 +399,16 @@ export const onUpdateFriendRequest = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -547,25 +430,16 @@ export const onDeleteFriendRequest = /* GraphQL */ `
         location
         events {
           nextToken
-          startedAt
         }
         friendships {
           nextToken
-          startedAt
         }
         friendRequests {
           nextToken
-          startedAt
         }
-        _version
-        _deleted
-        _lastChangedAt
         createdAt
         updatedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
     }
