@@ -9,7 +9,9 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -22,31 +24,46 @@ export const createUser = /* GraphQL */ `
           location
           public
           userID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -60,7 +77,9 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -73,31 +92,46 @@ export const updateUser = /* GraphQL */ `
           location
           public
           userID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -111,7 +145,9 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -124,31 +160,46 @@ export const deleteUser = /* GraphQL */ `
           location
           public
           userID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendships {
         items {
           id
           userID
           friendID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       friendRequests {
         items {
           id
           userID
           senderID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -171,21 +222,32 @@ export const createEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -208,21 +270,32 @@ export const updateEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -245,21 +318,32 @@ export const deleteEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -277,21 +361,32 @@ export const createFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -309,21 +404,32 @@ export const updateFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -341,21 +447,32 @@ export const deleteFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -373,21 +490,32 @@ export const createFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -405,21 +533,32 @@ export const updateFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -437,21 +576,32 @@ export const deleteFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
           nextToken
+          startedAt
         }
         friendships {
           nextToken
+          startedAt
         }
         friendRequests {
           nextToken
+          startedAt
         }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

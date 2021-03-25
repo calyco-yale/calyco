@@ -1,10 +1,11 @@
 import React from 'react';
 import { Drawer, Router, Scene } from 'react-native-router-flux';
 
-import LoginScreen from './screens/LoginScreen';
+import {LoginScreen, SignupScreen, SearchScreen, UserProfileScreen} from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
-import SignupScreen from './screens/SignupScreen';
+// import SignupScreen from './screens/SignupScreen';
+// import SearchScreen from './screens/SearchScreen';
 // import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 // import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 // import CartScreen from './screens/CartScreen';
@@ -20,7 +21,7 @@ const AppRouter = () => (
   <Router>
 
     <Scene key="root" title="">
-      <Scene
+      {/* <Scene
         key="loginScreen"
         component={LoginScreen}
         initial
@@ -30,7 +31,18 @@ const AppRouter = () => (
       <Scene
         key="signupScreen"
         component={SignupScreen}
+      /> */}
+
+      <Scene
+        key="searchScreen"
+        component={SearchScreen}
       />
+
+      <Scene
+        key="userProfileScreen"
+        component={UserProfileScreen}
+      />
+
       {/* <Drawer
         key="drawer"
         hideNavBar

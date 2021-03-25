@@ -3,7 +3,7 @@
     "ElasticsearchWarning": true,
     "transformers": [
         "graphql-default-value-transformer"
-    ], 
+    ],
     "ResolverConfig": {
         "project": {
             "ConflictHandler": "AUTOMERGE",
