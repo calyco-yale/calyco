@@ -3,8 +3,9 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import AppBase from '../base_components/AppBase';
+
 import UserComponent from '../components/User'
-import BR from '../base_components/BR'
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsersShortened } from '../../src/graphql/custom_queries';
@@ -46,23 +47,33 @@ class SearchScreen extends Component {
   };
 
   _renderItem = ({ item }) => (
-    <UserComponent userItem={item} />
+    <UserComponent key={item.id} userItem={item} />
   );
 
   _itemSeparator = () => {
     return (
-      <View
+      <AppBase
         style={{
-          height: 0.5,
+          height: 10,
           width: '100%',
-          backgroundColor: '#C8C8C8',
         }}
       />
     );
   };
 
-  componentDidMount(){
-    this.fetchUserData();
+  componentDidMount() {
+    this.didFocusListener = this.props.navigation.addListener(
+      'didFocus',
+      () => { 
+        if (this.state.allData.length == 0) {
+          this.fetchUserData();
+        }
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.remove();
   }
 
   render() {
@@ -84,7 +95,6 @@ class SearchScreen extends Component {
           renderItem={this._renderItem}
         />
       </View>
-
     );
   }
 }

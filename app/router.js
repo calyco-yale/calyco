@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, Router, Scene } from 'react-native-router-flux';
+import { Drawer, Router, Scene, Actions } from 'react-native-router-flux';
 
 import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
@@ -7,6 +7,8 @@ import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import SearchScreen from './screens/SearchScreen';
 import UserProfileScreen from './screens/UserProfileScreen'
+import FriendScreen from './screens/FriendScreen';
+
 // import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 // import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 // import CartScreen from './screens/CartScreen';
@@ -42,6 +44,11 @@ const AppRouter = () => (
       <Scene
         key="userProfileScreen"
         component={UserProfileScreen}
+      />
+
+      <Scene 
+        key="friendScreen"
+        component={FriendScreen}
       />
 
       {/* <Drawer
