@@ -1,13 +1,20 @@
 import * as React from 'react';
-import { View, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { View, useWindowDimensions, Text } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 const FirstRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ffffff' }} />
+  <>
+  {/* Jinny code here */}
+  <Text style= {{color:'black', backgroundColor: '#ffffff'}}>hello</Text>
+  <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
+  </>
 );
 
 const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#000000' }} />
+  <>
+  {/* Yunji code here */}
+  <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
+  </>
 );
 
 export default function TabViewExample() {
@@ -15,8 +22,8 @@ export default function TabViewExample() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
+    { key: 'first', title: 'Calendar' },
+    { key: 'second', title: 'Upcoming Events' },
   ]);
 
   const renderScene = SceneMap({
@@ -25,11 +32,26 @@ export default function TabViewExample() {
   });
 
   return (
+    <>
+    <View style={{ flex: 0.4, backgroundColor: '#ffffff' }} />
+    {/* Brian code here */}
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
+      initialLayout={{ width: layout.width}}
+      renderTabBar={props => (
+        <TabBar
+          {...props}
+          renderLabel={({ route, color }) => (
+            <Text style={{ color: 'black', margin: 8 }}>
+              {route.title}
+            </Text>
+          )}
+          style={{backgroundColor: 'gray'}}
+        />
+      )}
     />
+    </>
   );
 }
