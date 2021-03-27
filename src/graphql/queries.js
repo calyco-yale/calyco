@@ -6,7 +6,9 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -59,7 +61,9 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -92,7 +96,9 @@ export const getEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -131,7 +137,9 @@ export const listEvents = /* GraphQL */ `
         user {
           id
           email
-          name
+          username
+          first_name
+          last_name
           dob
           location
           createdAt

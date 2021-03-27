@@ -9,7 +9,9 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -60,7 +62,9 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -111,7 +115,9 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -171,7 +177,9 @@ export const createEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -208,7 +216,9 @@ export const updateEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -245,7 +255,9 @@ export const deleteEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -277,7 +289,9 @@ export const createFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -309,7 +323,9 @@ export const updateFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -341,7 +357,9 @@ export const deleteFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -373,7 +391,9 @@ export const createFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -405,7 +425,9 @@ export const updateFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -437,7 +459,9 @@ export const deleteFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
