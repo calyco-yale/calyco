@@ -7442,10 +7442,15 @@ react-native-iphone-x-helper@^1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
-react-native-reanimated@~1.13.0:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.13.2.tgz#1ae5457b24b4913d173a5a064bb28eae7783d293"
-  integrity sha512-O+WhgxSjOIzcVdAAvx+h2DY331Ek1knKlaq+jsNLpC1fhRy9XTdOObovgob/aF2ve9uJfPEawCx8381g/tUJZQ==
+react-native-pager-view@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.1.2.tgz#a6957afc81f5729cbb884fe963df3482e2f46877"
+  integrity sha512-UvPvjtuIkiI9Ti8NoMH+fiFj0ehfFv4WkNUGM46dOJfOxmE6Z/hoyJjymOHU//iLkQSMO+YNherZs0HcijdA2A==
+
+react-native-reanimated@^1.13.2:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.13.3.tgz#fb0e1d582c8866015140f2159e147ffe6e798a3a"
+  integrity sha512-i714H24dv6ncpFO7/SZ0PfAMbvjgVbF8Ow2NPtowoZAz8osS54DmTMrkgJ9Za+uEku/s0AEaxqiXG2Xgntvv2g==
   dependencies:
     fbjs "^1.0.0"
 
@@ -7487,6 +7492,11 @@ react-native-tab-view@^2.15.2:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.16.0.tgz#cae72c7084394bd328fac5fefb86cd966df37a86"
   integrity sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg==
+
+react-native-tab-view@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-3.0.0.tgz#ea01e0956a4a96dd87d3cfdd8ee39f9aad319943"
+  integrity sha512-uuvLV3KWVXx3ZEESBYALo4w8fuHFUrrg2K2OCtfHv+xOmTWjjRzm+opi0PMXSLOxl7+uMeJvJYEzR13B6pXpkA==
 
 react-native-web@^0.15.0:
   version "0.15.0"

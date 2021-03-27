@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
+import TabViewExample from './screens/ProfilePage';
 // import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
 // import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
 // import CartScreen from './screens/CartScreen';
@@ -22,7 +23,7 @@ const AppRouter = () => (
     <Scene key="root" title="">
       <Scene
         key="loginScreen"
-        component={LoginScreen}
+        component={TabViewExample}
         initial
         hideNavBar
       />
