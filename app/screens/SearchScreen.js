@@ -3,9 +3,10 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import Colors from '../../src/constants/colors';
 import AppBase from '../base_components/AppBase';
-
 import UserComponent from '../components/User'
+import {renderUserItem, userItemSeparator} from '../helpers';
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsersShortened } from '../../src/graphql/custom_queries';
@@ -46,21 +47,6 @@ class SearchScreen extends Component {
     this.setState({search: text});
   };
 
-  _renderItem = ({ item }) => (
-    <UserComponent key={item.id} userItem={item} />
-  );
-
-  _itemSeparator = () => {
-    return (
-      <AppBase
-        style={{
-          height: 10,
-          width: '100%',
-        }}
-      />
-    );
-  };
-
   componentDidMount() {
     this.didFocusListener = this.props.navigation.addListener(
       'didFocus',
@@ -78,9 +64,8 @@ class SearchScreen extends Component {
 
   render() {
     const { search, filteredData, allData } = this.state;
-
     return (
-      <View>
+      <View style={{ backgroundColor: Colors.baseColor }}>
         <SearchBar
           placeholder="Search..."
           onChangeText={(text) => this._filterSearch(text)}
@@ -91,8 +76,8 @@ class SearchScreen extends Component {
         <FlatList
           data={filteredData}
           // keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={this._itemSeparator}
-          renderItem={this._renderItem}
+          ItemSeparatorComponent={userItemSeparator}
+          renderItem={renderUserItem}
         />
       </View>
     );

@@ -11,3 +11,16 @@ export const listUsersShortened = /* GraphQL */ `
     }
   }
 `;
+
+export const getUserFriendRequests = /* GraphQL */ `
+query getUserFriendRequests($id: ID!) {
+  getUser(id: $id) {
+    friendRequests {
+      items {
+        id
+        senderID
+      }
+    }
+  }
+}
+`;

@@ -1,15 +1,15 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text } from 'react-native';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
+import { isFriend, sentFriendRequest } from '../helpers';
 
 import { Actions } from 'react-native-router-flux';
 
-import { getFriends } from '../helpers';
-
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
+import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 
 
 class UserProfileScreen extends Component {
@@ -25,12 +25,36 @@ class UserProfileScreen extends Component {
     try {
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
       const user = userData.data.getUser
-      const friends = await getFriends(user.friendships.items)
-      this.setState({user: user, friends: friends})
+      this.setState({ user: user })
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  deleteFriendship = async(friendshipId)  => {
+    try {
+      await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendshipId }))
     } catch (e) {
       console.log(e);
     }
   }
+
+  deleteFriendRequest = async(requestId)  => {
+    try {
+      await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  sendFriendRequest = async(loggedInUser, userId)  => {
+    try {
+      await API.graphql(graphqlOperation(createSimpleFriendRequest, { userId: userId, senderId: loggedInUser.id }))
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
   componentDidMount() {
     this.didFocusListener = this.props.navigation.addListener(
@@ -46,7 +70,35 @@ class UserProfileScreen extends Component {
   }
 
   render() {
-    const { user, friends } = this.state;
+    const { user } = this.state;
+    let requestOrDelete = null;
+    // TODO: Replace loggedInUser with actual value
+    // TODO: Correct friend and friendrequest conditions
+    // if (user != loggedInUser){
+    //   friendshipId = isFriend(loggedInUser, user)
+    //   if (friendshipId) {
+    //     requestOrDelete = <TextButton
+    //                         onPress={() => this.deleteFriendship(friendshipId)}
+    //                         title={"Remove Friend"}
+    //                         style={{width: '80%', textAlign: 'center'}}
+    //                       />;
+    //   } else {
+    //     requestId = sentFriendRequest(loggedInUser, user)
+    //     if (requestId){
+    //       requestOrDelete = <TextButton
+    //                           onPress={() => this.deleteFriendRequest(requestId)}
+    //                           title={"Delete Request"}
+    //                           style={{width: '80%', textAlign: 'center'}}
+    //                         />;
+    //     } else {
+    //       requestOrDelete = <TextButton
+    //                         onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
+    //                         title={"Send Friend Request"}
+    //                         style={{width: '80%', textAlign: 'center'}}
+    //                       />;
+    //     }
+    //   }
+    // }
     if (user) {
       return (
         <AppBase>
@@ -55,25 +107,26 @@ class UserProfileScreen extends Component {
           <PrimaryText>{user.dob}</PrimaryText>
 
           <TextButton
-          onPress={() => Actions.friendScreen({friends: friends})}
-          title={"Display Friends"}
-          style={{
-            width: '80%',
-            textAlign: 'center'
-          }}
-        />
+            onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
+            title={"Display Friends"}
+            style={{width: '80%', textAlign: 'center'}}
+          />
+
+          <TextButton
+            onPress={() => Actions.friendRequestScreen({user: user, friendRequests: user.friendRequests.items})}
+            title={"Friend Requests"}
+            style={{width: '80%', textAlign: 'center'}}
+          />
+          
+          {requestOrDelete}
         </AppBase>
       );
     } else {
       return (
       <AppBase> 
-        <Text 
-        style = {{
-          fontSize: 25,
-          marginTop: 100
-        }}>
+        <Text style = {{fontSize: 25, marginTop: 100}}>
           Loading...
-          </Text>
+        </Text>
       </AppBase>
       )
     }

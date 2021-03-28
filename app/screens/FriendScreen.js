@@ -1,45 +1,53 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
-import Colors from '../../src/constants/colors';
+import React, { Component } from 'react';
+import { FlatList } from 'react-native';
+import { getFriends, renderUserItem, userItemSeparator } from '../helpers';
 
 import AppBase from '../base_components/AppBase';
-import UserComponent from '../components/User'
 
 class FriendScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      friends: []
+    }
   };
 
-  _renderItem = ({ item }) => (
-    <UserComponent key={item.id} userItem={item} />
-  );
-
-  _itemSeparator = () => {
-    return (
-      <AppBase
-        style={{
-          height: 10,
-          width: '100%',
-        }}
-      />
+  fetchFriendData = async () => {
+    try {
+      const friends = await getFriends(this.props.friendships)
+      console.log(friends)
+      this.setState({friends: friends});
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  
+  componentDidMount() {
+    this.didFocusListener = this.props.navigation.addListener(
+      'didFocus',
+      () => { 
+        this.fetchFriendData()
+      },
     );
-  };
+  }
+
+  componentWillUnmount() {
+    this.didFocusListener.remove();
+  }
 
   render() {
+    const { friends } = this.state;
     return (
       <AppBase >
         <FlatList
-            data={this.props.friends}
+            data={friends}
             // keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={this._itemSeparator}
-            renderItem={this._renderItem}
+            ItemSeparatorComponent={userItemSeparator}
+            renderItem={renderUserItem}
           />
       </AppBase>
 
     )
   }
-
-
-
 }
 export default FriendScreen;
