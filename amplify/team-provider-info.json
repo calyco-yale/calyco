@@ -10,6 +10,11 @@
       "StackName": "amplify-calyco-dev-130152",
       "StackId": "arn:aws:cloudformation:us-east-2:418767971351:stack/amplify-calyco-dev-130152/b1d8bb80-81ca-11eb-915c-06a8b2a10d8e",
       "AmplifyAppId": "d9iwhds012x8y"
+    },
+    "categories": {
+      "auth": {
+        "calyco0f130084": {}
+      }
     }
   }
 }
