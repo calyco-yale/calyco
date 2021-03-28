@@ -16,6 +16,8 @@ class SignupComponent extends Component {
     const {
       loading, onSignupSubmit,
       onEmailChange, onPasswordChange,
+      onUsernameChange, onFirstNameChange,
+      onLastNameChange, onConfirmPasswordChange,
       registerError, disableSignUp,
       registerMessage,
     } = this.props;
@@ -49,7 +51,47 @@ class SignupComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
+          placeholder="Email"
+          defaultValue="test@gmail.com"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onUsernameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
           placeholder="Username"
+          defaultValue="test123"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onFirstNameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="First Name"
+          defaultValue="Stan"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onLastNameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="Last Name"
+          defaultValue="Wong"
         />
         <BR />
         <TextInput
@@ -63,11 +105,12 @@ class SignupComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           secureTextEntry
           placeholder="Password"
+          defaultValue="password"
         />
         <BR />
         <TextInput
           autoCorrect={false}
-          onChangeText={debounce(onPasswordChange, 500)}
+          onChangeText={debounce(onConfirmPasswordChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
@@ -76,6 +119,7 @@ class SignupComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           secureTextEntry
           placeholder="Confirm Password"
+          defaultValue="password"
         />
         <BR />
         <RoundButton
@@ -84,6 +128,7 @@ class SignupComponent extends Component {
           loading={loading}
           onPress={onSignupSubmit}
         />
+
       </AppBase>
     );
   }
