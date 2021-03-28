@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Auth } from 'aws-amplify';
 import SignupComponent from '../components/Signup';
-import { API, graphqlOperation } from 'aws-amplify'
-import { createUser } from '../../src/graphql/mutations'
+import { API, graphqlOperation } from 'aws-amplify';
+import { createUser } from '../../src/graphql/mutations';
+import Actions from 'react-native-router-flux';
 
 class SignupScreen extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class SignupScreen extends Component {
       first_name: first_name,
       last_name: last_name
     };
-    console.log('Storing signup data...')
+    console.log('Storing signup data...');
     const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
     const name = first_name.trim() + ' ' + last_name.trim();
     try {
@@ -42,6 +43,8 @@ class SignupScreen extends Component {
     } catch (error) {
         console.log('error signing up:', error);
     }
+
+    Actions.loginScreen();
     
   };
 
