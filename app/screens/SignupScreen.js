@@ -4,7 +4,8 @@ import { Auth } from 'aws-amplify';
 import SignupComponent from '../components/Signup';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createUser } from '../../src/graphql/mutations';
-import Actions from 'react-native-router-flux';
+import { listUsersShortened } from '../../src/graphql/custom_queries';
+import { Actions } from 'react-native-router-flux';
 
 class SignupScreen extends Component {
   constructor(props) {
@@ -21,6 +22,8 @@ class SignupScreen extends Component {
 
   handleSignUpSubmit = async () => {
     const { email, password, username, first_name, last_name, confirm_password } = this.state;
+
+    // Add new user to GraphQL database
     const userData = {
       email: email,
       username: username,
@@ -29,13 +32,15 @@ class SignupScreen extends Component {
     };
     console.log('Storing signup data...');
     const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
+    console.log(response.data);
+
+    // Register through AWS Auth API
     const name = first_name.trim() + ' ' + last_name.trim();
     try {
         const { user } = await Auth.signUp({
-            username: username,
+            username: email,
             password: password,
             attributes: {
-              email: email,
               name: name
             }
         });
