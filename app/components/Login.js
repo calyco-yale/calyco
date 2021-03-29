@@ -71,7 +71,7 @@ class LoginComponent extends Component {
         <RoundButton
           primary
           buttonColor={Colors.blue}
-          title="Sign Up"
+          title="Create Account"
           onPress={() => Actions.signupScreen()}
         />
         <BR size={20} />

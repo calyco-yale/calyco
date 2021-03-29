@@ -23,8 +23,9 @@ class SignupScreen extends Component {
     const { email, password, username, first_name, last_name, confirm_password } = this.state;
 
     // Register through AWS Auth API
-    const name = first_name.trim() + ' ' + last_name.trim();
     try {
+        console.log('Storing signup data...');
+        const name = first_name.trim() + ' ' + last_name.trim();
         const { user } = await Auth.signUp({
             username: email,
             password: password,
@@ -41,18 +42,13 @@ class SignupScreen extends Component {
             first_name: first_name,
             last_name: last_name
           };
-          console.log('Storing signup data...');
-          try {
-            const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
-            console.log(response.data);
-          } catch (e) {console.log(e)}
+          const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
+          console.log(response.data);
         }
         Actions.loginScreen();
     } catch (error) {
         console.log('error signing up:', error);
-    }
-
-    
+    }  
     
   };
 
