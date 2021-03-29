@@ -5,20 +5,11 @@ import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
+import VerificationScreen from './screens/VerificationScreen';
 import SearchScreen from './screens/SearchScreen';
 import UserProfileScreen from './screens/UserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
-
-// import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
-// import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
-// import CartScreen from './screens/CartScreen';
-// import PaymentHome from './screens/Payment/Home';
-// import PaymentComplete from './screens/Payment/Complete';
-// import PaymentFailed from './screens/Payment/Failed';
-// import SideDrawer from './screens/SideDrawer';
-// import DrawerImage from './components/DrawerImage';
-// import OrdersList from './screens/OrderListScreen';
 
 
 const AppRouter = () => (
@@ -29,15 +20,19 @@ const AppRouter = () => (
         key="loginScreen"
         component={LoginScreen}
         initial
+        gesturesEnabled={false}
         hideNavBar
       />
-
       <Scene
         key="signupScreen"
         component={SignupScreen}
         hideNavBar
       />
-
+      <Scene
+        key="verificationScreen"
+        component={VerificationScreen}
+        hideNavBar
+      />
       <Scene
         key="searchScreen"
         component={SearchScreen}

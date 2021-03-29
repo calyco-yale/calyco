@@ -45,7 +45,7 @@ class SignupScreen extends Component {
           const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
           console.log(response.data);
         }
-        Actions.loginScreen();
+        Actions.verificationScreen({email: email});
     } catch (error) {
         console.log('error signing up:', error);
     }  
