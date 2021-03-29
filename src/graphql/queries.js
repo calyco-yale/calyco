@@ -152,3 +152,42 @@ export const listEvents = /* GraphQL */ `
     }
   }
 `;
+export const usersByEmail = /* GraphQL */ `
+  query UsersByEmail(
+    $email: AWSEmail
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    usersByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        username
+        first_name
+        last_name
+        dob
+        location
+        events {
+          nextToken
+        }
+        friendships {
+          nextToken
+        }
+        friendRequests {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

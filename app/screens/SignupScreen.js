@@ -4,7 +4,6 @@ import { Auth } from 'aws-amplify';
 import SignupComponent from '../components/Signup';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createUser } from '../../src/graphql/mutations';
-import { listUsersShortened } from '../../src/graphql/custom_queries';
 import { Actions } from 'react-native-router-flux';
 
 class SignupScreen extends Component {
@@ -23,17 +22,6 @@ class SignupScreen extends Component {
   handleSignUpSubmit = async () => {
     const { email, password, username, first_name, last_name, confirm_password } = this.state;
 
-    // Add new user to GraphQL database
-    const userData = {
-      email: email,
-      username: username,
-      first_name: first_name,
-      last_name: last_name
-    };
-    console.log('Storing signup data...');
-    const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
-    console.log(response.data);
-
     // Register through AWS Auth API
     const name = first_name.trim() + ' ' + last_name.trim();
     try {
@@ -44,12 +32,27 @@ class SignupScreen extends Component {
               name: name
             }
         });
-        console.log(user);
+        if (user){
+          console.log(user);
+          // Add new user to GraphQL database
+          const userData = {
+            email: email,
+            username: username,
+            first_name: first_name,
+            last_name: last_name
+          };
+          console.log('Storing signup data...');
+          try {
+            const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
+            console.log(response.data);
+          } catch (e) {console.log(e)}
+        }
+        Actions.loginScreen();
     } catch (error) {
         console.log('error signing up:', error);
     }
 
-    Actions.loginScreen();
+    
     
   };
 

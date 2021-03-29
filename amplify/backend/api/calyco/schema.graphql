@@ -1,4 +1,5 @@
-type User @model {
+type User @model
+  @key(name: "usersByEmail", fields: ["email"], queryField: "usersByEmail") {
   id: ID!
   email: AWSEmail!
   username: String!
@@ -12,7 +13,7 @@ type User @model {
 }
 
 type Event @model
-  @key(name: "byUser", fields: ["userID", "name", "date", "start_time", "end_time", "location"]) {
+  @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   name: String!
   date: AWSDate!

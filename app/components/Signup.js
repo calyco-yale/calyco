@@ -52,7 +52,6 @@ class SignupComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="Email"
-          defaultValue="test@gmail.com"
         />
         <BR />
         <TextInput
@@ -65,7 +64,6 @@ class SignupComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="Username"
-          defaultValue="test123"
         />
         <BR />
         <TextInput
@@ -78,7 +76,6 @@ class SignupComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="First Name"
-          defaultValue="Stan"
         />
         <BR />
         <TextInput
@@ -91,7 +88,6 @@ class SignupComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="Last Name"
-          defaultValue="Wong"
         />
         <BR />
         <TextInput
@@ -105,7 +101,6 @@ class SignupComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           secureTextEntry
           placeholder="Password"
-          defaultValue="password"
         />
         <BR />
         <TextInput
@@ -119,7 +114,6 @@ class SignupComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           secureTextEntry
           placeholder="Confirm Password"
-          defaultValue="password"
         />
         <BR />
         <RoundButton
