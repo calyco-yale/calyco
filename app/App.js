@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, View, SafeAreaView, Button, ImageBackground } from 'react-native';
+
 import Amplify from 'aws-amplify'
 import config from '../aws-exports'
 import AppRouter from './router.js'

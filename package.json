@@ -22,7 +22,8 @@
     "react-native-router-flux": "^4.3.0",
     "react-native-screens": "^2.18.1",
     "react-native-web": "^0.15.0",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "react-native-elements": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
