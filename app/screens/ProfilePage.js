@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, useWindowDimensions, Text } from 'react-native';
+import { View, useWindowDimensions, Text, ScrollView } from 'react-native';
 import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewsFeedComponent from '../components/NewsFeed';
+import { FlatList } from 'react-native';
 
 const FirstRoute = () => (
   <>
@@ -15,10 +16,14 @@ const FirstRoute = () => (
 const SecondRoute = () => (
   <>
   {/* Yunji code here */}
-  <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-    <NewsFeedComponent></NewsFeedComponent>
-  </BoxSimple>
-  <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
+  <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
+    <BoxSimple style= {{backgroundColor: '#ffffff'}}>
+      <NewsFeedComponent></NewsFeedComponent>
+    </BoxSimple>
+    <BoxSimple style= {{backgroundColor: '#ffffff'}}>
+      <NewsFeedComponent></NewsFeedComponent>
+    </BoxSimple>
+  </ScrollView>
   </>
 );
 
