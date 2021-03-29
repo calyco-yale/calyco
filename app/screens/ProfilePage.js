@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { View, useWindowDimensions, Text } from 'react-native';
+import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import NewsFeedComponent from '../components/NewsFeed';
 
 const FirstRoute = () => (
   <>
@@ -13,6 +15,9 @@ const FirstRoute = () => (
 const SecondRoute = () => (
   <>
   {/* Yunji code here */}
+  <BoxSimple style= {{backgroundColor: '#ffffff'}}>
+    <NewsFeedComponent></NewsFeedComponent>
+  </BoxSimple>
   <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
   </>
 );
