@@ -30,6 +30,7 @@ const AppRouter = () => (
       <Scene
         key="signupScreen"
         component={SignupScreen}
+        hideNavBar
       />
       {/* <Drawer
         key="drawer"
