@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, useWindowDimensions, Text, ScrollView } from 'react-native';
+import { View, useWindowDimensions, Text, ScrollView, Button } from 'react-native';
 import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewsFeedComponent from '../components/NewsFeed';
@@ -7,6 +7,11 @@ import { FlatList } from 'react-native';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 const FirstRoute = () => (
+  <>
+  <Button
+  title="Add Event"
+  color="#841584"
+  />
   <Calendar
     // Collection of dates that have to be marked. Default = {}
     markedDates={{
@@ -18,6 +23,7 @@ const FirstRoute = () => (
   }}
     
   />
+  </>
 );
 
 const SecondRoute = () => (
