@@ -15,7 +15,7 @@ import Colors from '../../src/constants/colors';
 class VerificationComponent extends Component {
   render() {
     const {
-      onCodeChange, onCodeSubmit, disableSubmit,
+      onCodeChange, onCodeSubmit, onResend, disableSubmit,
     } = this.props;
 
     return (
@@ -41,7 +41,7 @@ class VerificationComponent extends Component {
         <BR />
         <SecondaryText size={15}>       A code was sent to your email. Don't see it?</SecondaryText>
         <TextButton
-          onPress={() => {}}
+          onPress={onResend}
           title="Resend it"
           style={{color: '#429ef5'}}
         />

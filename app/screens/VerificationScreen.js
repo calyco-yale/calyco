@@ -26,6 +26,16 @@ class VerificationScreen extends Component {
     }
   };
 
+  handleResend = async () => {
+    try {
+        await Auth.resendSignUp(this.props.email);
+        console.log('code resent successfully');
+        // Add acknowledgement of resend
+    } catch (err) {
+        console.log('error resending code: ', err);
+    }
+  }
+
   handleCodeChange = (code) => {
     this.setState({
       code,
@@ -41,6 +51,7 @@ class VerificationScreen extends Component {
       <VerificationComponent
         onCodeChange={this.handleCodeChange}
         onCodeSubmit={this.handleSubmit}
+        onResend={this.handleResend}
         disableSubmit={disableSubmit}
       />);
   }
