@@ -4,14 +4,20 @@ import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewsFeedComponent from '../components/NewsFeed';
 import { FlatList } from 'react-native';
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 const FirstRoute = () => (
-  <>
-  {/* Jinny code here */}
-  
-  <Text style= {{color:'black', backgroundColor: '#ffffff'}}>hello</Text>
-  <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
-  </>
+  <Calendar
+    // Collection of dates that have to be marked. Default = {}
+    markedDates={{
+      "2021-03-28": { selected: true, marked: true, selectedColor: "blue" },
+      "2021-03-17": { marked: true, dotColor: "red", activeOpacity: 0 },
+      "2021-03-22": { disabled: true, disableTouchEvent: true }
+    }}
+    onDayPress={(day) => {alert(`Event on this day:${day.dateString}`);
+  }}
+    
+  />
 );
 
 const SecondRoute = () => (
