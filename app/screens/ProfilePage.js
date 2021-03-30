@@ -8,6 +8,7 @@ import { FlatList } from 'react-native';
 const FirstRoute = () => (
   <>
   {/* Jinny code here */}
+  
   <Text style= {{color:'black', backgroundColor: '#ffffff'}}>hello</Text>
   <View style={{ flex: 2, backgroundColor: '#ffffff' }} />
   </>
