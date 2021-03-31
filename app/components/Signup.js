@@ -36,8 +36,7 @@ class SignupComponent extends Component {
           justifyContent: 'flex-start',
         }}
       >
-        <PrimaryText bold size={26}>Sign Up</PrimaryText>
-        <BR size={20} />
+        <BR size={25} />
         {registerError && <PrimaryText>{registerError.message}</PrimaryText>}
         {registerMessage && <PrimaryText>{JSON.stringify(registerMessage)}</PrimaryText>}
         <BR size={50} />
