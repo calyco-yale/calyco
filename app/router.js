@@ -5,21 +5,22 @@ import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
-import TabViewExample from './screens/ProfilePage';
 import VerificationScreen from './screens/VerificationScreen';
 import SearchScreen from './screens/SearchScreen';
 import UserProfileScreen from './screens/UserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
+import ProfilePage from './screens/ProfilePage';
+import NavBar from './components/NavBar';
 
 
 const AppRouter = () => (
   <Router>
-
+  
     <Scene key="root" title="">
       <Scene
         key="loginScreen"
-        component={TabViewExample}
+        component={LoginScreen}
         initial
         gesturesEnabled={false}
         hideNavBar
@@ -52,6 +53,18 @@ const AppRouter = () => (
       <Scene
         key="friendRequestScreen"
         component = {FriendRequestScreen}
+      />
+
+      <Scene
+        key="profilePage"
+        component = {ProfilePage}
+      />
+
+      <Scene
+        key="landingScreen"
+        component = {NavBar}
+        gesturesEnabled={false}
+        hideNavBar
       />
 
       {/* <Drawer
