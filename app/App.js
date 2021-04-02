@@ -11,6 +11,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import SignupScreen from './screens/SignupScreen';
+import CalendarEvent from './components/CalendarEvent';
 
 function Feed() {
   return (
@@ -20,15 +21,12 @@ function Feed() {
   );
 }
 
+
 function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>
-      Profile!
-      </Text>
-    </View>
-  );
+  return(<CalendarEvent/>)
 }
+
+
 
 function Notifications() {
   return (

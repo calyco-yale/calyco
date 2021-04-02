@@ -24,3 +24,19 @@ query getUserFriendRequests($id: ID!) {
   }
 }
 `;
+
+export const listEventsShortened = /* GraphQL */ `
+  query ListEventsShortened {
+    listEvents {
+      nextToken
+      items {
+        id
+        name
+        date
+        start_time
+        end_time
+        location
+      }
+    }
+  }
+`;

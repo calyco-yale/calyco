@@ -5,7 +5,6 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewsFeedComponent from '../components/NewsFeed';
 import { FlatList } from 'react-native';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import ProfileBar from '../components/ProfileBar'
 
 const FirstRoute = () => (
   <>
@@ -57,7 +56,7 @@ export default function TabViewExample() {
 
   return (
     <>
-    <ProfileBar/>
+    <View style={{ flex: 0.4, backgroundColor: '#ffffff' }} />
     {/* Brian code here */}
     <TabView
       navigationState={{ index, routes }}
