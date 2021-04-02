@@ -16,6 +16,8 @@ class SignupComponent extends Component {
     const {
       loading, onSignupSubmit,
       onEmailChange, onPasswordChange,
+      onUsernameChange, onFirstNameChange,
+      onLastNameChange, onConfirmPasswordChange,
       registerError, disableSignUp,
       registerMessage,
     } = this.props;
@@ -34,8 +36,7 @@ class SignupComponent extends Component {
           justifyContent: 'flex-start',
         }}
       >
-        <PrimaryText bold size={26}>Sign Up</PrimaryText>
-        <BR size={20} />
+        <BR size={25} />
         {registerError && <PrimaryText>{registerError.message}</PrimaryText>}
         {registerMessage && <PrimaryText>{JSON.stringify(registerMessage)}</PrimaryText>}
         <BR size={50} />
@@ -49,7 +50,43 @@ class SignupComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
+          placeholder="Email"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onUsernameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
           placeholder="Username"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onFirstNameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="First Name"
+        />
+        <BR />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onLastNameChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="Last Name"
         />
         <BR />
         <TextInput
@@ -67,7 +104,7 @@ class SignupComponent extends Component {
         <BR />
         <TextInput
           autoCorrect={false}
-          onChangeText={debounce(onPasswordChange, 500)}
+          onChangeText={debounce(onConfirmPasswordChange, 500)}
           style={{
             width: '80%',
             marginLeft: 'auto',
@@ -84,6 +121,7 @@ class SignupComponent extends Component {
           loading={loading}
           onPress={onSignupSubmit}
         />
+
       </AppBase>
     );
   }

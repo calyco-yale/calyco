@@ -6,7 +6,9 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -59,7 +61,9 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -92,7 +96,9 @@ export const getEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -131,11 +137,52 @@ export const listEvents = /* GraphQL */ `
         user {
           id
           email
-          name
+          username
+          first_name
+          last_name
           dob
           location
           createdAt
           updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const usersByEmail = /* GraphQL */ `
+  query UsersByEmail(
+    $email: AWSEmail
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    usersByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        email
+        username
+        first_name
+        last_name
+        dob
+        location
+        events {
+          nextToken
+        }
+        friendships {
+          nextToken
+        }
+        friendRequests {
+          nextToken
         }
         createdAt
         updatedAt

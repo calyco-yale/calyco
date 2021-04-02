@@ -6,7 +6,9 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -54,7 +56,9 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -102,7 +106,9 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       email
-      name
+      username
+      first_name
+      last_name
       dob
       location
       events {
@@ -159,7 +165,9 @@ export const onCreateEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -193,7 +201,9 @@ export const onUpdateEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -227,7 +237,9 @@ export const onDeleteEvent = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -256,7 +268,9 @@ export const onCreateFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -285,7 +299,9 @@ export const onUpdateFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -314,7 +330,9 @@ export const onDeleteFriendship = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -343,7 +361,9 @@ export const onCreateFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -372,7 +392,9 @@ export const onUpdateFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {
@@ -401,7 +423,9 @@ export const onDeleteFriendRequest = /* GraphQL */ `
       user {
         id
         email
-        name
+        username
+        first_name
+        last_name
         dob
         location
         events {

@@ -1,13 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
-
-
-import { authLogin } from '../../src/actions/index';
 import LoginComponent from '../components/Login';
+import { Auth } from 'aws-amplify';
 
 class LoginScreen extends Component {
   displayName = 'LoginScreen';
@@ -31,10 +27,16 @@ class LoginScreen extends Component {
     await this.handleRedirect(nextProps.loginMessage);
   }
 
-
-  handleLoginSubmit = () => {
+  handleLoginSubmit = async () => {
     const { email, password } = this.state;
-    this.props.authLogin(email, password);
+    try {
+        const user = await Auth.signIn(email, password);
+        console.log(user);
+        // Transition to news feed here! (i.e. Actions.$(newsfeed screen key))
+    } catch (error) {
+        console.log('error signing in', error);
+        // Display some visible error otherwise!
+    }
   };
 
   handleEmailChange = (email) => {

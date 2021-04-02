@@ -1,20 +1,16 @@
-import React from 'react';
-import { Drawer, Router, Scene } from 'react-native-router-flux';
+import React, { Component } from 'react';
+import { Drawer, Router, Scene, Actions } from 'react-native-router-flux';
 
 import LoginScreen from './screens/LoginScreen';
 // import HomeScreen from './screens/HomeScreen';
 import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import TabViewExample from './screens/ProfilePage';
-// import RestaurantInfoScreen from './screens/RestaurantInfoScreen';
-// import CuisineRestaurantsScreen from './screens/CuisineRestaurantsScreen';
-// import CartScreen from './screens/CartScreen';
-// import PaymentHome from './screens/Payment/Home';
-// import PaymentComplete from './screens/Payment/Complete';
-// import PaymentFailed from './screens/Payment/Failed';
-// import SideDrawer from './screens/SideDrawer';
-// import DrawerImage from './components/DrawerImage';
-// import OrdersList from './screens/OrderListScreen';
+import VerificationScreen from './screens/VerificationScreen';
+import SearchScreen from './screens/SearchScreen';
+import UserProfileScreen from './screens/UserProfileScreen'
+import FriendScreen from './screens/FriendScreen';
+import FriendRequestScreen from './screens/FriendRequestScreen';
 
 
 const AppRouter = () => (
@@ -25,13 +21,39 @@ const AppRouter = () => (
         key="loginScreen"
         component={TabViewExample}
         initial
+        gesturesEnabled={false}
         hideNavBar
       />
-
       <Scene
         key="signupScreen"
         component={SignupScreen}
+        hideNavBar
       />
+      <Scene
+        key="verificationScreen"
+        component={VerificationScreen}
+        hideNavBar
+      />
+      <Scene
+        key="searchScreen"
+        component={SearchScreen}
+      />
+
+      <Scene
+        key="userProfileScreen"
+        component={UserProfileScreen}
+      />
+
+      <Scene 
+        key="friendScreen"
+        component={FriendScreen}
+      />
+
+      <Scene
+        key="friendRequestScreen"
+        component = {FriendRequestScreen}
+      />
+
       {/* <Drawer
         key="drawer"
         hideNavBar
