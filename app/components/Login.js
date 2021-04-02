@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux';
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
+import SecondaryText from '../base_components/SecondaryText';
 import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
@@ -25,7 +26,7 @@ class LoginComponent extends Component {
           justifyContent: 'center',
         }}
       >
-        <PrimaryText bold size={26}>Calyco</PrimaryText>
+        <PrimaryText bold size={40}>Calyco</PrimaryText>
         <BR size={50} />
         {loginError && <PrimaryText>{loginError.message}</PrimaryText>}
         <BR size={50} />
@@ -71,7 +72,7 @@ class LoginComponent extends Component {
         <RoundButton
           primary
           buttonColor={Colors.blue}
-          title="Sign Up"
+          title="Create Account"
           onPress={() => Actions.signupScreen()}
         />
         <BR size={20} />
