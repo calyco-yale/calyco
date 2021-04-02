@@ -10,7 +10,6 @@ import { createSimpleFriendship } from '../src/graphql/custom_mutations';
 // Get currently logged in user
 export const getloggedInUser = async() => {
   const { attributes } = await Auth.currentAuthenticatedUser();
-  console.log(attributes)
   // Get user with attributes.email
   const res = await API.graphql(graphqlOperation(usersByEmail, { email: attributes.email }))
   try {
@@ -68,7 +67,6 @@ export const createMutualFriendship = async(user1Id, user2Id) => {
 // Return friendship id if friend, null otherwise
 export const isFriend = (loggedInUser, user) => {
   const friendships = loggedInUser.friendships.items
-  console.log(loggedInUser)
   for (let i = 0; i < friendships.length; i++) {
     if (friendships[i].friendID == user.id) {
       return (friendships[i].id);

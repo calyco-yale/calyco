@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList, Button } from 'react-native';
-import { getFriendRequests, createMutualFriendship, renderUserItem, userItemSeparator} from '../helpers';
+import { getFriendRequests, createMutualFriendship, userItemSeparator} from '../helpers';
 
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
@@ -35,7 +35,7 @@ class FriendRequestScreen extends Component {
       // Delete friend request
       await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
       const refreshedRequests = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }))
-      Actions.refresh({ key: "friendRequestScreen", user: this.props.user, friendRequests: refreshedRequests });
+      this.setState({friendRequests: refreshedRequests});
     } catch (e) {
       console.log(e);
     }

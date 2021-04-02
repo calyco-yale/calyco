@@ -31,7 +31,7 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
     try {
         const user = await Auth.signIn(email, password);
-        console.log(user);
+        // console.log(user);
         Actions.searchScreen();
         // Transition to news feed here! (i.e. Actions.$(newsfeed screen key))
     } catch (error) {

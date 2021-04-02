@@ -187,11 +187,25 @@ export const usersByEmail = /* GraphQL */ `
           nextToken
         }
         friendships {
-          nextToken
+        items {
+          id
+          userID
+          friendID
+          createdAt
+          updatedAt
         }
-        friendRequests {
-          nextToken
+        nextToken
+      }
+      friendRequests {
+        items {
+          id
+          userID
+          senderID
+          createdAt
+          updatedAt
         }
+        nextToken
+      }
         createdAt
         updatedAt
       }

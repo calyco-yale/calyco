@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
+import ThemedListItem from 'react-native-elements/dist/list/ListItem';
 
 
 class UserProfileScreen extends Component {
@@ -24,7 +25,6 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
-      console.log(userData)
       const user = userData.data.getUser
       const loggedInUser = await getloggedInUser()
       this.setState({ user: user, loggedInUser: loggedInUser })
@@ -35,7 +35,11 @@ class UserProfileScreen extends Component {
 
   deleteFriendship = async(friendshipId)  => {
     try {
-      await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendshipId }))
+      console.log('here')
+      let del = await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendshipId }))
+      console.log(del)
+      const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
+      this.setState({user: userData.data.getUser});
     } catch (e) {
       console.log(e);
     }
@@ -44,9 +48,8 @@ class UserProfileScreen extends Component {
   deleteFriendRequest = async(requestId)  => {
     try {
       await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
-      console.log(this.props.userId)
-      
-      Actions.refresh({ key: "userProfileScreen", userId: this.props.userId  })
+      const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
+      this.setState({user: userData.data.getUser});
     } catch (e) {
       console.log(e);
     }
@@ -55,10 +58,8 @@ class UserProfileScreen extends Component {
   sendFriendRequest = async(loggedInUser, userId)  => {
     try {
       await API.graphql(graphqlOperation(createSimpleFriendRequest, { userId: userId, senderId: loggedInUser.id }))
-      console.log(this.props.userId)
-      // Actions.refresh({ key: "userProfileScreen", userId: this.props.userId  })
-      Actions.pop(); 
-      setTimeout(()=> Actions.refresh({ key: "userProfileScreen", userId: this.props.userId }), 500);
+      const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
+      this.setState({user: userData.data.getUser});
     } catch (e) {
       console.log(e);
     }
@@ -80,15 +81,13 @@ class UserProfileScreen extends Component {
 
   render() {
     const { user, loggedInUser } = this.state;
-    console.log(user)
     
-    if (user) {
+    if (user && loggedInUser) {
       let requestOrDelete = null;
       // TODO: Replace loggedInUser with actual value
       // TODO: Correct friend and friendrequest conditions
       if (user.id != loggedInUser.id){
         const friendshipId = isFriend(loggedInUser, user)
-        console.log(friendshipId)
         if (friendshipId) {
           requestOrDelete = <TextButton
                               onPress={() => this.deleteFriendship(friendshipId)}
@@ -96,7 +95,7 @@ class UserProfileScreen extends Component {
                               style={{width: '80%', textAlign: 'center'}}
                             />;
         } else {
-          requestId = sentFriendRequest(loggedInUser, user)
+          const requestId = sentFriendRequest(loggedInUser, user)
           if (requestId){
             requestOrDelete = <TextButton
                                 onPress={() => this.deleteFriendRequest(requestId)}
@@ -112,6 +111,16 @@ class UserProfileScreen extends Component {
           }
         }
       }
+
+      let friendRequestPage = null;
+      if (user.id == loggedInUser.id){
+        friendRequestPage = <TextButton
+                              onPress={() => Actions.friendRequestScreen({user: user, friendRequests: user.friendRequests.items})}
+                              title={"Friend Requests"}
+                              style={{width: '80%', textAlign: 'center'}}
+                            />
+      }
+
       return (
         <AppBase>
           <PrimaryText size={26}>{user.username}</PrimaryText>
@@ -124,11 +133,7 @@ class UserProfileScreen extends Component {
             style={{width: '80%', textAlign: 'center'}}
           />
 
-          <TextButton
-            onPress={() => Actions.friendRequestScreen({user: user, friendRequests: user.friendRequests.items})}
-            title={"Friend Requests"}
-            style={{width: '80%', textAlign: 'center'}}
-          />
+          {friendRequestPage}
           
           {requestOrDelete}
         </AppBase>

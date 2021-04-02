@@ -8,7 +8,7 @@ export const deleteFriendRequestById = /* GraphQL */ `
 
 export const deleteFriendshipById = /* GraphQL */ `
   mutation DeleteFriendship($id: ID!) {
-    deleteFriendRequest(input: {id: $id}) {
+    deleteFriendship(input: {id: $id}) {
       id
     }
   }

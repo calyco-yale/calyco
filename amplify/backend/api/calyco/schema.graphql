@@ -7,7 +7,7 @@ type User @model
   last_name: String!
   dob: AWSDate
   location: String
-  image_url: String! @default(value: "https://i.pinimg.com/originals/ed/3b/ee/ed3beefd69c83e86241a31c001dd2f1a.png")
+  image_url: String @default(value: "https://i.pinimg.com/originals/ed/3b/ee/ed3beefd69c83e86241a31c001dd2f1a.png")
   events: [Event] @connection(keyName: "byUser", fields: ["id"])
   friendships: [Friendship] @connection(keyName: "byUser", fields: ["id"])
   friendRequests: [FriendRequest] @connection(keyName: "byUser", fields: ["id"])
