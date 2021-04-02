@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
-import { isFriend, sentFriendRequest } from '../helpers';
+import { isFriend, sentFriendRequest, getloggedInUser } from '../helpers';
 
 import { Actions } from 'react-native-router-flux';
 
@@ -17,15 +17,17 @@ class UserProfileScreen extends Component {
     super(props);
     this.state = {
       user: null,
-      friends: []
+      loggedInUser: null
     };
   };
 
   fetchUserData = async () => {
     try {
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
+      console.log(userData)
       const user = userData.data.getUser
-      this.setState({ user: user })
+      const loggedInUser = await getloggedInUser()
+      this.setState({ user: user, loggedInUser: loggedInUser })
     } catch (e) {
       console.log(e);
     }
@@ -42,6 +44,9 @@ class UserProfileScreen extends Component {
   deleteFriendRequest = async(requestId)  => {
     try {
       await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
+      console.log(this.props.userId)
+      
+      Actions.refresh({ key: "userProfileScreen", userId: this.props.userId  })
     } catch (e) {
       console.log(e);
     }
@@ -50,6 +55,10 @@ class UserProfileScreen extends Component {
   sendFriendRequest = async(loggedInUser, userId)  => {
     try {
       await API.graphql(graphqlOperation(createSimpleFriendRequest, { userId: userId, senderId: loggedInUser.id }))
+      console.log(this.props.userId)
+      // Actions.refresh({ key: "userProfileScreen", userId: this.props.userId  })
+      Actions.pop(); 
+      setTimeout(()=> Actions.refresh({ key: "userProfileScreen", userId: this.props.userId }), 500);
     } catch (e) {
       console.log(e);
     }
@@ -70,36 +79,39 @@ class UserProfileScreen extends Component {
   }
 
   render() {
-    const { user } = this.state;
-    let requestOrDelete = null;
-    // TODO: Replace loggedInUser with actual value
-    // TODO: Correct friend and friendrequest conditions
-    // if (user != loggedInUser){
-    //   friendshipId = isFriend(loggedInUser, user)
-    //   if (friendshipId) {
-    //     requestOrDelete = <TextButton
-    //                         onPress={() => this.deleteFriendship(friendshipId)}
-    //                         title={"Remove Friend"}
-    //                         style={{width: '80%', textAlign: 'center'}}
-    //                       />;
-    //   } else {
-    //     requestId = sentFriendRequest(loggedInUser, user)
-    //     if (requestId){
-    //       requestOrDelete = <TextButton
-    //                           onPress={() => this.deleteFriendRequest(requestId)}
-    //                           title={"Delete Request"}
-    //                           style={{width: '80%', textAlign: 'center'}}
-    //                         />;
-    //     } else {
-    //       requestOrDelete = <TextButton
-    //                         onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
-    //                         title={"Send Friend Request"}
-    //                         style={{width: '80%', textAlign: 'center'}}
-    //                       />;
-    //     }
-    //   }
-    // }
+    const { user, loggedInUser } = this.state;
+    console.log(user)
+    
     if (user) {
+      let requestOrDelete = null;
+      // TODO: Replace loggedInUser with actual value
+      // TODO: Correct friend and friendrequest conditions
+      if (user.id != loggedInUser.id){
+        const friendshipId = isFriend(loggedInUser, user)
+        console.log(friendshipId)
+        if (friendshipId) {
+          requestOrDelete = <TextButton
+                              onPress={() => this.deleteFriendship(friendshipId)}
+                              title={"Remove Friend"}
+                              style={{width: '80%', textAlign: 'center'}}
+                            />;
+        } else {
+          requestId = sentFriendRequest(loggedInUser, user)
+          if (requestId){
+            requestOrDelete = <TextButton
+                                onPress={() => this.deleteFriendRequest(requestId)}
+                                title={"Delete Request"}
+                                style={{width: '80%', textAlign: 'center'}}
+                              />;
+          } else {
+            requestOrDelete = <TextButton
+                              onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
+                              title={"Send Friend Request"}
+                              style={{width: '80%', textAlign: 'center'}}
+                            />;
+          }
+        }
+      }
       return (
         <AppBase>
           <PrimaryText size={26}>{user.username}</PrimaryText>

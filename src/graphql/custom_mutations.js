@@ -24,9 +24,9 @@ export const createSimpleFriendship = /* GraphQL */ `
 
 export const createSimpleFriendRequest = /* GraphQL */ `
   mutation CreateFriendRequest($userId: ID!, $senderId: ID!) {
-    createFriendRequest(input: {userID: $userId, senderID: $$senderId}) {
-    id
-  }
+    createFriendRequest(input: {userID: $userId, senderID: $senderId}) {
+      id
+    }
   }
 `;
 

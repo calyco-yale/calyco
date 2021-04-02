@@ -11,6 +11,7 @@ export const onCreateUser = /* GraphQL */ `
       last_name
       dob
       location
+      image_url
       events {
         items {
           id
@@ -19,6 +20,7 @@ export const onCreateUser = /* GraphQL */ `
           start_time
           end_time
           location
+          image_url
           public
           userID
           createdAt
@@ -61,6 +63,7 @@ export const onUpdateUser = /* GraphQL */ `
       last_name
       dob
       location
+      image_url
       events {
         items {
           id
@@ -69,6 +72,7 @@ export const onUpdateUser = /* GraphQL */ `
           start_time
           end_time
           location
+          image_url
           public
           userID
           createdAt
@@ -111,6 +115,7 @@ export const onDeleteUser = /* GraphQL */ `
       last_name
       dob
       location
+      image_url
       events {
         items {
           id
@@ -119,6 +124,7 @@ export const onDeleteUser = /* GraphQL */ `
           start_time
           end_time
           location
+          image_url
           public
           userID
           createdAt
@@ -160,6 +166,7 @@ export const onCreateEvent = /* GraphQL */ `
       start_time
       end_time
       location
+      image_url
       public
       userID
       user {
@@ -170,6 +177,7 @@ export const onCreateEvent = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -196,6 +204,7 @@ export const onUpdateEvent = /* GraphQL */ `
       start_time
       end_time
       location
+      image_url
       public
       userID
       user {
@@ -206,6 +215,7 @@ export const onUpdateEvent = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -232,6 +242,7 @@ export const onDeleteEvent = /* GraphQL */ `
       start_time
       end_time
       location
+      image_url
       public
       userID
       user {
@@ -242,6 +253,7 @@ export const onDeleteEvent = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -273,6 +285,7 @@ export const onCreateFriendship = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -304,6 +317,7 @@ export const onUpdateFriendship = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -335,6 +349,7 @@ export const onDeleteFriendship = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -366,6 +381,7 @@ export const onCreateFriendRequest = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -397,6 +413,7 @@ export const onUpdateFriendRequest = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -428,6 +445,7 @@ export const onDeleteFriendRequest = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
