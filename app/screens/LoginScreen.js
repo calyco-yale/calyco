@@ -33,6 +33,7 @@ class LoginScreen extends Component {
         const user = await Auth.signIn(email, password);
         console.log(user);
         // Transition to news feed here! (i.e. Actions.$(newsfeed screen key))
+        Actions.landingScreen();
     } catch (error) {
         console.log('error signing in', error);
         // Display some visible error otherwise!

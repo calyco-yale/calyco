@@ -40,7 +40,7 @@ const SecondRoute = () => (
   </>
 );
 
-export default function TabViewExample() {
+export default function ProfilePage() {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
