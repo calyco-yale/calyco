@@ -54,11 +54,21 @@ class CalendarEvent extends Component {
     return listOfMarkedDates;
   };
 
+  parseEventsNames = events => {
+    const listOfNames = {};
+    events.forEach(event => {
+      listOfNames[event.date] = event.name;
+    });
+
+    return listOfNames;
+  };
+
   render() {
     const { events } = this.state;
     console.log(events);
     if (events) {
       const listOfMarkedDates = this.parseEvents(events);
+      const listOfNames = this.parseEventsNames(events);
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -68,7 +78,9 @@ class CalendarEvent extends Component {
             markedDates={listOfMarkedDates}
             onDayPress={day => {
               if (Object.keys(listOfMarkedDates).includes(day.dateString)) {
-                alert(`Event on this day:${day.dateString}`);
+                alert(
+                  `There is ${listOfNames[day.dateString]} on ${day.dateString}`
+                );
               }
               // 1. for each date in event_dates --> mark dates
               // 2. if pressed date is in list of event dates => alert
