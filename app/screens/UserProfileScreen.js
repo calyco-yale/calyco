@@ -3,14 +3,13 @@ import { Text } from 'react-native';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
-import { isFriend, sentFriendRequest, getloggedInUser } from '../helpers';
+import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
 
 import { Actions } from 'react-native-router-flux';
 
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
-import ThemedListItem from 'react-native-elements/dist/list/ListItem';
 
 
 class UserProfileScreen extends Component {
@@ -33,11 +32,9 @@ class UserProfileScreen extends Component {
     }
   };
 
-  deleteFriendship = async(friendshipId)  => {
+  deleteFriendship = async(loggedInUser, user)  => {
     try {
-      console.log('here')
-      let del = await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendshipId }))
-      console.log(del)
+      await deleteMutualFriendship(loggedInUser, user);
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
       this.setState({user: userData.data.getUser});
     } catch (e) {
@@ -84,13 +81,12 @@ class UserProfileScreen extends Component {
     
     if (user && loggedInUser) {
       let requestOrDelete = null;
-      // TODO: Replace loggedInUser with actual value
-      // TODO: Correct friend and friendrequest conditions
+      // TODO: Add check to see if user already received friend request 
       if (user.id != loggedInUser.id){
         const friendshipId = isFriend(loggedInUser, user)
         if (friendshipId) {
           requestOrDelete = <TextButton
-                              onPress={() => this.deleteFriendship(friendshipId)}
+                              onPress={() => this.deleteFriendship(loggedInUser, user)}
                               title={"Remove Friend"}
                               style={{width: '80%', textAlign: 'center'}}
                             />;
@@ -99,15 +95,20 @@ class UserProfileScreen extends Component {
           if (requestId){
             requestOrDelete = <TextButton
                                 onPress={() => this.deleteFriendRequest(requestId)}
-                                title={"Delete Request"}
+                                title={"Undo Friend Request"}
                                 style={{width: '80%', textAlign: 'center'}}
                               />;
           } else {
-            requestOrDelete = <TextButton
-                              onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
-                              title={"Send Friend Request"}
-                              style={{width: '80%', textAlign: 'center'}}
-                            />;
+            const receivedId = receivedFriendRequest(loggedInUser, user)
+            if (receivedId) {
+              requestOrDelete = <Text>Pending friend request from this user...</Text>
+            } else {
+              requestOrDelete = <TextButton
+                                  onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
+                                  title={"Send Friend Request"}
+                                  style={{width: '80%', textAlign: 'center'}}
+                                />;
+            }
           }
         }
       }
