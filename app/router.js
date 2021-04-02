@@ -11,6 +11,7 @@ import UserProfileScreen from './screens/UserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
 import ProfilePage from './screens/ProfilePage';
+import NewsFeedScreen from './screens/NewsFeedScreen'
 import NavBar from './components/NavBar';
 
 
@@ -38,6 +39,11 @@ const AppRouter = () => (
       <Scene
         key="searchScreen"
         component={SearchScreen}
+      />
+
+      <Scene
+        key="newsFeedScreen"
+        component={NewsFeedScreen}
       />
 
       <Scene
