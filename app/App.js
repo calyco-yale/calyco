@@ -21,12 +21,9 @@ function Feed() {
   );
 }
 
-
 function Profile() {
   return(<CalendarEvent/>)
 }
-
-
 
 function Notifications() {
   return (
@@ -85,8 +82,10 @@ function MyTabs() {
 export default function App() {
   return (
     <>
-      <AppRouter/>
-      {/* <NavBar/> */}
+      {/* <AppRouter/> */}
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
     </>
   );
 }
