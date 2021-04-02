@@ -67,7 +67,9 @@ class CalendarEvent extends Component {
             // Collection of dates that have to be marked. Default = {}
             markedDates={listOfMarkedDates}
             onDayPress={day => {
-              alert(`Event on this day:${day.dateString}`);
+              if (Object.keys(listOfMarkedDates).includes(day.dateString)) {
+                alert(`Event on this day:${day.dateString}`);
+              }
               // 1. for each date in event_dates --> mark dates
               // 2. if pressed date is in list of event dates => alert
             }}
