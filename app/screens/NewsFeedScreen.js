@@ -13,8 +13,6 @@ class NewsFeedScreen extends Component {
     displayName = 'NewsFeedScreen';
 
     render() {
-      console.log('guacamole')
-      console.log(this)
       return (
             <NewsFeedComponent navigation={this.props.navigation}/>
         );

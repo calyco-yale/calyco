@@ -36,6 +36,13 @@ export const listEventsShortened = /* GraphQL */ `
         start_time
         end_time
         location
+        image_url
+        public
+        userID
+        user {
+          username
+          image_url
+        }
       }
     }
   }
