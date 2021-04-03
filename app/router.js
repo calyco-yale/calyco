@@ -8,9 +8,10 @@ import SignupScreen from './screens/SignupScreen';
 import VerificationScreen from './screens/VerificationScreen';
 import SearchScreen from './screens/SearchScreen';
 import UserProfileScreen from './screens/UserProfileScreen'
+import LoggedInUserProfileScreen from './screens/LoggedInUserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
-import ProfilePage from './screens/ProfilePage';
+// import ProfilePage from './screens/ProfilePage'; 
 import NavBar from './components/NavBar';
 import NewsFeedScreen from './screens/NewsFeedScreen';
 
@@ -28,7 +29,13 @@ const AppRouter = () => (
         hideNavBar
       />
 
-      {/* <Scene
+      <Scene key='tabBar' hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
+        <Scene key='newsFeed' component={NewsFeedScreen} hideNavBar={true} icon={NewsFeedTab} title='News Feed'/>
+        <Scene key='searchScreen' component={SearchScreen} hideNavBar={false} icon={SearchTab} title='Search' backTitle=''/>
+        <Scene key ="loggedInUserProfileScreen" component={LoggedInUserProfileScreen} hideNavBar={false} icon={ProfileTab} title='My Profile' backTitle=''/>
+      </Scene>
+
+      <Scene
         key="signupScreen"
         component={SignupScreen}
         hideNavBar
@@ -53,13 +60,7 @@ const AppRouter = () => (
       <Scene
         key="friendRequestScreen"
         component = {FriendRequestScreen}
-      /> */}
-
-      <Scene key='tabBar' hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
-        <Scene key='newsFeed' component={NewsFeedScreen} hideNavBar={true} icon={NewsFeedTab} title='News Feed'/>
-        <Scene key='searchScreen' component={SearchScreen} hideNavBar={true} icon={SearchTab} title='Search Screen'/>
-        <Scene key ='profilePage' component={ProfilePage} hideNavBar={true} icon={ProfileTab} title='Profile Page'/>
-      </Scene>
+      />
     
     </Scene>
   </Router>

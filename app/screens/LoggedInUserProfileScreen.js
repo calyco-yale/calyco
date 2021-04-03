@@ -31,10 +31,7 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
-      const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
-      const user = userData.data.getUser
-
-      this.setState({ user: user, loggedInUser: loggedInUser })
+      this.setState({ user: loggedInUser, loggedInUser: loggedInUser })
     } catch (e) {
       console.log(e);
     }

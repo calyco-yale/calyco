@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import SignupScreen from '../screens/SignupScreen';
 import NewsFeedScreen from '../screens/NewsFeedScreen';
-import ProfilePage from '../screens/ProfilePage';
+// import ProfilePage from '../screens/ProfilePage';
 
 function Feed() {
   return (
