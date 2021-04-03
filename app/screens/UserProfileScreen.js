@@ -34,9 +34,13 @@ class UserProfileScreen extends Component {
 
   deleteFriendship = async(loggedInUser, user)  => {
     try {
-      await deleteMutualFriendship(loggedInUser, user);
+      await deleteMutualFriendship(loggedInUser, user)
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
-      this.setState({user: userData.data.getUser});
+      console.log(userData)
+      const loggedInUserData = await API.graphql(graphqlOperation(getUser, { id: this.state.loggedInUser.id }))
+      console.log(loggedInUserData)
+      this.setState({user: userData.data.getUser, loggedInUser: loggedInUserData.data.getUser});
+      this.forceUpdate()
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +82,8 @@ class UserProfileScreen extends Component {
 
   render() {
     const { user, loggedInUser } = this.state;
-    
+    console.log('rerender')
+    console.log(user)
     if (user && loggedInUser) {
       let requestOrDelete = null;
       // TODO: Add check to see if user already received friend request 

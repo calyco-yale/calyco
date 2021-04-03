@@ -70,8 +70,8 @@ export const deleteMutualFriendship = async(user1, user2) => {
     const friendship1 = isFriend(user1, user2)
     console.log(friendship1)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship1 }))
-    console.log(friendship2)
     const friendship2 = isFriend(user2, user1)
+    console.log(friendship2)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship2 }))
   } catch (e) {
     console.log(e);
