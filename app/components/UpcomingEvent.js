@@ -27,8 +27,6 @@ class UpcomingEvent extends Component {
   getPublicEvents = events => {
     const publicEvents = [];
     events.forEach(event => {
-      console.log(event)
-      console.log(event.public)
       if (event.public) {
         publicEvents.push(event);
       }

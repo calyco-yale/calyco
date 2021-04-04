@@ -34,7 +34,6 @@ class CalendarEvent extends Component {
   };
 
   componentDidMount() {
-    console.log(this);
     // this.didFocusListener = this.props.addListener("didFocus", () => {
     //   if (this.state.events.length == 0) {
     this.fetchEventData();
@@ -75,7 +74,6 @@ class CalendarEvent extends Component {
     if (events) {
       const listOfMarkedDates = this.parseEvents(events);
       const listOfNames = this.parseEventsNames(events);
-      console.log(this.props.loggedInUser)
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
