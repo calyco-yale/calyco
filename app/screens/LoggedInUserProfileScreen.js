@@ -110,10 +110,10 @@ class UserProfileScreen extends Component {
     {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
       <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
+        <NewsFeedComponent navigation={this.props.navigation}/>
       </BoxSimple>
       <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
+        <NewsFeedComponent navigation={this.props.navigation}/>
       </BoxSimple>
     </ScrollView>
     </>

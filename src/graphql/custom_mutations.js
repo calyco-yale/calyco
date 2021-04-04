@@ -30,3 +30,10 @@ export const createSimpleFriendRequest = /* GraphQL */ `
   }
 `;
 
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent($userId: ID!, $public: Boolean!, $image_url: String, $location: String, $end_time: AWSTime!, $start_time: AWSTime!, $date: AWSDate!, $name: String!) {
+    CreateEvent($userId: ID!, $public: Boolean!, $image_url: String, $location: String, $end_time: AWSTime!, $start_time: AWSTime!, $date: AWSDate!, $name: String!) {
+      id
+    }
+  }
+`;
