@@ -11,6 +11,7 @@ export const getUser = /* GraphQL */ `
       last_name
       dob
       location
+      image_url
       events {
         items {
           id
@@ -19,6 +20,7 @@ export const getUser = /* GraphQL */ `
           start_time
           end_time
           location
+          image_url
           public
           userID
           createdAt
@@ -66,6 +68,7 @@ export const listUsers = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -91,6 +94,7 @@ export const getEvent = /* GraphQL */ `
       start_time
       end_time
       location
+      image_url
       public
       userID
       user {
@@ -101,6 +105,7 @@ export const getEvent = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
           nextToken
         }
@@ -132,6 +137,7 @@ export const listEvents = /* GraphQL */ `
         start_time
         end_time
         location
+        image_url
         public
         userID
         user {
@@ -142,6 +148,7 @@ export const listEvents = /* GraphQL */ `
           last_name
           dob
           location
+          image_url
           createdAt
           updatedAt
         }
@@ -175,15 +182,43 @@ export const usersByEmail = /* GraphQL */ `
         last_name
         dob
         location
+        image_url
         events {
+          items {
+            id
+            name
+            date
+            start_time
+            end_time
+            location
+            image_url
+            public
+            userID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         friendships {
-          nextToken
+        items {
+          id
+          userID
+          friendID
+          createdAt
+          updatedAt
         }
-        friendRequests {
-          nextToken
+        nextToken
+      }
+      friendRequests {
+        items {
+          id
+          userID
+          senderID
+          createdAt
+          updatedAt
         }
+        nextToken
+      }
         createdAt
         updatedAt
       }

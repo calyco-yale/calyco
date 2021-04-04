@@ -24,3 +24,37 @@ query getUserFriendRequests($id: ID!) {
   }
 }
 `;
+
+export const listEventsShortened = /* GraphQL */ `
+  query ListEventsShortened {
+    listEvents {
+      nextToken
+      items {
+        id
+        name
+        date
+        start_time
+        end_time
+        location
+        image_url
+        public
+      }
+    }
+  }
+`;
+
+export const listEventsUpcoming = /* GraphQL */ `
+  query ListEventsUpcoming {
+    listEvents {
+      nextToken
+      items {
+        id
+        name
+        date
+        start_time
+        end_time
+        location
+      }
+    }
+  }
+`;

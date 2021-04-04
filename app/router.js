@@ -1,41 +1,65 @@
-import React, { Component } from 'react';
-import { Drawer, Router, Scene, Actions } from 'react-native-router-flux';
-
+import React from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
-// import HomeScreen from './screens/HomeScreen';
-import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import VerificationScreen from './screens/VerificationScreen';
 import SearchScreen from './screens/SearchScreen';
 import UserProfileScreen from './screens/UserProfileScreen'
+import LoggedInUserProfileScreen from './screens/LoggedInUserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
-
+// import ProfilePage from './screens/ProfilePage'; 
+import NewsFeedScreen from './screens/NewsFeedScreen';
 
 const AppRouter = () => (
   <Router>
-
     <Scene key="root" title="">
       <Scene
         key="loginScreen"
-        component={LoginScreen}
         initial
+        component={LoginScreen}
         gesturesEnabled={false}
         hideNavBar
       />
+
+      <Scene key='tabBar' hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
+        <Scene 
+          key='newsFeed' 
+          component={NewsFeedScreen} 
+          hideNavBar 
+          gesturesEnabled={false}
+          icon={NewsFeedTab} 
+          title='News Feed'
+        />
+        <Scene 
+          key='searchScreen' 
+          component={SearchScreen} 
+          hideNavBar
+          gesturesEnabled={false}
+          icon={SearchTab} 
+          title='Search'
+        />
+        <Scene 
+          key ="loggedInUserProfileScreen" 
+          component={LoggedInUserProfileScreen} 
+          hideNavBar 
+          gesturesEnabled={false}
+          icon={ProfileTab} 
+          title='My Profile'
+        />
+      </Scene>
+
       <Scene
         key="signupScreen"
         component={SignupScreen}
         hideNavBar
       />
+
       <Scene
         key="verificationScreen"
         component={VerificationScreen}
         hideNavBar
-      />
-      <Scene
-        key="searchScreen"
-        component={SearchScreen}
       />
 
       <Scene
@@ -52,80 +76,61 @@ const AppRouter = () => (
         key="friendRequestScreen"
         component = {FriendRequestScreen}
       />
-
-      {/* <Drawer
-        key="drawer"
-        hideNavBar
-        contentComponent={SideDrawer}
-        drawerIcon={<DrawerImage />}
-        panHandlers={null}
-        drawerWidth={300}
-      >
-        <Scene>
-          <Scene
-            key="homeScreen"
-            component={HomeScreen}
-            title="Restaurant App"
-            titleStyle={{
-              fontFamily: 'Roboto Slab',
-              color: Colors.primaryColor,
-            }}
-          />
-
-          <Scene
-            key="cuisineRestaurants"
-            component={CuisineRestaurantsScreen}
-            titleStyle={{
-              fontFamily: 'Roboto Slab',
-              color: Colors.primaryColor,
-            }}
-          />
-
-          <Scene
-            key="restaurantScreen"
-            component={RestaurantInfoScreen}
-          />
-
-          <Scene
-            key="cartScreen"
-            component={CartScreen}
-            navigationBarStyle={{
-              backgroundColor: '#fff',
-              elevation: 2,
-              borderBottomWidth: 1,
-              borderBottomColor: '#eee',
-            }}
-            titleStyle={{
-              fontFamily: 'Roboto Slab',
-              color: Colors.primaryColor,
-            }}
-            title="Cart"
-          />
-
-          <Scene
-            drawer={false}
-            key="paymentHome"
-            component={PaymentHome}
-          />
-
-          <Scene
-            key="paymentSuccess"
-            component={PaymentComplete}
-          />
-
-          <Scene
-            key="paymentFailed"
-            component={PaymentFailed}
-          />
-          <Scene
-            key="showAllOrders"
-            component={OrdersList}
-            title="My Orders"
-          />
-        </Scene>
-      </Drawer> */}
+    
     </Scene>
   </Router>
 );
+
+const styles = StyleSheet.create({
+  tabBar: {
+    height: 50,
+    borderTopColor: 'darkgrey',
+    borderTopWidth: 1,
+    opacity: 0.98,
+    justifyContent:'space-between'
+  }
+});
+
+const NewsFeedTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const newsFeedIconFocused = require("../assets/home-variant.png")
+  const newsFeedIconUnfocused = require("../assets/home-variant-outline.png")
+  let newsFeedIcon = props.focused ? newsFeedIconFocused : newsFeedIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
+  return (
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={newsFeedIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>News Feed</Text>
+  </View>
+  );
+}
+
+const SearchTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const searchIconFocused = require("../assets/account-search.png")
+  const searchIconUnfocused = require("../assets/account-search-outline.png")
+  let searchIcon = props.focused ? searchIconFocused : searchIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
+  return (
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={searchIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Search</Text>
+  </View>
+  );
+}
+
+const ProfileTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const profileIconFocused = require("../assets/account-circle.png")
+  const profileIconUnfocused = require("../assets/account-circle-outline.png")
+  let profileIcon = props.focused ? profileIconFocused : profileIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
+  return (
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={profileIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Profile</Text>
+  </View>
+  );
+}
 
 export default AppRouter;

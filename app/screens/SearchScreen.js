@@ -4,8 +4,6 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Colors from '../../src/constants/colors';
-import AppBase from '../base_components/AppBase';
-import UserComponent from '../components/User'
 import {renderUserItem, userItemSeparator} from '../helpers';
 
 import { API, graphqlOperation } from 'aws-amplify';
