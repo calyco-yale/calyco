@@ -32,7 +32,7 @@ class LoginScreen extends Component {
     try {
         const user = await Auth.signIn(email, password);
         console.log(user);
-        Actions.tabBar();
+        Actions.newsFeed();
     } catch (error) {
         console.log('error signing in', error);
         // Display some visible error otherwise!

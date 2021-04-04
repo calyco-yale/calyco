@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, useWindowDimensions, ScrollView, Button, Dimensions  } from 'react-native';
+import { StyleSheet, View, Text, useWindowDimensions, ScrollView, Button, Dimensions  } from 'react-native';
 import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import AppBase from '../base_components/AppBase';
@@ -17,6 +17,8 @@ import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 import UpcomingEvent from '../components/UpcomingEvent';
+
+import ProfileBar from '../components/ProfileBar';
 
 
 class UserProfileScreen extends Component {
@@ -158,27 +160,37 @@ class UserProfileScreen extends Component {
         friendRequestPage = <TextButton
                               onPress={() => Actions.friendRequestScreen({user: user, friendRequests: user.friendRequests.items})}
                               title={"Friend Requests"}
-                              style={{width: '80%', textAlign: 'center'}}
+                              style={styles.request_displays}
                             />
       }
 
       return (
         <>
-          <View style={{ flex: 0.4, backgroundColor: '#ffffff' }}>
-            <AppBase style={{flex: 0.4}}>
-              <PrimaryText size={26}>{user.username}</PrimaryText>
-              <PrimaryText size = {20}>{user.first_name + ' ' + user.last_name}</PrimaryText>
-              <PrimaryText>{user.dob}</PrimaryText>
+          <View style={{flex: 0.4}}>
+            <AppBase style={{height: '30%'}}>
+              <View style={[styles.container, {
+                flexDirection: "row"
+              }]}>
+                <View style={{ flex: 1}}>
+                  <ProfileBar />
+                </View>
+                <View style={{ flex: 2}}>
+                  <PrimaryText size = {25}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+                  <PrimaryText size={15}>{'@' + user.username}</PrimaryText>
+                  <PrimaryText>{user.dob}</PrimaryText>
 
-              <TextButton
-                onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
-                title={"Display Friends"}
-                style={{width: '80%', textAlign: 'center'}}
-              />
+                  <TextButton
+                    onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
+                    title={"Display Friends"}
+                    style={styles.friend_displays}
+                  />
 
-              {friendRequestPage}
-              
-              {requestOrDelete}
+                  {friendRequestPage}
+                  
+                  {requestOrDelete}
+
+                </View>
+              </View>
             </AppBase>
           </View>
           <TabView
@@ -211,4 +223,27 @@ class UserProfileScreen extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 20,
+    padding: 20,
+  },
+  friend_displays: {
+    width: '80%',
+    position: 'absolute',
+    top: 1,
+    left: 22, 
+    textAlign: 'center',
+  },
+  request_displays: {
+    width: '80%',
+    position: 'absolute',
+    top: 22,
+    left: 22, 
+    textAlign: 'center',
+  },
+  
+});
+
 export default UserProfileScreen;

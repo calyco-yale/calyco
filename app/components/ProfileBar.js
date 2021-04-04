@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, StyleSheet } from 'react-native';
+import { Button, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 
 export default function ProfileBar() {
   const [image, setImage] = useState(null);
-  const name = "Catherine Ocpylac";
-  const id = "kitty_123";
-  const bio = "Yale '22";
-  const friends = 251;
 
   useEffect(() => {
     (async () => {
@@ -43,8 +40,18 @@ export default function ProfileBar() {
       alignItems: 'center', 
       justifyContent: 'center' 
     }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {image ? 
+        <Image 
+          source={{ uri: image }} 
+          style={styles.image} 
+          onPress={pickImage}/> : 
+        <TouchableOpacity
+          style={styles.selected}
+          onPress={pickImage}
+        >
+          <MaterialCommunityIcons name="account" size={50} />
+        </TouchableOpacity>
+      }
 
     </View>
     </>
@@ -53,9 +60,25 @@ export default function ProfileBar() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 150, 
-    height: 150,
-    borderRadius: 250
+    width: 125, 
+    height: 125,
+    borderRadius: 100,
+    position: 'absolute',
+    top: 5,
+    left: 5,
+  },
+  selected: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    width: 125,
+    height: 125,
+    backgroundColor:'#fff',
+    borderRadius:100,
   }
 
 });
