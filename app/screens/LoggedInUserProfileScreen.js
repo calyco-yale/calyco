@@ -16,6 +16,7 @@ import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
+import UpcomingEvent from '../components/UpcomingEvent';
 
 
 class UserProfileScreen extends Component {
@@ -102,12 +103,7 @@ class UserProfileScreen extends Component {
     <>
     {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
+      <UpcomingEvent></UpcomingEvent>
     </ScrollView>
     </>
   );

@@ -40,3 +40,19 @@ export const listEventsShortened = /* GraphQL */ `
     }
   }
 `;
+
+export const listEventsUpcoming = /* GraphQL */ `
+  query ListEventsUpcoming {
+    listEvents {
+      nextToken
+      items {
+        id
+        name
+        date
+        start_time
+        end_time
+        location
+      }
+    }
+  }
+`;
