@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { Drawer, Router, Scene, Actions, Stack, Tabs } from 'react-native-router-flux';
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react';
+import { Router, Scene } from 'react-native-router-flux';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
-// import HomeScreen from './screens/HomeScreen';
-import Colors from '../src/constants/colors';
 import SignupScreen from './screens/SignupScreen';
 import VerificationScreen from './screens/VerificationScreen';
 import SearchScreen from './screens/SearchScreen';
@@ -12,11 +10,7 @@ import LoggedInUserProfileScreen from './screens/LoggedInUserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
 // import ProfilePage from './screens/ProfilePage'; 
-import NavBar from './components/NavBar';
 import NewsFeedScreen from './screens/NewsFeedScreen';
-
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 
 const AppRouter = () => (
   <Router>
@@ -30,9 +24,30 @@ const AppRouter = () => (
       />
 
       <Scene key='tabBar' hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
-        <Scene key='newsFeed' component={NewsFeedScreen} hideNavBar={true} icon={NewsFeedTab} title='News Feed'/>
-        <Scene key='searchScreen' component={SearchScreen} hideNavBar={false} icon={SearchTab} title='Search' backTitle=''/>
-        <Scene key ="loggedInUserProfileScreen" component={LoggedInUserProfileScreen} hideNavBar={false} icon={ProfileTab} title='My Profile' backTitle=''/>
+        <Scene 
+          key='newsFeed' 
+          component={NewsFeedScreen} 
+          hideNavBar 
+          gesturesEnabled={false}
+          icon={NewsFeedTab} 
+          title='News Feed'
+        />
+        <Scene 
+          key='searchScreen' 
+          component={SearchScreen} 
+          hideNavBar
+          gesturesEnabled={false}
+          icon={SearchTab} 
+          title='Search'
+        />
+        <Scene 
+          key ="loggedInUserProfileScreen" 
+          component={LoggedInUserProfileScreen} 
+          hideNavBar 
+          gesturesEnabled={false}
+          icon={ProfileTab} 
+          title='My Profile'
+        />
       </Scene>
 
       <Scene
@@ -78,42 +93,42 @@ const styles = StyleSheet.create({
 
 const NewsFeedTab = (props) => {
   let textColor = props.focused ? '#333333' : '#999999'
-  // const settingImageFocused = require("Give your image path")
-  // const settingImageUnfocused = require("Give your image path")
-  // let settingImage = props.focused ? settingImageFocused : settingImageUnfocused
+  const newsFeedIconFocused = require("../assets/home-variant.png")
+  const newsFeedIconUnfocused = require("../assets/home-variant-outline.png")
+  let newsFeedIcon = props.focused ? newsFeedIconFocused : newsFeedIconUnfocused
   let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
   <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
-  <MaterialCommunityIcons name="home" color= '#000000' size={26} />
-  <Text style={{color: textColor}}>Settings</Text>
+  <Image source ={newsFeedIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>News Feed</Text>
   </View>
   );
 }
 
 const SearchTab = (props) => {
   let textColor = props.focused ? '#333333' : '#999999'
-  // const settingImageFocused = <MaterialCommunityIcons name="home" color={color} size={26} />
-  // const settingImageUnfocused = require("Give your image path")
-  // let settingImage = props.focused ? settingImageFocused : settingImageUnfocused
+  const searchIconFocused = require("../assets/account-search.png")
+  const searchIconUnfocused = require("../assets/account-search-outline.png")
+  let searchIcon = props.focused ? searchIconFocused : searchIconUnfocused
   let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
   <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
-  <MaterialCommunityIcons name="bell" color= '#000000' size={26} />
-  <Text style={{color: textColor}}>Settings</Text>
+  <Image source ={searchIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Search</Text>
   </View>
   );
 }
 
 const ProfileTab = (props) => {
   let textColor = props.focused ? '#333333' : '#999999'
-  // const settingImageFocused = require("Give your image path")
-  // const settingImageUnfocused = require("Give your image path")
-  // let settingImage = props.focused ? settingImageFocused : settingImageUnfocused
+  const profileIconFocused = require("../assets/account-circle.png")
+  const profileIconUnfocused = require("../assets/account-circle-outline.png")
+  let profileIcon = props.focused ? profileIconFocused : profileIconUnfocused
   let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
   <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
-  <MaterialCommunityIcons name="account" color= '#000000' size={26} />
-  <Text style={{color: textColor}}>Settings</Text>
+  <Image source ={profileIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Profile</Text>
   </View>
   );
 }
