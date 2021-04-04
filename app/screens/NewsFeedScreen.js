@@ -14,7 +14,7 @@ class NewsFeedScreen extends Component {
 
     render() {
       return (
-            <NewsFeedComponent/>
+            <NewsFeedComponent navigation={this.props.navigation}/>
         );
     }
   }

@@ -17,9 +17,12 @@ class Post extends Component {
         super(props);
         // "../../assets/" + props.profile_pic);
         this.profile_pic = "../../assets/" + props.profile_pic;
-        this.event_pic = "../../assets/" + props.event_pic;
+        this.event_pic = props.event_pic;
         this.event_name = props.event_name;
         this.event_date = props.event_date;
+        this.start_time = props.start_time;
+        this.end_time = props.end_time;
+        this.event_location = props.location;
         this.event_host = props.event_host;
         this.event_participants = props.event_participants;
         this.state = {
@@ -59,18 +62,21 @@ class Post extends Component {
                     {/* Username and event name*/}
                     <View>
                         <Text style = {styles.eventName}> {this.event_name} </Text>
-                            <Text style = {styles.username}> {this.event_host} </Text>
+                        <Text style = {styles.username}> {this.event_host} </Text>
                     </View>
                 </View>
 
                 <View>
-                    <Text style = {styles.eventTime}> {this.event_date} </Text>
+                    <Text style = {styles.eventDate}> Date: {this.event_date} </Text>
+                    <Text style = {styles.eventData}> Start: {this.start_time} </Text>
+                    <Text style = {styles.eventData}> End: {this.end_time} </Text>
+                    <Text style = {styles.eventData}> Host: {this.event_host} </Text>
                 </View>
 
                 {/* Event picture */}
                 <Image
                     style={styles.eventPic}
-                    source={require('../../assets/nuggies.jpeg')}
+                    source={{uri: this.event_pic}}
                 />
                 <View style = {styles.iconBar}>
                     {/* like event */}
@@ -111,7 +117,7 @@ class Post extends Component {
         eventPic: {
             marginTop: 15,
             marginLeft: 20,
-            width: 40 + "%",
+            width: 90 + "%",
             height: 300 
         },
     
@@ -120,9 +126,15 @@ class Post extends Component {
             marginTop: 30  
         },
     
-        eventTime: {
+        eventDate: {
             marginLeft: 20,
-            marginTop: 30
+            marginTop: 25
+        },
+
+            
+        eventData: {
+            marginLeft: 20,
+            marginTop: 2
         },
     
         username: {
