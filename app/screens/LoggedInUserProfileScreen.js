@@ -6,6 +6,7 @@ import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
 import NewsFeedComponent from '../components/NewsFeed';
+import CalendarEvent from '../components/CalendarEvent';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
@@ -15,6 +16,7 @@ import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
+import UpcomingEvent from '../components/UpcomingEvent';
 
 import ProfileBar from '../components/ProfileBar';
 
@@ -89,21 +91,13 @@ class UserProfileScreen extends Component {
 
   FirstRoute = () => (
     <>
-    <Button
-    title="Add Event"
-    color="#841584"
-    />
-    <Calendar
-      // Collection of dates that have to be marked. Default = {}
-      markedDates={{
-        "2021-03-28": { selected: true, marked: true, selectedColor: "blue" },
-        "2021-03-17": { marked: true, dotColor: "red", activeOpacity: 0 },
-        "2021-03-22": { disabled: true, disableTouchEvent: true }
-      }}
-      onDayPress={(day) => {alert(`Event on this day:${day.dateString}`);
-    }}
-      
-    />
+    <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
+      <Button
+      title="Add Event"
+      color="#841584"
+      />
+      <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true}/>
+    </ScrollView>
     </>
   );
   
@@ -111,12 +105,7 @@ class UserProfileScreen extends Component {
     <>
     {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
+      <UpcomingEvent user = {this.state.loggedInUser} loggedIn = {true}></UpcomingEvent>
     </ScrollView>
     </>
   );

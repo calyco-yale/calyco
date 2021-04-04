@@ -184,6 +184,19 @@ export const usersByEmail = /* GraphQL */ `
         location
         image_url
         events {
+          items {
+            id
+            name
+            date
+            start_time
+            end_time
+            location
+            image_url
+            public
+            userID
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         friendships {
