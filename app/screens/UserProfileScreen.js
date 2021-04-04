@@ -6,6 +6,7 @@ import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
 import NewsFeedComponent from '../components/NewsFeed';
+import CalendarEvent from '../components/CalendarEvent';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
@@ -90,21 +91,13 @@ class UserProfileScreen extends Component {
 
   FirstRoute = () => (
     <>
-    <Button
-    title="Add Event"
-    color="#841584"
-    />
-    <Calendar
-      // Collection of dates that have to be marked. Default = {}
-      markedDates={{
-        "2021-03-28": { selected: true, marked: true, selectedColor: "blue" },
-        "2021-03-17": { marked: true, dotColor: "red", activeOpacity: 0 },
-        "2021-03-22": { disabled: true, disableTouchEvent: true }
-      }}
-      onDayPress={(day) => {alert(`Event on this day:${day.dateString}`);
-    }}
-      
-    />
+    <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
+      <Button
+      title="Add Event"
+      color="#841584"
+      />
+      <CalendarEvent />
+    </ScrollView>
     </>
   );
   
@@ -178,22 +171,23 @@ class UserProfileScreen extends Component {
 
       return (
         <>
-          <AppBase style={{height: '30%'}}>
-            <PrimaryText size={26}>{user.username}</PrimaryText>
-            <PrimaryText size = {20}>{user.first_name + ' ' + user.last_name}</PrimaryText>
-            <PrimaryText>{user.dob}</PrimaryText>
+          <View style={{ flex: 0.4, backgroundColor: '#ffffff' }}>
+            <AppBase style={{flex: 0.4}}>
+              <PrimaryText size={26}>{user.username}</PrimaryText>
+              <PrimaryText size = {20}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+              <PrimaryText>{user.dob}</PrimaryText>
 
-            <TextButton
-              onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
-              title={"Display Friends"}
-              style={{width: '80%', textAlign: 'center'}}
-            />
+              <TextButton
+                onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
+                title={"Display Friends"}
+                style={{width: '80%', textAlign: 'center'}}
+              />
 
-            {friendRequestPage}
-            
-            {requestOrDelete}
-          </AppBase>
-
+              {friendRequestPage}
+              
+              {requestOrDelete}
+            </AppBase>
+          </View>
           <TabView
             navigationState={{ index, routes }}
             renderScene={this.renderScene}
