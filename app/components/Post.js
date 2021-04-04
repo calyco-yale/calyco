@@ -17,7 +17,7 @@ class Post extends Component {
         super(props);
         // "../../assets/" + props.profile_pic);
         this.profile_pic = "../../assets/" + props.profile_pic;
-        this.event_pic = "../../assets/" + props.event_pic;
+        this.event_pic = props.event_pic;
         this.event_name = props.event_name;
         this.event_date = props.event_date;
         this.start_time = props.start_time;
@@ -76,7 +76,7 @@ class Post extends Component {
                 {/* Event picture */}
                 <Image
                     style={styles.eventPic}
-                    source={require('../../assets/nuggies.jpeg')}
+                    source={{uri: this.event_pic}}
                 />
                 <View style = {styles.iconBar}>
                     {/* like event */}
