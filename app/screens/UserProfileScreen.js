@@ -96,7 +96,7 @@ class UserProfileScreen extends Component {
       title="Add Event"
       color="#841584"
       />
-      <CalendarEvent />
+      <CalendarEvent user = {this.state.user} loggedIn = {false}/>
     </ScrollView>
     </>
   );
@@ -105,12 +105,7 @@ class UserProfileScreen extends Component {
     <>
     {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
-      <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-        <NewsFeedComponent></NewsFeedComponent>
-      </BoxSimple>
+      <UpcomingEvent user = {this.state.user} loggedIn = {false}></UpcomingEvent>
     </ScrollView>
     </>
   );

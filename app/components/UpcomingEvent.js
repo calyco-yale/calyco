@@ -9,9 +9,11 @@ import { renderUserItem, userItemSeparator } from "../helpers";
 
 import BoxSimple from '../components/EventBox'
 
+import CalendarEvent from '../components/CalendarEvent';
+
 import Post from './Post';
 
-import { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation, SortDirection } from "aws-amplify";
 import { listEventsUpcoming } from "../../src/graphql/custom_queries";
 
 class UpcomingEvent extends Component {
@@ -22,19 +24,40 @@ class UpcomingEvent extends Component {
     };
   }
 
+  getPublicEvents = events => {
+    const publicEvents = [];
+    events.forEach(event => {
+      console.log(event)
+      console.log(event.public)
+      if (event.public) {
+        publicEvents.push(event);
+      }
+    });
+
+    return publicEvents;
+  };
+
   fetchEventData = async () => {
     try {
-      const eventData = await API.graphql(
-        graphqlOperation(listEventsUpcoming)
-      );
-      this.setState({ events: eventData.data.listEvents.items });
+      const tempEvents = this.props.user.events.items;
+      if (!this.props.loggedIn){
+        const publicEvents = this.getPublicEvents(tempEvents);
+        this.setState({events: publicEvents});
+      }
+      else {
+        this.setState({events: tempEvents});
+      }
+      // const eventData = await API.graphql(
+      //   graphqlOperation(listEventsUpcoming)
+      // );
+      // this.setState({ events: eventData.data.listEvents.items });
     } catch (e) {
       console.log(e);
     }
   };
 
   componentDidMount() {
-    console.log(this);
+    // console.log(this);
     // this.didFocusListener = this.props.addListener("didFocus", () => {
     //   if (this.state.events.length == 0) {
     this.fetchEventData();
@@ -49,7 +72,10 @@ class UpcomingEvent extends Component {
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
-      listOfNames[event.date] = event.name;
+      if (!listOfNames[event.date]) {
+        listOfNames[event.date] = [];
+      }
+      listOfNames[event.date].push(event.name);
     });
 
     return listOfNames;
@@ -73,23 +99,45 @@ class UpcomingEvent extends Component {
     return listOfEndTimes;
   };
 
+  sortEvents= events => {
+    const newEvents = events.sort((a, b) => b.date - a.date);
+    return newEvents;
+  };
+
   render() {
     const { events } = this.state;
     if (events) {
-      const listOfNames = this.parseEventsNames(events);
-      const listOfStartTimes = this.parseEventsStartTimes(events);
-      const listOfEndTimes = this.parseEventsEndTimes(events);
-      // console.log(listOfNames);
+      // const listOfNames = this.parseEventsNames(events);
+      // const listOfStartTimes = this.parseEventsStartTimes(events);
+      // const listOfEndTimes = this.parseEventsEndTimes(events);
+
+      // const ordered_names = {};
+      // Object.keys(listOfNames).sort().forEach(function(key) {
+      //   ordered_names[key] = listOfNames[key];
+      // });
+
+      // const ordered_start_time = {};
+      // Object.keys(listOfStartTimes).sort().forEach(function(key) {
+      //   ordered_start_time[key] = listOfStartTimes[key];
+      // });
+
+      // const ordered_end_time = {};
+      // Object.keys(listOfEndTimes).sort().forEach(function(key) {
+      //   ordered_end_time[key] = listOfEndTimes[key];
+      // });
+
+      const sortedEvents = this.sortEvents(events)
+      
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          {Object.keys(listOfNames).map(date => {
+          {sortedEvents.map(event => {
             return(
               <BoxSimple style= {{backgroundColor: '#ffffff'}}>
-                <Text>{listOfNames[date]}</Text>
-                <Text>{date}</Text>
-                <Text>{listOfStartTimes[date].substring(0,5)} - {listOfEndTimes[date].substring(0,5)}</Text>
+                <Text>{event.name}</Text>
+                <Text>{event.date}</Text>
+                <Text>{event.start_time.substring(0,5)} - {event.end_time.substring(0,5)}</Text>
               </BoxSimple>
             )
           })}

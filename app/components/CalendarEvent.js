@@ -20,10 +20,14 @@ class CalendarEvent extends Component {
 
   fetchEventData = async () => {
     try {
-      const eventData = await API.graphql(
-        graphqlOperation(listEventsShortened)
-      );
-      this.setState({ events: eventData.data.listEvents.items });
+      const tempEvents = this.props.user.events.items;
+      if (!this.props.loggedIn){
+        const publicEvents = this.getPublicEvents(tempEvents);
+        this.setState({events: publicEvents});
+      }
+      else {
+        this.setState({events: tempEvents});
+      }
     } catch (e) {
       console.log(e);
     }
@@ -57,7 +61,10 @@ class CalendarEvent extends Component {
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
-      listOfNames[event.date] = event.name;
+      if (!listOfNames[event.date]) {
+        listOfNames[event.date] = [];
+      }
+      listOfNames[event.date].push(event.name);
     });
 
     return listOfNames;
@@ -65,10 +72,10 @@ class CalendarEvent extends Component {
 
   render() {
     const { events } = this.state;
-    console.log(events);
     if (events) {
       const listOfMarkedDates = this.parseEvents(events);
       const listOfNames = this.parseEventsNames(events);
+      console.log(this.props.loggedInUser)
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}

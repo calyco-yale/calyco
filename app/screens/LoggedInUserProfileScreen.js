@@ -94,7 +94,7 @@ class UserProfileScreen extends Component {
       title="Add Event"
       color="#841584"
       />
-      <CalendarEvent />
+      <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true}/>
     </ScrollView>
     </>
   );
@@ -103,7 +103,7 @@ class UserProfileScreen extends Component {
     <>
     {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <UpcomingEvent></UpcomingEvent>
+      <UpcomingEvent user = {this.state.loggedInUser} loggedIn = {true}></UpcomingEvent>
     </ScrollView>
     </>
   );
