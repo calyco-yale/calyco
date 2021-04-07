@@ -18,15 +18,25 @@ class CalendarEvent extends Component {
     };
   }
 
+  getPublicEvents = events => {
+    const publicEvents = [];
+    events.forEach(event => {
+      if (event.public) {
+        publicEvents.push(event);
+      }
+    });
+
+    return publicEvents;
+  };
+
   fetchEventData = async () => {
     try {
       const tempEvents = this.props.user.events.items;
-      if (!this.props.loggedIn){
+      if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
-        this.setState({events: publicEvents});
-      }
-      else {
-        this.setState({events: tempEvents});
+        this.setState({ events: publicEvents });
+      } else {
+        this.setState({ events: tempEvents });
       }
     } catch (e) {
       console.log(e);

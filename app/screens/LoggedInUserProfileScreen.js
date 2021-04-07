@@ -9,6 +9,8 @@ import NewsFeedComponent from '../components/NewsFeed';
 import CalendarEvent from '../components/CalendarEvent';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
+import { Auth } from 'aws-amplify';
+
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
 
 import { Actions } from 'react-native-router-flux';
@@ -52,6 +54,16 @@ class UserProfileScreen extends Component {
 
   componentWillUnmount() {
     this.didFocusListener.remove();
+  }
+
+  //Sign out Function
+  signOutProfile = async () => {
+    try {
+        await Auth.signOut();
+        Actions.loginScreen();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
   }
 
   // Friendship Related Functions
@@ -166,7 +178,7 @@ class UserProfileScreen extends Component {
 
       return (
         <>
-          <View style={{flex: 0.4}}>
+          <View style={{flex: 0.4, marginTop: 35.0 }}>
             <AppBase style={{height: '30%'}}>
               <View style={[styles.container, {
                 flexDirection: "row"
@@ -178,6 +190,12 @@ class UserProfileScreen extends Component {
                   <PrimaryText size = {25}>{user.first_name + ' ' + user.last_name}</PrimaryText>
                   <PrimaryText size={15}>{'@' + user.username}</PrimaryText>
                   <PrimaryText>{user.dob}</PrimaryText>
+
+                  <TextButton
+                    onPress={() => this.signOutProfile()}
+                    title={"Sign Out"}
+                    style={styles.sign_out}
+                  />
 
                   <TextButton
                     onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
@@ -240,6 +258,13 @@ const styles = StyleSheet.create({
     width: '80%',
     position: 'absolute',
     top: 22,
+    left: 22, 
+    textAlign: 'center',
+  },
+  sign_out: {
+    width: '80%',
+    position: 'absolute',
+    top: 42,
     left: 22, 
     textAlign: 'center',
   },

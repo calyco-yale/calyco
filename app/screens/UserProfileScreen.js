@@ -11,6 +11,8 @@ import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
 
+import UpcomingEvent from '../components/UpcomingEvent';
+
 import { Actions } from 'react-native-router-flux';
 
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
@@ -166,7 +168,7 @@ class UserProfileScreen extends Component {
 
       return (
         <>
-          <View style={{ flex: 0.4, backgroundColor: '#ffffff' }}>
+          <View style={{ flex: 0.4, backgroundColor: '#ffffff'}}>
             <AppBase style={{flex: 0.4}}>
               <PrimaryText size={26}>{user.username}</PrimaryText>
               <PrimaryText size = {20}>{user.first_name + ' ' + user.last_name}</PrimaryText>
