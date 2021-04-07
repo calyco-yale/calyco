@@ -63,7 +63,7 @@ class SearchScreen extends Component {
   render() {
     const { search, filteredData, allData } = this.state;
     return (
-      <View style={{ backgroundColor: Colors.baseColor }}>
+      <View style={{ backgroundColor: Colors.baseColor, marginTop: 35.0 }}>
         <SearchBar
           placeholder="Search..."
           onChangeText={(text) => this._filterSearch(text)}
