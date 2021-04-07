@@ -15,7 +15,6 @@ class FriendScreen extends Component {
   fetchFriendData = async () => {
     try {
       const friends = await getFriends(this.props.friendships)
-      console.log(friends)
       this.setState({friends: friends});
     } catch (e) {
       console.log(e);

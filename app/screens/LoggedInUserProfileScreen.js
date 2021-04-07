@@ -187,8 +187,8 @@ class UserProfileScreen extends Component {
                   <ProfileBar />
                 </View>
                 <View style={{ flex: 2}}>
-                  <PrimaryText size = {25}>{user.first_name + ' ' + user.last_name}</PrimaryText>
-                  <PrimaryText size={15}>{'@' + user.username}</PrimaryText>
+                  <PrimaryText size = {'25px'}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+                  <PrimaryText size={'15px'}>{'@' + user.username}</PrimaryText>
                   <PrimaryText>{user.dob}</PrimaryText>
 
                   <TextButton

@@ -17,7 +17,6 @@ class VerificationScreen extends Component {
 
   handleSubmit = async () => {
     const { code } = this.state;
-    console.log('Checking code...');
     try {
         await Auth.confirmSignUp(this.props.email, code);
         Actions.loginScreen();

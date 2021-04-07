@@ -55,7 +55,6 @@ class UpcomingEvent extends Component {
   };
 
   componentDidMount() {
-    // console.log(this);
     // this.didFocusListener = this.props.addListener("didFocus", () => {
     //   if (this.state.events.length == 0) {
     this.fetchEventData();

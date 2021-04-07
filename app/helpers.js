@@ -64,14 +64,10 @@ export const createMutualFriendship = async(user1Id, user2Id) => {
 
 // Delete friendship (two friendship objects) for users with given ids
 export const deleteMutualFriendship = async(user1, user2) => {
-  console.log(user1)
-  console.log(user2)
   try {
     const friendship1 = isFriend(user1, user2)
-    console.log(friendship1)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship1 }))
     const friendship2 = isFriend(user2, user1)
-    console.log(friendship2)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship2 }))
   } catch (e) {
     console.log(e);

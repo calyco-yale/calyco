@@ -39,7 +39,7 @@ class VerificationComponent extends Component {
           placeholder="6-Digit Code"
         />
         <BR />
-        <SecondaryText size={15}>       A code was sent to your email. Don't see it?</SecondaryText>
+        <SecondaryText size={'15px'}>       A code was sent to your email. Don't see it?</SecondaryText>
         <TextButton
           onPress={onResend}
           title="Resend it"

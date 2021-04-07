@@ -2,7 +2,6 @@ import { Platform } from 'react-native';
 import styled from 'styled-components';
 
 const TextInput = styled.TextInput`
-  font-family: 'Roboto Slab';
   padding: 15px;
   width: 100%;
   min-height: 42px;

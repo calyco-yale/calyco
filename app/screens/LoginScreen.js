@@ -31,7 +31,6 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
     try {
         const user = await Auth.signIn(email, password);
-        console.log(user);
         Actions.newsFeed();
     } catch (error) {
         console.log('error signing in', error);
@@ -94,10 +93,10 @@ LoginScreen.defaultProps = {
 };
 
 LoginScreen.propTypes = {
-  loginLoading: PropTypes.bool.isRequired,
+  // loginLoading: PropTypes.bool.isRequired,
   loginError: PropTypes.object,
   loginMessage: PropTypes.object,
-  authLogin: PropTypes.func.isRequired,
+  // authLogin: PropTypes.func.isRequired,
 };
 
 // function initMapStateToProps(state) {
