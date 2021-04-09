@@ -22,6 +22,8 @@ export const getUser = /* GraphQL */ `
           location
           image_url
           public
+          description
+          participants
           userID
           createdAt
           updatedAt
@@ -96,6 +98,8 @@ export const getEvent = /* GraphQL */ `
       location
       image_url
       public
+      description
+      participants
       userID
       user {
         id
@@ -139,6 +143,8 @@ export const listEvents = /* GraphQL */ `
         location
         image_url
         public
+        description
+        participants
         userID
         user {
           id
@@ -208,17 +214,17 @@ export const usersByEmail = /* GraphQL */ `
           updatedAt
         }
         nextToken
-      }
-      friendRequests {
-        items {
-          id
-          userID
-          senderID
-          createdAt
-          updatedAt
         }
-        nextToken
-      }
+        friendRequests {
+          items {
+            id
+            userID
+            senderID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }

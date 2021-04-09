@@ -23,6 +23,8 @@ type Event @model
   location: String
   image_url: String
   public: Boolean! @default(value: "false")
+  description: String
+  participants: [String]
   userID: ID!
   user: User! @connection(fields: ["userID"])
 }
