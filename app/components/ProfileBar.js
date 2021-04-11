@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
   },
   selected: {
     position: 'absolute',
-    top: 5,
-    left: 5,
-    borderWidth:1,
+    top: 15,
+    left: 0,
+    borderWidth:5,
     borderColor:'rgba(0,0,0,0.2)',
     alignItems:'center',
     justifyContent:'center',

@@ -183,12 +183,12 @@ class UserProfileScreen extends Component {
               <View style={[styles.container, {
                 flexDirection: "row"
               }]}>
-                <View style={{ flex: 1}}>
+                <View style={{ flex: 1 }}>
                   <ProfileBar />
                 </View>
-                <View style={{ flex: 2}}>
-                  <PrimaryText size = {25}>{user.first_name + ' ' + user.last_name}</PrimaryText>
-                  <PrimaryText size={15}>{'@' + user.username}</PrimaryText>
+                <View style={{ flex: 2 }}>
+                  <PrimaryText size={25} style={{ left: 15 }}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+                  <PrimaryText size={15} style={{ left: 15, fontWeight: '200' }}>{'@' + user.username}</PrimaryText>
                   <PrimaryText>{user.dob}</PrimaryText>
 
                   <TextButton
@@ -199,7 +199,7 @@ class UserProfileScreen extends Component {
 
                   <TextButton
                     onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
-                    title={"Display Friends"}
+                    title={"My Friends"}
                     style={styles.friend_displays}
                   />
 
@@ -251,22 +251,29 @@ const styles = StyleSheet.create({
     width: '80%',
     position: 'absolute',
     top: 1,
-    left: 22, 
+    left: 40, 
     textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
   },
   request_displays: {
     width: '80%',
     position: 'absolute',
-    top: 22,
-    left: 22, 
+    top: 30,
+    left: 40, 
     textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
   },
   sign_out: {
+    color: 'red',
     width: '80%',
     position: 'absolute',
-    top: 42,
-    left: 22, 
+    top: 59,
+    left: 40, 
     textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
   },
   
 });
