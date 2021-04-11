@@ -26,7 +26,7 @@ class LoginComponent extends Component {
           justifyContent: 'center',
         }}
       >
-        <PrimaryText bold size={40}>Calyco</PrimaryText>
+        <PrimaryText bold size={'40px'}>Calyco</PrimaryText>
         <BR size={50} />
         {loginError && <PrimaryText>{loginError.message}</PrimaryText>}
         <BR size={50} />
@@ -87,7 +87,7 @@ LoginComponent.defaultProps = {
 
 LoginComponent.propTypes = {
   disableLogin: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  // loading: PropTypes.bool.isRequired,
   loginError: PropTypes.object,
   onEmailChange: PropTypes.func.isRequired,
   onPasswordChange: PropTypes.func.isRequired,

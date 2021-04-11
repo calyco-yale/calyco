@@ -65,15 +65,21 @@ const AppRouter = () => (
       <Scene
         key="userProfileScreen"
         component={UserProfileScreen}
+        title='Profile'
+        backTitle='Back'
       />
 
       <Scene 
         key="friendScreen"
+        title='Friends'
+        backTitle='Back'
         component={FriendScreen}
       />
 
       <Scene
         key="friendRequestScreen"
+        title='Friend Requests'
+        backTitle='Back'
         component = {FriendRequestScreen}
       />
     

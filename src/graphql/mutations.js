@@ -25,6 +25,8 @@ export const createUser = /* GraphQL */ `
           location
           image_url
           public
+          description
+          participants
           userID
           createdAt
           updatedAt
@@ -80,6 +82,8 @@ export const updateUser = /* GraphQL */ `
           location
           image_url
           public
+          description
+          participants
           userID
           createdAt
           updatedAt
@@ -135,6 +139,8 @@ export const deleteUser = /* GraphQL */ `
           location
           image_url
           public
+          description
+          participants
           userID
           createdAt
           updatedAt
@@ -180,6 +186,8 @@ export const createEvent = /* GraphQL */ `
       location
       image_url
       public
+      description
+      participants
       userID
       user {
         id
@@ -221,6 +229,8 @@ export const updateEvent = /* GraphQL */ `
       location
       image_url
       public
+      description
+      participants
       userID
       user {
         id
@@ -262,6 +272,8 @@ export const deleteEvent = /* GraphQL */ `
       location
       image_url
       public
+      description
+      participants
       userID
       user {
         id

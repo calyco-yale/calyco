@@ -21,8 +21,6 @@ class NewsFeedComponent extends Component {
     };
     
     _renderPost(item){
-        console.log('PAIN');
-        console.log(item)
         return <Post
         profile_pic={'profile_user.png'}
         event_pic={item.item.image_url}
@@ -57,10 +55,6 @@ class NewsFeedComponent extends Component {
         try {
             const loggedInUser = await getloggedInUser()
             const postData = await API.graphql(graphqlOperation(listEventsShortened))
-            console.log('POST DATA')
-            console.log(postData.data.listEvents.items)
-            console.log('USER DATA')
-            console.log(loggedInUser)
             this.setState({posts: postData.data.listEvents.items, loggedInUser: loggedInUser });
         } catch (e) {
             console.log(e);

@@ -24,7 +24,6 @@ class SignupScreen extends Component {
 
     // Register through AWS Auth API
     try {
-        console.log('Storing signup data...');
         const name = first_name.trim() + ' ' + last_name.trim();
         const { user } = await Auth.signUp({
             username: email,
@@ -34,7 +33,6 @@ class SignupScreen extends Component {
             }
         });
         if (user){
-          console.log(user);
           // Add new user to GraphQL database
           const userData = {
             email: email,
@@ -43,7 +41,6 @@ class SignupScreen extends Component {
             last_name: last_name
           };
           const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
-          console.log(response.data);
         }
         Actions.verificationScreen({email: email});
     } catch (error) {

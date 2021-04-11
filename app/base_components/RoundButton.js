@@ -29,7 +29,6 @@ const ButtonWrap = styled.View`
 `;
 
 const ButtonText = styled.Text`
-  font-family: 'Roboto Slab';
   color: ${props => props.textColor || '#fff'};
   font-size: ${props => (props.small ? '16px' : '19px;')};
   text-align: center;

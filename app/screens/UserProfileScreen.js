@@ -170,8 +170,8 @@ class UserProfileScreen extends Component {
         <>
           <View style={{ flex: 0.4, backgroundColor: '#ffffff'}}>
             <AppBase style={{flex: 0.4}}>
-              <PrimaryText size={26}>{user.username}</PrimaryText>
-              <PrimaryText size = {20}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+              <PrimaryText size={'26px'}>{user.username}</PrimaryText>
+              <PrimaryText size = {'20px'}>{user.first_name + ' ' + user.last_name}</PrimaryText>
               <PrimaryText>{user.dob}</PrimaryText>
 
               <TextButton

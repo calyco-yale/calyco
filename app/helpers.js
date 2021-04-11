@@ -21,6 +21,41 @@ export const getloggedInUser = async() => {
   }
 }
 
+// Helper function to get a user's busy times for a date
+export const getUserSchedule = (user, date) => {
+  const userEvents = user.events.items.filter(event => event.date == date);
+  let busyTimes = []
+  userEvents.forEach(event => {
+    busyTimes.push([event.start_time, event.end_time])
+  });
+  return busyTimes
+}
+
+//  Helper function to suggest user available times for a date
+export const suggestTimes = (users, date) => {
+  let allTimes = [] //Merge all users' busy times together
+  users.forEach(user => {
+    allTimes = allTimes.concat(getUserSchedule(user, date))
+  });
+  allTimes.sort((a, b) => {return a.toString().localeCompare(b.toString())}) //Sort time intervals by starting time
+  let mergedTimes = []
+  while (allTimes.length > 0) {
+    let lastIndex = mergedTimes.length - 1
+    let slot = allTimes.shift() // Get first time slot
+    if (mergedTimes.length > 0 && mergedTimes[lastIndex][1] >= slot[0]) { //If last time slot in merged ends after next slot starts
+      mergedTimes[lastIndex][1] = max(slot[1], mergedTimes[lastIndex][1]) //Merge slots
+    } else {
+      mergedTimes.push(slot)
+    }
+  }
+  //Get free time intervals
+  let freeTimes = []
+  for (var i = 0; i < mergedTimes.length - 1; i++) {
+    freeTimes.push([mergedTimes[i][1], mergedTimes[i+1][0]])
+  }
+  return freeTimes
+}
+
 // Helper function to get user's friends given friendships object
 export const getFriends = async(friendships) => {
   let friends = []
@@ -64,14 +99,10 @@ export const createMutualFriendship = async(user1Id, user2Id) => {
 
 // Delete friendship (two friendship objects) for users with given ids
 export const deleteMutualFriendship = async(user1, user2) => {
-  console.log(user1)
-  console.log(user2)
   try {
     const friendship1 = isFriend(user1, user2)
-    console.log(friendship1)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship1 }))
     const friendship2 = isFriend(user2, user1)
-    console.log(friendship2)
     await API.graphql(graphqlOperation(deleteFriendshipById, { id: friendship2 }))
   } catch (e) {
     console.log(e);
