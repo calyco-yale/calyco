@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Button } from 'react-native';
+import UserComponent from '../components/User';
+
 import { getFriendRequests, createMutualFriendship, userItemSeparator} from '../helpers';
 
 import AppBase from '../base_components/AppBase';
@@ -34,8 +36,9 @@ class FriendRequestScreen extends Component {
       await createMutualFriendship(sender.id, this.props.user.id)
       // Delete friend request
       await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
-      const refreshedRequests = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }))
-      this.setState({friendRequests: refreshedRequests});
+      const refetch = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }))
+      const requests = await getFriendRequests(refetch.data.getUser.friendRequests.items)
+      this.setState({friendRequests: requests});
     } catch (e) {
       console.log(e);
     }
@@ -44,8 +47,9 @@ class FriendRequestScreen extends Component {
   declineRequest = async(requestId) => {
     try {
       await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }))
-      const refreshedRequests = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }))
-      Actions.refresh({ key: "friendRequestScreen", user: this.props.user, friendRequests: refreshedRequests });
+      const refetch = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }))
+      const requests = await getFriendRequests(refetch.data.getUser.friendRequests.items)
+      this.setState({friendRequests: requests});
     } catch (e) {
       console.log(e);
     }
@@ -68,7 +72,8 @@ class FriendRequestScreen extends Component {
   renderRequestItem(item) {
     const { requestId, sender } = item;
     return(
-      <View>
+      <View requestId={requestId}>
+        <UserComponent userItem={sender} />
         <PrimaryText size={30}>{sender.username}</PrimaryText>
         <View style={{ flexDirection:"row" }}>
           <View>
@@ -96,7 +101,7 @@ class FriendRequestScreen extends Component {
         <AppBase >
           <FlatList
               data={friendRequests}
-              keyExtractor={index => index.toString()}
+              keyExtractor={(item, index) => item.requestId}
               ItemSeparatorComponent={userItemSeparator}
               renderItem={({index, item}) => this.renderRequestItem(item)}
             />
