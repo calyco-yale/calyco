@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, useWindowDimensions, ScrollView, Button, Dimensions  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import * as Updates from 'expo-updates';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
@@ -50,6 +51,7 @@ class UserProfileScreen extends Component {
     try {
         await Auth.signOut();
         Actions.loginScreen();
+        Updates.reloadAsync();
     } catch (error) {
         console.log('error signing out: ', error);
     }
