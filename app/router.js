@@ -24,12 +24,11 @@ const AppRouter = () => (
         hideNavBar
       />
 
-      <Scene key='tabBar' hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
+      <Scene key='tabBar' gesturesEnabled={false} hideNavBar tabs={true} tabBarStyle={styles.tabBar} default='Main'>
         <Scene 
           key='newsFeed' 
           component={NewsFeedScreen} 
-          hideNavBar 
-          gesturesEnabled={false}
+          hideNavBar
           icon={NewsFeedTab} 
           title='News Feed'
         />
@@ -37,15 +36,13 @@ const AppRouter = () => (
           key='searchScreen' 
           component={SearchScreen} 
           hideNavBar
-          gesturesEnabled={false}
           icon={SearchTab} 
           title='Search'
         />
         <Scene 
           key ="loggedInUserProfileScreen" 
           component={LoggedInUserProfileScreen} 
-          hideNavBar 
-          gesturesEnabled={false}
+          hideNavBar
           icon={ProfileTab} 
           title='My Profile'
         />
