@@ -4,6 +4,8 @@ import { TextInput, StyleSheet, Dimensions, View, Button, FlatList, Modal } from
 const { width } = Dimensions.get("window");
 import Post from '../components/Post'
 import { withNavigation } from 'react-navigation'
+import RoundButton from '../base_components/RoundButton';
+import Colors from '../../src/constants/colors';
 
 // Query imports
 import { API, graphqlOperation } from 'aws-amplify';
@@ -63,10 +65,10 @@ class NewsFeedComponent extends Component {
         try {
             const loggedInUser = await getloggedInUser()
             const postData = await API.graphql(graphqlOperation(listEvents))
-            console.log('POST DATA')
-            console.log(postData.data.listEvents.items)
-            console.log('USER DATA')
-            console.log(loggedInUser)
+            // console.log('POST DATA')
+            // console.log(postData.data.listEvents.items)
+            // console.log('USER DATA')
+            // console.log(loggedInUser)
             this.setState({posts: postData.data.listEvents.items, loggedInUser: loggedInUser });
         } catch (e) {
             console.log(e);
@@ -90,14 +92,15 @@ class NewsFeedComponent extends Component {
         const { posts, loggedInUser } = this.state;
         return (
             <View>    
-                <View style= {{ marginTop: 30}}>
-                    <Button
+                <View style= {{ marginTop: 50}}>
+                    <RoundButton
                         // onPress={() => this.createPost(loggedInUser.id, true,
                         // 'https://cdn2.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/05/beginner-gym-routine.jpg?itok=_YxId1cO&timestamp=1526380941'
                         // , 'Payne Whitney Gym', '10:00:00.000', '13:00:00.000', '2021-03-01', 'Workout')}
                         // title='Create Event'
                         onPress={() => Actions.createEventScreen()}
                         // onPress={() => this.deletePost()}
+                        buttonColor='grey'
                         title='Create Event'
                     />
                     {/* <Button style= {{ marginTop: 60}} title="Show Modal" onPress={this.toggleModalVisibility} />
@@ -115,7 +118,7 @@ class NewsFeedComponent extends Component {
                         </View>
                     </Modal> */}
                 </View>
-                <View style= {{ marginTop: 30, marginBottom: 150}}>
+                <View style= {{ marginTop: 10, marginBottom: 275}}>
                     <FlatList
                         data = {posts}
                         keyExtractor={(item) => item.id}
