@@ -16,7 +16,7 @@ class Post extends Component {
     constructor(props) {
         super(props);
         // "../../assets/" + props.profile_pic);
-        this.profile_pic = "../../assets/" + props.profile_pic;
+        this.profile_pic = props.profile_pic;
         this.event_pic = props.event_pic;
         this.event_name = props.event_name;
         this.event_date = props.event_date;
@@ -25,6 +25,7 @@ class Post extends Component {
         this.event_location = props.location;
         this.event_host = props.event_host;
         this.event_participants = props.event_participants;
+        this.event_description = props.event_description;
         this.state = {
             post_liked: false,
             view_participants: false
@@ -55,7 +56,7 @@ class Post extends Component {
                     <View>
                         <Image
                             style={styles.userPic}
-                            source={require('../../assets/profile_user.png')}
+                            source={{ uri: this.profile_pic }}
                         />
                     </View>
 
@@ -70,7 +71,8 @@ class Post extends Component {
                     <Text style = {styles.eventDate}> Date: {this.event_date} </Text>
                     <Text style = {styles.eventData}> Start: {this.start_time} </Text>
                     <Text style = {styles.eventData}> End: {this.end_time} </Text>
-                    <Text style = {styles.eventData}> Host: {this.event_host} </Text>
+                    <Text style = {styles.eventData}> Location: {this.event_location} </Text>
+                    <Text style = {styles.eventData}> Description: {this.event_description} </Text>
                 </View>
 
                 {/* Event picture */}
