@@ -38,6 +38,17 @@ export const listEventsShortened = /* GraphQL */ `
         location
         image_url
         public
+        userID
+        user {
+          id
+          email
+          username
+          first_name
+          last_name
+          dob
+          location
+          image_url
+        }
       }
     }
   }
