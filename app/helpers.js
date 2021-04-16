@@ -4,7 +4,7 @@ import UserComponent from "./components/User";
 import global from './global';
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
-import { getUser } from "../src/graphql/queries";
+import { getUser, getusersByEmail } from "../src/graphql/queries";
 import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
 import { getUsersByEmail } from "../src/graphql/custom_queries";
 
