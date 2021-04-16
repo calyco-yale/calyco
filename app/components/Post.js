@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import BR from '../base_components/BR';
 
 class Post extends Component {
     constructor(props) {
@@ -49,10 +50,10 @@ class Post extends Component {
                     {/* Username and event name*/}
                     <View>
                         <Text style = {styles.eventName}> {this.event_name} </Text>
-                        <Text style = {styles.username}> {this.event_host} </Text>
+                        <Text style = {styles.username}> @{this.event_host} </Text>
                     </View>
                 </View>
-
+                <BR size={10}/>
                 <View>
                     <Text style = {styles.eventDate}> Start: <Text style = {styles.eventText}> {this.start_time} </Text> </Text>
                     <Text style = {styles.eventData}> End: <Text style = {styles.eventText}>  {this.end_time} </Text> </Text>
@@ -109,17 +110,16 @@ class Post extends Component {
     
         eventName: {
             marginLeft: 5,
-            marginTop: 30,
+            marginTop: 25,
             fontFamily: "Futura",
-            fontSize: 18,
+            fontSize: 20,
             color: "orange"
-
         },
     
         eventDate: {
             marginLeft: 30,
             marginTop: 30,
-            fontFamily: "Futura",
+            fontFamily: "Futura-CondensedExtraBold",
             fontSize: 15
         },
 
@@ -131,14 +131,14 @@ class Post extends Component {
         eventData: {
             marginLeft: 30,
             marginTop: 2,
-            fontFamily: "Futura",
+            fontFamily: "Futura-CondensedExtraBold",
             fontSize: 15
         },
     
         username: {
             marginLeft: 8,
             marginTop: 5,
-            fontFamily: "Futura",
+            fontFamily: "Futura-MediumItalic",
         },
     
         userBar: {

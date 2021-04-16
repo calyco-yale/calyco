@@ -149,6 +149,7 @@ class CalendarEvent extends Component {
               // 1. for each date in event_dates --> mark dates
               // 2. if pressed date is in list of event dates => alert
             }}
+            style={{width: 350}}
           />
         </View>
       );

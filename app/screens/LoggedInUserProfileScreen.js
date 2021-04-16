@@ -105,9 +105,9 @@ class UserProfileScreen extends Component {
                 </View>
                 <View style={{ flex: 2 }}>
                   <PrimaryText size={'25px'} style={{ left: 15 }}>{loggedInUser.first_name + ' ' + loggedInUser.last_name}</PrimaryText>
-                  <PrimaryText size={'15px'} style={{ left: 15 }}>{'@' + loggedInUser.username}</PrimaryText>
-                  <PrimaryText>{loggedInUser.dob}</PrimaryText>
-
+                  <PrimaryText size={'15px'} style={{ left: 15, fontFamily: "Futura-MediumItalic" }}>{'@' + loggedInUser.username}</PrimaryText>
+                  <BR size={15}/>
+                  
                   <TextButton
                     onPress={() => this.signOutProfile()}
                     title={"Sign Out"}
@@ -139,7 +139,7 @@ class UserProfileScreen extends Component {
               <TabBar
                 {...props}
                 renderLabel={({ route, color }) => (
-                  <Text style={{ color: 'black', margin: 8, fontFamily: "Futura" }}>
+                  <Text style={{ color: 'black', margin: 8, fontSize: 17, fontFamily: "Futura" }}>
                     {route.title}
                   </Text>
                 )}
