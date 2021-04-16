@@ -93,25 +93,8 @@ LoginScreen.defaultProps = {
 };
 
 LoginScreen.propTypes = {
-  // loginLoading: PropTypes.bool.isRequired,
   loginError: PropTypes.object,
   loginMessage: PropTypes.object,
-  // authLogin: PropTypes.func.isRequired,
 };
 
-// function initMapStateToProps(state) {
-//   return {
-//     loginError: state.auth.loginError,
-//     loginLoading: state.auth.loginLoading,
-//     loginMessage: state.auth.loginMessage,
-//   };
-// }
-
-// function initMapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     authLogin,
-//   }, dispatch);
-// }
-
-// export default connect(initMapStateToProps, initMapDispatchToProps)(LoginScreen);
 export default LoginScreen;
