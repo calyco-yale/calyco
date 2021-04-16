@@ -8,12 +8,9 @@ import {
 } from "../helpers";
 
 import AppBase from "../base_components/AppBase";
-import PrimaryText from "../base_components/PrimaryText";
-
 import { API, graphqlOperation } from "aws-amplify";
 import { getUserFriendRequests } from "../../src/graphql/custom_queries";
 import { deleteFriendRequestById } from "../../src/graphql/custom_mutations";
-import { Actions } from "react-native-router-flux";
 import RoundButton from "../base_components/RoundButton";
 
 class FriendRequestScreen extends Component {

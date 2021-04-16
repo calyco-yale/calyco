@@ -40,7 +40,6 @@ class FriendScreen extends Component {
       <AppBase>
         <FlatList
           data={friends}
-          // keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={userItemSeparator}
           renderItem={renderUserItem}
         />

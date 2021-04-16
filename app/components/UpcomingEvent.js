@@ -44,26 +44,14 @@ class UpcomingEvent extends Component {
       } else {
         this.setState({ events: tempEvents });
       }
-      // const eventData = await API.graphql(
-      //   graphqlOperation(listEventsUpcoming)
-      // );
-      // this.setState({ events: eventData.data.listEvents.items });
     } catch (e) {
       console.log(e);
     }
   };
 
   componentDidMount() {
-    // this.didFocusListener = this.props.addListener("didFocus", () => {
-    //   if (this.state.events.length == 0) {
     this.fetchEventData();
-    // }
-    // });
   }
-
-  // componentWillUnmount() {
-  //   this.didFocusListener.remove();
-  // }
 
   parseEventsNames = events => {
     const listOfNames = {};
@@ -107,28 +95,7 @@ class UpcomingEvent extends Component {
   render() {
     const { events } = this.state;
     if (events) {
-      // const listOfNames = this.parseEventsNames(events);
-      // const listOfStartTimes = this.parseEventsStartTimes(events);
-      // const listOfEndTimes = this.parseEventsEndTimes(events);
-
-      // const ordered_names = {};
-      // Object.keys(listOfNames).sort().forEach(function(key) {
-      //   ordered_names[key] = listOfNames[key];
-      // });
-
-      // const ordered_start_time = {};
-      // Object.keys(listOfStartTimes).sort().forEach(function(key) {
-      //   ordered_start_time[key] = listOfStartTimes[key];
-      // });
-
-      // const ordered_end_time = {};
-      // Object.keys(listOfEndTimes).sort().forEach(function(key) {
-      //   ordered_end_time[key] = listOfEndTimes[key];
-      // });
-
       const sortedEvents = this.sortEvents(events);
-      // if (sortedEvents[0])
-      //   console.log(sortedEvents[0].start_datetime.substring(0, 10));
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -145,12 +112,6 @@ class UpcomingEvent extends Component {
               </BoxSimple>
             );
           })}
-
-          {/* <Post
-            event_name={listOfNames[0]}
-            // event_date={item.item.event_date}
-            // event_host={item.item.event_host}
-          />; */}
         </View>
       );
     }

@@ -3,8 +3,7 @@ import { View, useWindowDimensions, Text, ScrollView, Button } from 'react-nativ
 import BoxSimple from '../components/EventBox'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import NewsFeedComponent from '../components/NewsFeed';
-import { FlatList } from 'react-native';
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 
 const FirstRoute = () => (
   <>
@@ -28,7 +27,6 @@ const FirstRoute = () => (
 
 const SecondRoute = () => (
   <>
-  {/* Yunji code here */}
   <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
     <BoxSimple style= {{backgroundColor: '#ffffff'}}>
       <NewsFeedComponent></NewsFeedComponent>
@@ -42,7 +40,6 @@ const SecondRoute = () => (
 
 export default function ProfilePage() {
   const layout = useWindowDimensions();
-
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'Calendar' },
@@ -57,7 +54,6 @@ export default function ProfilePage() {
   return (
     <>
     <View style={{ flex: 0.4, backgroundColor: '#ffffff' }} />
-    {/* Brian code here */}
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}

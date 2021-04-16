@@ -23,10 +23,6 @@ class LoginScreen extends Component {
     }
   }
 
-  async componentWillReceiveProps(nextProps, nextContext) {
-    await this.handleRedirect(nextProps.loginMessage);
-  }
-
   handleLoginSubmit = async () => {
     const { email, password } = this.state;
     try {

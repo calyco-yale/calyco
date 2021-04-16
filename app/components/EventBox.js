@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+
 const BoxSimple = ({ children }) => (
     <View style={styles.boxSimple}>
         {children}

@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, useWindowDimensions, ScrollView, Button, Dimensions  } from 'react-native';
-import BoxSimple from '../components/EventBox'
+import { View, Text, ScrollView, Button, Dimensions  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
-import NewsFeedComponent from '../components/NewsFeed';
 import CalendarEvent from '../components/CalendarEvent';
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification } from '../helpers';
-
 import UpcomingEvent from '../components/UpcomingEvent';
-
 import { Actions } from 'react-native-router-flux';
-
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
-import { deleteFriendshipById, deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
+import { deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 
 
 class UserProfileScreen extends Component {
@@ -91,7 +84,6 @@ class UserProfileScreen extends Component {
   }
 
   // Tab Related Functions
-
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -106,7 +98,6 @@ class UserProfileScreen extends Component {
   
   SecondRoute = () => (
     <>
-    {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
       <UpcomingEvent user = {this.state.user} loggedIn = {false}></UpcomingEvent>
     </ScrollView>
@@ -174,7 +165,6 @@ class UserProfileScreen extends Component {
               <PrimaryText size={'26px'}>{user.username}</PrimaryText>
               <PrimaryText size = {'20px'}>{user.first_name + ' ' + user.last_name}</PrimaryText>
               <PrimaryText>{user.dob}</PrimaryText>
-
               <TextButton
                 onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
                 title={"Display Friends"}

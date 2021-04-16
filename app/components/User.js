@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   listItem: {
     width: "100%",
     padding: 15,
-    // backgroundColor: "#f8f8f8",
     borderColor: "#c7c7c7",
     borderBottomWidth: 1
   },

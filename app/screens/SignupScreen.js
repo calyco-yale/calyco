@@ -126,19 +126,4 @@ SignupScreen.propTypes = {
   authRegister: PropTypes.func.isRequired,
 };
 
-// function initMapStateToProps(state) {
-//   return {
-//     registerMessage: state.auth.registerMessage,
-//     registerError: state.auth.registerError,
-//     registerLoading: state.auth.registerLoading,
-//   };
-// }
-
-// function initMapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     authRegister,
-//   }, dispatch);
-// }
-
-// export default connect(initMapStateToProps, initMapDispatchToProps)(SignupScreen);
 export default SignupScreen;

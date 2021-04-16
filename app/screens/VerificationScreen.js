@@ -43,9 +43,7 @@ class VerificationScreen extends Component {
 
   render() {
     const { code } = this.state;
-
     const disableSubmit = (!code || code.length != 6);
-
     return (
       <VerificationComponent
         onCodeChange={this.handleCodeChange}

@@ -9,7 +9,6 @@ import UserProfileScreen from './screens/UserProfileScreen'
 import LoggedInUserProfileScreen from './screens/LoggedInUserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
-// import ProfilePage from './screens/ProfilePage'; 
 import NewsFeedScreen from './screens/NewsFeedScreen';
 import CreateEventScreen from './screens/CreateEventScreen.js';
 

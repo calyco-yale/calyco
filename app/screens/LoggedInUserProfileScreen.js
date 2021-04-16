@@ -9,7 +9,6 @@ import CalendarEvent from '../components/CalendarEvent';
 import UpcomingEvent from '../components/UpcomingEvent';
 import ProfileBar from '../components/ProfileBar';
 import { getloggedInUser } from '../helpers';
-
 import { Auth } from 'aws-amplify';
 import { Actions } from 'react-native-router-flux';
 
@@ -46,7 +45,7 @@ class UserProfileScreen extends Component {
     this.didFocusListener.remove();
   }
 
-  //Sign out Function
+  // Sign out Function
   signOutProfile = async () => {
     try {
         await Auth.signOut();
@@ -58,7 +57,6 @@ class UserProfileScreen extends Component {
   }
 
   // Tab Related Functions
-
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -73,7 +71,6 @@ class UserProfileScreen extends Component {
   
   SecondRoute = () => (
     <>
-    {/* Yunji code here */}
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
       <UpcomingEvent user = {this.state.loggedInUser} loggedIn = {true}></UpcomingEvent>
     </ScrollView>

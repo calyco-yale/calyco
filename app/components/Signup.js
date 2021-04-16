@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { Actions } from 'react-native-router-flux';
-
-
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
-import TextButton from '../base_components/TextButton';
 
 class SignupComponent extends Component {
   render() {

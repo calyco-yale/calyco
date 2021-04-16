@@ -1,16 +1,12 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-
 import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
 import SecondaryText from '../base_components/SecondaryText';
 import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
 import TextButton from '../base_components/TextButton';
-import Colors from '../../src/constants/colors';
 
 class VerificationComponent extends Component {
   render() {

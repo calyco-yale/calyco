@@ -1,11 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import { Actions } from 'react-native-router-flux';
-
-
 import NewsFeedComponent from '../components/NewsFeed';
 
 
@@ -18,11 +12,5 @@ class NewsFeedScreen extends Component {
         );
     }
   }
-  
-//   NewsFeedScreen.defaultProps = {
-//   };
-  
-//   NewsFeedScreen.propTypes = {
-//   };
 
-  export default NewsFeedScreen;
+export default NewsFeedScreen;

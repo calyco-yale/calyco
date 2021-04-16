@@ -67,8 +67,7 @@ class CreateEventComponent extends Component {
       loading, registerMessage, registerError,
       onEventCreationSubmit, onPublicChange,
       onEventNameChange,
-      onStartTimeChange, onEndTimeChange,
-      onEventImageChange, disableCreateEvent,
+      onStartTimeChange, onEndTimeChange, disableCreateEvent,
       onDescriptionChange, onParticipantsChange,
     } = this.props;
 
@@ -202,7 +201,6 @@ class CreateEventComponent extends Component {
                 <TouchableOpacity
                 style={styles.selected}
                 onPress={this.pickImage}
-                // {...onEventImageChange(this.state.image)}
                 >
                 <MaterialCommunityIcons name="plus-box" size={50} />
                 </TouchableOpacity>

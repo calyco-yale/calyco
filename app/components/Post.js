@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native'
-import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
-import { Actions } from 'react-native-router-flux';
-
-import AppBase from '../base_components/AppBase';
-import PrimaryText from '../base_components/PrimaryText';
-import BR from '../base_components/BR';
-import TextInput from '../base_components/TextInput';
-import RoundButton from '../base_components/RoundButton';
-import TextButton from '../base_components/TextButton';
-import { configure } from '@react-native-community/netinfo';
 
 class Post extends Component {
     constructor(props) {
         super(props);
-        // "../../assets/" + props.profile_pic);
         this.profile_pic = props.profile_pic;
         this.event_pic = props.event_pic;
         this.event_name = props.event_name;
@@ -87,7 +75,7 @@ class Post extends Component {
                             source={require('../../assets/heart_button.png')}
                         />
                     </TouchableOpacity>
-                    {/* view event event_participants */}
+                    {/* view event participants */}
                     <TouchableOpacity
                         onPress={() =>{
                             alert("The participants are: " + this.event_participants);

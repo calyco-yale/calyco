@@ -6,12 +6,10 @@ import { Actions } from "react-native-router-flux";
 
 import AppBase from "../base_components/AppBase";
 import PrimaryText from "../base_components/PrimaryText";
-import SecondaryText from "../base_components/SecondaryText";
 import BR from "../base_components/BR";
 import TextInput from "../base_components/TextInput";
 import RoundButton from "../base_components/RoundButton";
 import TextButton from "../base_components/TextButton";
-import Colors from "../../src/constants/colors";
 
 class LoginComponent extends Component {
   render() {
@@ -92,7 +90,6 @@ LoginComponent.defaultProps = {
 
 LoginComponent.propTypes = {
   disableLogin: PropTypes.bool.isRequired,
-  // loading: PropTypes.bool.isRequired,
   loginError: PropTypes.object,
   onEmailChange: PropTypes.func.isRequired,
   onPasswordChange: PropTypes.func.isRequired,

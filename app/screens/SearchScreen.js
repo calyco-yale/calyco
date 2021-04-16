@@ -1,16 +1,10 @@
-// Redirect here when search icon clicked in navbar
-
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Colors from '../../src/constants/colors';
 import {renderUserItem, userItemSeparator} from '../helpers';
-
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsersShortened } from '../../src/graphql/custom_queries';
-
-import {suggestTimes} from '../helpers'
-import { getUser } from '../../src/graphql/queries';
 
 class SearchScreen extends Component {
   constructor(props) {
@@ -24,12 +18,6 @@ class SearchScreen extends Component {
 
   fetchUserData = async () => {
     try {
-      // Example of suggestTimes algorithm usage
-      // const jinny = await API.graphql(graphqlOperation(getUser, { id: 'b9ea6a53-3922-4c09-ad6d-30557623014e' }))
-      // const rina = await API.graphql(graphqlOperation(getUser, { id: '662ee4a5-0510-4616-a315-0cdb4f742c63' }))
-      // const daniel = await API.graphql(graphqlOperation(getUser, { id: '3b3d84e2-feda-4b3e-a055-a11b84c43f54' }))
-      // console.log(suggestTimes([jinny.data.getUser, rina.data.getUser, daniel.data.getUser], "2021-04-04"))
-
       const userData = await API.graphql(graphqlOperation(listUsersShortened))
       this.setState({allData: userData.data.listUsers.items})
     } catch (e) {
@@ -82,7 +70,6 @@ class SearchScreen extends Component {
 
         <FlatList
           data={filteredData}
-          // keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={userItemSeparator}
           renderItem={renderUserItem}
         />

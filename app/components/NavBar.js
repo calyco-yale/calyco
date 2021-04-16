@@ -1,12 +1,9 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, ImageBackground } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import SignupScreen from '../screens/SignupScreen';
 import NewsFeedScreen from '../screens/NewsFeedScreen';
-// import ProfilePage from '../screens/ProfilePage';
 
 function Feed() {
   return (

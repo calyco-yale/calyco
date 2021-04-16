@@ -7,25 +7,22 @@ import { API, graphqlOperation } from "aws-amplify";
 import { getUser, getusersByEmail } from "../src/graphql/queries";
 import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
 import { getUsersByEmail } from "../src/graphql/custom_queries";
+import * as Notifications from 'expo-notifications';
 
 export const retrieveOffset = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset();
-  // console.log(date);
-  // console.log(offset);
   global.offset = offset;
   return offset;
 }
 
-//sign for whether the user is recieving or sending time requests
+//sign for whether the user is receiving or sending time requests
 export const getCorrectTime = (date, sign) => {
   const offset = global.offset;
   var currDate = new Date(date);
   currDate.setMinutes(currDate.getMinutes() + (sign)*offset);
   return new Date(currDate);
 }
-
-import * as Notifications from 'expo-notifications';
 
 // Get currently logged in user
 export const getloggedInUser = async () => {
