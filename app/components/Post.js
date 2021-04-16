@@ -19,10 +19,8 @@ class Post extends Component {
         this.profile_pic = props.profile_pic;
         this.event_pic = props.event_pic;
         this.event_name = props.event_name;
-        this.event_date = props.event_date;
-        this.start_time = props.start_time;
-        this.end_time = props.end_time;
-        this.event_location = props.location;
+        this.event_start_datetime = props.start_datetime;
+        this.event_end_datetime = props.end_datetime;
         this.event_host = props.event_host;
         this.event_participants = props.event_participants;
         this.event_description = props.event_description;
@@ -69,9 +67,8 @@ class Post extends Component {
 
                 <View>
                     <Text style = {styles.eventDate}> Date: {this.event_date} </Text>
-                    <Text style = {styles.eventData}> Start: {this.start_time} </Text>
-                    <Text style = {styles.eventData}> End: {this.end_time} </Text>
-                    <Text style = {styles.eventData}> Location: {this.event_location} </Text>
+                    <Text style = {styles.eventData}> Start: {this.event_start_datetime} </Text>
+                    <Text style = {styles.eventData}> End: {this.event_end_datetime} </Text>
                     <Text style = {styles.eventData}> Description: {this.event_description} </Text>
                 </View>
 

@@ -6,16 +6,20 @@ import CreateEventComponent from '../components/CreateEvent';
 // query imports
 import { API, graphqlOperation } from 'aws-amplify';
 import { listEventsShortened } from '../../src/graphql/custom_queries';
+import { listUsersShortened } from '../../src/graphql/custom_queries';
 import { Actions } from 'react-native-router-flux';
 import { createEvent, deleteEvent} from '../../src/graphql/custom_mutations';
 import { getloggedInUser } from '../helpers';
 import { getUser } from '../../src/graphql/queries';
+import {renderUserItem, userItemSeparator} from '../helpers';
+
 
 class CreateEventScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
         // host object, pass in username, profile picture into the create event component
+        all_usernames: [],
         user: null,
         user_data: null,
         is_public: null,
@@ -106,7 +110,8 @@ class CreateEventScreen extends Component {
     try {
         const user = await getloggedInUser()
         const loggedInUserData = await API.graphql(graphqlOperation(getUser, { id: user.id }))
-        this.setState({user: user, userData: loggedInUserData});
+        const all_usernames = await API.graphql(graphqlOperation(listUsersShortened))
+        this.setState({user: user, userData: loggedInUserData, all_usernames: all_usernames});
         console.log('BRUH MOMENT')
         console.log(user);
         console.log(loggedInUserData)
@@ -132,8 +137,26 @@ componentWillUnmount() {
   render() {
     const { registerLoading, registerError, registerMessage } = this.props;
     // add error checking to parameters
-    const { host, is_public, event_pic, event_name, event_date, start_time, end_time, location} = this.state;
-    const disableCreateEvent = false;
+    const { user, host, is_public, event_pic, event_name, event_date, start_time, end_time, location} = this.state;
+
+    // Check for valid participant username
+    var validUsernames = true;
+    var usernames = participants.split(",")
+    // for (var i = 0; i < usernames.length; i ++) {
+    //   // if username doesnt exist, don't create event
+    //   var username = usernames[i];
+    //   all_usernames.filter(function (username) {
+    //     const itemData = username ? username.toUpperCase() : ''.toUpperCase();
+    //     const textData = text.toUpperCase();
+    //     if (itemData.indexOf(textData) <= -1) {
+    //         validUsernames = false;
+    //     }
+    //   });
+    // }
+
+    const disableCreateEvent = (!validUsernames || is_public != 'true' || is_public != 'false' ||
+        !location || location.length === 0 || 
+        !event_name || event_name.length === 0);
 
     return (
       <CreateEventComponent
