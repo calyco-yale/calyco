@@ -9,7 +9,7 @@ import NewsFeedComponent from '../components/NewsFeed';
 import CalendarEvent from '../components/CalendarEvent';
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
-import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship } from '../helpers';
+import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification } from '../helpers';
 
 import UpcomingEvent from '../components/UpcomingEvent';
 
@@ -83,6 +83,7 @@ class UserProfileScreen extends Component {
     try {
       await API.graphql(graphqlOperation(createSimpleFriendRequest, { userId: userId, senderId: loggedInUser.id }))
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
+      await sendFriendNotification(userData.data.getUser.pushToken);
       this.setState({user: userData.data.getUser});
     } catch (e) {
       console.log(e);

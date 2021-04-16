@@ -24,6 +24,8 @@ export const getCorrectTime = (date, sign) => {
   return new Date(currDate);
 }
 
+import * as Notifications from 'expo-notifications';
+
 // Get currently logged in user
 export const getloggedInUser = async () => {
   const { attributes } = await Auth.currentAuthenticatedUser();
@@ -197,3 +199,29 @@ export const userItemSeparator = () => {
     />
   );
 };
+
+// Sends a friend notification to the device associated with expoPushToken
+export const sendFriendNotification = async (expoPushToken) => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: 'Calyco',
+    body: 'You have a pending friend request!',
+  };
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}

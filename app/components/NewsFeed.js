@@ -7,12 +7,15 @@ import { withNavigation } from 'react-navigation'
 import RoundButton from '../base_components/RoundButton';
 import Colors from '../../src/constants/colors';
 
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+
 // Query imports
 import { API, graphqlOperation } from 'aws-amplify';
-import { listEventsShortened } from '../../src/graphql/custom_queries';
-import { listEvents } from '../../src/graphql/queries'
+import { listEvents, getUser } from '../../src/graphql/queries'
 import { Actions } from 'react-native-router-flux';
 import { createEvent, deleteEvent} from '../../src/graphql/custom_mutations';
+import { updateUser } from '../../src/graphql/mutations';
 import { getloggedInUser } from '../helpers';
 
 class NewsFeedComponent extends Component {
@@ -75,6 +78,41 @@ class NewsFeedComponent extends Component {
         }
     }
 
+    registerForPushNotificationsAsync = async () => {
+        const loggedInUser = await getloggedInUser();
+        if (Constants.isDevice) {
+            const { status: existingStatus } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== 'granted') {
+                const { status } = await Notifications.requestPermissionsAsync();
+                finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+                alert('Failed to get push token for push notification!');
+                return;
+            }
+
+            // Add pushToken to backend
+            const token = (await Notifications.getExpoPushTokenAsync()).data;
+            const userData = {
+                id: loggedInUser.id,
+                pushToken: token,
+            };
+            await API.graphql(graphqlOperation(updateUser, {input: userData}));
+            } else {
+            alert('Must use physical device for Push Notifications');
+            }
+        
+            if (Platform.OS === 'android') {
+            Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: '#FF231F7C',
+            });
+            }        
+    };
+
     componentDidMount() {
         this.didFocusListener = this.props.navigation.addListener(
           'didFocus',
@@ -90,6 +128,7 @@ class NewsFeedComponent extends Component {
 
   render() {
         const { posts, loggedInUser } = this.state;
+        this.registerForPushNotificationsAsync();
         return (
             <View>    
                 <View style= {{ marginTop: 50}}>
