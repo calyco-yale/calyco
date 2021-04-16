@@ -18,13 +18,24 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import DatePicker from 'react-native-datepicker'
 
+const createDateTime = () => {
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  var hours = new Date().getHours(); //To get the Current Hours
+  var min = new Date().getMinutes();
+
+  var dateTimeString = year + "-" + month + "-" + date + " " + hours + ":" + min;
+  return dateTimeString
+};
+
 class CreateEventComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             image: null, 
-            datetime: '2021-04-16 20:00',
-            datetime1: '2021-04-16 20:00'
+            datetime: createDateTime(),
+            datetime1: createDateTime()
         };
     }
 
@@ -48,17 +59,6 @@ class CreateEventComponent extends Component {
                 }
             }
         }
-    };
-
-    createDateTime = () => {
-      var date = new Date().getDate(); //To get the Current Date
-      var month = new Date().getMonth() + 1; //To get the Current Month
-      var year = new Date().getFullYear(); //To get the Current Year
-      var hours = new Date().getHours(); //To get the Current Hours
-      var min = new Date().getMinutes();
-
-      var dateTimeString = year + "-" + date + "-" + month + "-" + date + " " + hours + ":" + min;
-      return dateTimeString
     };
 
   render() {
