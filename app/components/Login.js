@@ -39,7 +39,7 @@ class LoginComponent extends Component {
           <PrimaryText>
             {loginError.message}
           </PrimaryText>}
-        <BR size={50} />
+        <BR size={10} />
 
         <TextInput
           autoCorrect={false}

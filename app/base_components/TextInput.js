@@ -11,5 +11,6 @@ const TextInput = styled.TextInput`
   border: 0 solid #ddd;
   border-bottom-width: ${Platform.OS === 'ios' ? '1px' : '0px'};
   border-bottom-color: #ddd;
+  font-family: Futura;
   `;
 export default TextInput;

@@ -34,6 +34,7 @@ const ButtonText = styled.Text`
   text-align: center;
   width: 100%;
   padding: ${props => (props.small ? '10px;' : '20px;')}
+  font-family: Futura;
 `;
 
 /**

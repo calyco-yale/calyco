@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { Actions } from 'react-native-router-flux';
-import { Button, Text, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -102,7 +102,7 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="*Event Name (eg: birthday)"
+          placeholder="*Event Name (e.g. birthday)"
         />
         <TextInput
           autoCorrect={false}
@@ -113,7 +113,7 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="*Public (eg: true/false)"
+          placeholder="*Public (e.g. true/false)"
         />
         <TextInput
           autoCorrect={false}
@@ -124,7 +124,7 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="*Description (eg: alex's bday)"
+          placeholder="*Description (e.g. alex's bday)"
         />
         <BR />
         <BR>
@@ -196,17 +196,7 @@ class CreateEventComponent extends Component {
                 </TouchableOpacity>
             }
         </View>
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
-        <BR />
+        <BR size={200}/>
         <RoundButton
           title="Add Participants"
           onPress={Actions.addParticipantsScreen}
@@ -251,7 +241,7 @@ const styles = StyleSheet.create({
     },
     Title: {
       marginBottom: 10,
-      fontFamily: "Arial",
+      fontFamily: "Futura",
       fontSize: 40,
       color: "orange"
     }

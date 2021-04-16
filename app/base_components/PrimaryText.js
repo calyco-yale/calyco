@@ -7,6 +7,7 @@ const PrimaryText = styled.Text`
   text-align: ${props => (props.align ? props.align : 'center')};
   font-weight: ${props => (props.bold ? 'bold;' : 'normal;')};
   font-size: ${props => (props.size ? props.size : '16px')};
+  font-family: Futura;
 `;
 
 

@@ -110,7 +110,7 @@ class Post extends Component {
         eventName: {
             marginLeft: 5,
             marginTop: 30,
-            fontFamily: "Georgia-Bold",
+            fontFamily: "Futura",
             fontSize: 18,
             color: "orange"
 
@@ -119,26 +119,26 @@ class Post extends Component {
         eventDate: {
             marginLeft: 30,
             marginTop: 30,
-            fontFamily: "Georgia-Bold",
+            fontFamily: "Futura",
             fontSize: 15
         },
 
         eventText: {
-            fontFamily: "Georgia",
+            fontFamily: "Futura",
         },
 
             
         eventData: {
             marginLeft: 30,
             marginTop: 2,
-            fontFamily: "Georgia-Bold",
+            fontFamily: "Futura",
             fontSize: 15
         },
     
         username: {
             marginLeft: 8,
             marginTop: 5,
-            fontFamily: "Georgia-Bold",
+            fontFamily: "Futura",
         },
     
         userBar: {

@@ -1,83 +1,41 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import NewsFeedScreen from '../screens/NewsFeedScreen';
-
-function Feed() {
+export const NewsFeedTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const newsFeedIconFocused = require("../../assets/home-variant.png")
+  const newsFeedIconUnfocused = require("../../assets/home-variant-outline.png")
+  let newsFeedIcon = props.focused ? newsFeedIconFocused : newsFeedIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <NewsFeedScreen />
-    </View>
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={newsFeedIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>News Feed</Text>
+  </View>
   );
 }
 
-function Profile() {
+export const SearchTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const searchIconFocused = require("../../assets/account-search.png")
+  const searchIconUnfocused = require("../../assets/account-search-outline.png")
+  let searchIcon = props.focused ? searchIconFocused : searchIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ProfilePage />
-    </View>
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={searchIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Search</Text>
+  </View>
   );
 }
 
-function Notifications() {
+export const ProfileTab = (props) => {
+  let textColor = props.focused ? '#333333' : '#999999'
+  const profileIconFocused = require("../../assets/account-circle.png")
+  const profileIconUnfocused = require("../../assets/account-circle-outline.png")
+  let profileIcon = props.focused ? profileIconFocused : profileIconUnfocused
+  let borderColor = props.focused ? '#333333' : '#FFFFFF'
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notifications!</Text>
-    </View>
+  <View style={{flex: 1, flexDirection:'column', alignItems:'center', justifyContent:'center', borderTopColor: borderColor, borderTopWidth:4, padding:20}}>
+  <Image source ={profileIcon} style={{width: 20, height: 20}} />
+  <Text style={{color: textColor}}>Profile</Text>
+  </View>
   );
-}
-
-const Tab = createMaterialBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator
-      initialRouteName="Feed"
-      activeColor="#FFFFFF"
-      labelStyle={{ fontSize: 12 }}
-      style={{ backgroundColor: 'tomato' }}
-      barStyle={{ backgroundColor: 'gray' }}
-    >
-      <Tab.Screen
-        name="Feed"
-        component={Feed}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          tabBarLabel: 'Events',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
-export default function NavBar() {
-  return(
-    <NavigationContainer>
-    <MyTabs />
-  </NavigationContainer>
-  )
 }

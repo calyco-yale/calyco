@@ -5,6 +5,8 @@ import * as Updates from 'expo-updates';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
+import BR from '../base_components/BR';
+import RoundButton from '../base_components/RoundButton';
 import CalendarEvent from '../components/CalendarEvent';
 import UpcomingEvent from '../components/UpcomingEvent';
 import ProfileBar from '../components/ProfileBar';
@@ -19,7 +21,7 @@ class UserProfileScreen extends Component {
     this.state = {
       loggedInUser: null,
       index: 0,
-      routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'Upcoming Events' }]
+      routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'My Events' }]
     };
   };
 
@@ -60,10 +62,13 @@ class UserProfileScreen extends Component {
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <Button
+      <BR size={5} />
+      <RoundButton
       title="Add Event"
-      color="#841584"
+      onPress={() => Actions.createEventScreen()}
+      buttonColor='grey'
       />
+      <BR size={5}/>
       <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true}/>
     </ScrollView>
     </>
@@ -100,7 +105,7 @@ class UserProfileScreen extends Component {
                 </View>
                 <View style={{ flex: 2 }}>
                   <PrimaryText size={'25px'} style={{ left: 15 }}>{loggedInUser.first_name + ' ' + loggedInUser.last_name}</PrimaryText>
-                  <PrimaryText size={'15px'} style={{ left: 15, fontWeight: '200' }}>{'@' + loggedInUser.username}</PrimaryText>
+                  <PrimaryText size={'15px'} style={{ left: 15 }}>{'@' + loggedInUser.username}</PrimaryText>
                   <PrimaryText>{loggedInUser.dob}</PrimaryText>
 
                   <TextButton
@@ -134,7 +139,7 @@ class UserProfileScreen extends Component {
               <TabBar
                 {...props}
                 renderLabel={({ route, color }) => (
-                  <Text style={{ color: 'black', margin: 8 }}>
+                  <Text style={{ color: 'black', margin: 8, fontFamily: "Futura" }}>
                     {route.title}
                   </Text>
                 )}
@@ -147,7 +152,7 @@ class UserProfileScreen extends Component {
     } else {
       return (
       <AppBase> 
-        <Text style = {{fontSize: 25, marginTop: 100}}>
+        <Text style = {{fontSize: 25, marginTop: 100, fontFamily: "Futura"}}>
           Loading...
         </Text>
       </AppBase>

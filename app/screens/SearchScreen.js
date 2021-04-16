@@ -66,6 +66,7 @@ class SearchScreen extends Component {
           onChangeText={(text) => this._filterSearch(text)}
           onClear={() => this._filterSearch("")}
           value={search}
+          style= {{fontFamily: "Futura"}}
         />
 
         <FlatList

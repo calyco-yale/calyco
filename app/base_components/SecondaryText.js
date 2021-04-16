@@ -6,6 +6,7 @@ const SecondaryText = styled.Text`
   width: 100%;
   text-align: ${props => (props.align ? props.align : 'left')};
   font-size: ${props => (props.size ? props.size : '16px')};
+  font-family: Futura;
 `;
 
 
