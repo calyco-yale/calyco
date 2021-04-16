@@ -38,18 +38,16 @@ class NewsFeedComponent extends Component {
             profile_pic={item.item.user.image_url}
             event_pic={item.item.image_url}
             event_name={item.item.name}
-            event_date={item.item.date}
-            start_time={item.item.start_time}
-            end_time={item.item.end_time}
-            location={item.item.location}
+            start_time={item.item.start_datetime}
+            end_time={item.item.end_datetime}
             event_host={item.item.user.username}
             event_participants={item.item.participants}
         />;
     }
 
-    createPost = async(loggedInUser, isPublic, image_url, location, end_time, start_time, date, hostName) => {
+    createPost = async(loggedInUser, isPublic, image_url, end_datetime, start_datetime, hostName) => {
         try {
-            await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: isPublic, image_url: image_url, location: location, end_time: end_time, start_time: start_time, date: date, name: hostName}))
+            await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: isPublic, image_url: image_url, end_datetime: end_datetime, start_datetime: start_datetime, name: hostName}))
           } catch (e) {
             console.log(e);
           }
