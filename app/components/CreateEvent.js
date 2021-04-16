@@ -16,11 +16,15 @@ import TextButton from '../base_components/TextButton';
 import EventImage from '../components/EventImage';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import DatePicker from 'react-native-datepicker'
+
 class CreateEventComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: null
+            image: null, 
+            datetime: '2021-04-16 20:00',
+            datetime1: '2021-04-16 20:00'
         };
     }
 
@@ -44,6 +48,17 @@ class CreateEventComponent extends Component {
                 }
             }
         }
+    };
+
+    createDateTime = () => {
+      var date = new Date().getDate(); //To get the Current Date
+      var month = new Date().getMonth() + 1; //To get the Current Month
+      var year = new Date().getFullYear(); //To get the Current Year
+      var hours = new Date().getHours(); //To get the Current Hours
+      var min = new Date().getMinutes();
+
+      var dateTimeString = year + "-" + date + "-" + month + "-" + date + " " + hours + ":" + min;
+      return dateTimeString
     };
 
   render() {
@@ -88,7 +103,48 @@ class CreateEventComponent extends Component {
           placeholder="Event Name"
         />
         <BR />
-        <TextInput
+        <DatePicker
+          style={{width: 200}}
+          date={this.state.datetime}
+          mode="datetime"
+          format="YYYY-MM-DD HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
+          }}
+          onDateChange={(datetime) => {this.setState({datetime: datetime});}}
+        />
+        <DatePicker
+          style={{width: 200}}
+          date={this.state.datetime1}
+          mode="datetime"
+          format="YYYY-MM-DD HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
+          }}
+          minuteInterval={10}
+          onDateChange={(datetime) => {this.setState({datetime1: datetime});}}
+        />
+        {/* <TextInput
           autoCorrect={false}
           onChangeText={debounce(onEventDateChange, 500)}
           style={{
@@ -122,7 +178,7 @@ class CreateEventComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="End Time"
-        />
+        /> */}
         <BR />
         <TextInput
           autoCorrect={false}
