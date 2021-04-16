@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderRadius: 10,
+    fontFamily: 'Futura'
   },
   request_displays: {
     width: '80%',
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderRadius: 10,
+    fontFamily: 'Futura'
   },
   sign_out: {
     color: 'red',
@@ -193,6 +195,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderRadius: 10,
+    fontFamily: 'Futura'
   },
   
 });
