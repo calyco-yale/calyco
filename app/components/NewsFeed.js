@@ -1,12 +1,16 @@
 import { navItem } from '@aws-amplify/ui';
-import React, { Component } from 'react';
-import { View, Button, FlatList } from 'react-native';
+import React, { Component, useState } from 'react';
+import { TextInput, StyleSheet, Dimensions, View, Button, FlatList, Modal } from 'react-native';
+const { width } = Dimensions.get("window");
 import Post from '../components/Post'
 import { withNavigation } from 'react-navigation'
+import RoundButton from '../base_components/RoundButton';
+import Colors from '../../src/constants/colors';
 
 // Query imports
 import { API, graphqlOperation } from 'aws-amplify';
 import { listEventsShortened } from '../../src/graphql/custom_queries';
+import { listEvents } from '../../src/graphql/queries'
 import { Actions } from 'react-native-router-flux';
 import { createEvent, deleteEvent} from '../../src/graphql/custom_mutations';
 import { getloggedInUser } from '../helpers';
@@ -19,18 +23,24 @@ class NewsFeedComponent extends Component {
           loggedInUser: null
         }
     };
+      
+    // Create toggleModalVisibility function that will
+    // Open and close modal upon button clicks.
+    toggleModalVisibility = () => {
+        this.isModalVisible = !this.isModalVisible;
+    };
     
     _renderPost(item){
         return <Post
-        profile_pic={'profile_user.png'}
-        event_pic={item.item.image_url}
-        event_name={item.item.name}
-        event_date={item.item.date}
-        start_time={item.item.start_time}
-        end_time={item.item.end_time}
-        location={item.item.location}
-        event_host={'daniel.li.djl87@yale.edu'}
-        event_participants={'Daniel Li'}
+            profile_pic={item.item.user.image_url}
+            event_pic={item.item.image_url}
+            event_name={item.item.name}
+            event_date={item.item.date}
+            start_time={item.item.start_time}
+            end_time={item.item.end_time}
+            location={item.item.location}
+            event_host={item.item.user.username}
+            event_participants={item.item.participants}
         />;
     }
 
@@ -45,7 +55,7 @@ class NewsFeedComponent extends Component {
 
     deletePost = async() => {
         try {
-            await API.graphql(graphqlOperation(deleteEvent, { id: '73b7ddd4-9c3e-4708-9889-c79437fed1ce' }))
+            await API.graphql(graphqlOperation(deleteEvent, { id: 'c14db569-952d-492d-ac1b-f5685526f303' }))
         } catch (e) {
             console.log(e);
         }
@@ -54,7 +64,11 @@ class NewsFeedComponent extends Component {
     fetchRequestData = async () => {
         try {
             const loggedInUser = await getloggedInUser()
-            const postData = await API.graphql(graphqlOperation(listEventsShortened))
+            const postData = await API.graphql(graphqlOperation(listEvents))
+            // console.log('POST DATA')
+            // console.log(postData.data.listEvents.items)
+            // console.log('USER DATA')
+            // console.log(loggedInUser)
             this.setState({posts: postData.data.listEvents.items, loggedInUser: loggedInUser });
         } catch (e) {
             console.log(e);
@@ -78,30 +92,35 @@ class NewsFeedComponent extends Component {
         const { posts, loggedInUser } = this.state;
         return (
             <View>    
-                <View style= {{ marginTop: 30}}>
-                    <Button
-                        onPress={() => this.createPost(loggedInUser.id, true,
-                        'https://www.parentskills.com.au/sites/default/files/styles/large/public/Disappointed.jpg?itok=9Vh4RPn8'
-                        , 'Home', '12:44:00.000', '01:00:00.000', '2021-01-01', 'Disappointing my parents....')}
-                        title='Create Event'
-                        // onPress={() => this.deletePost()}
+                <View style= {{ marginTop: 50}}>
+                    <RoundButton
+                        // onPress={() => this.createPost(loggedInUser.id, true,
+                        // 'https://cdn2.coachmag.co.uk/sites/coachmag/files/styles/16x9_480/public/2018/05/beginner-gym-routine.jpg?itok=_YxId1cO&timestamp=1526380941'
+                        // , 'Payne Whitney Gym', '10:00:00.000', '13:00:00.000', '2021-03-01', 'Workout')}
                         // title='Create Event'
+                        onPress={() => Actions.createEventScreen()}
+                        // onPress={() => this.deletePost()}
+                        buttonColor='grey'
+                        title='Create Event'
                     />
+                    {/* <Button style= {{ marginTop: 60}} title="Show Modal" onPress={this.toggleModalVisibility} />
+                    <Modal animationType="slide" 
+                        transparent visible={this.isModalVisible} 
+                        presentationStyle="overFullScreen" 
+                        onDismiss={this.toggleModalVisibility}>
+                        <View style={styles.viewWrapper}>
+                            <View style={styles.modalView}>
+                                <TextInput placeholder="Enter something..." 
+                                        value={this.inputValue} style={styles.textInput} 
+                                        onChangeText={(value) => this.setInputValue(value)} />
+                                <Button title="Close" onPress={this.toggleModalVisibility} />
+                            </View>
+                        </View>
+                    </Modal> */}
                 </View>
-                <View style= {{ marginTop: 30, marginBottom: 150}}>
+                <View style= {{ marginTop: 10, marginBottom: 275}}>
                     <FlatList
                         data = {posts}
-                        // data = {[
-                        //     {
-                        //         id: "0",
-                        //         profile_pic: "profile_user.png",
-                        //         event_pic: "nuggies.jpeg",
-                        //         event_name: "CHICKEN NUGGET PARTY",
-                        //         event_date: "03/27/2021 3:00 - 6:00 PM",
-                        //         event_host: "@daniel.li.djl87@yale.edu",
-                        //         event_participants: "Daniel Li, Jinny Choi, Stanley Wong"
-                        //     }
-                        // ]}
                         keyExtractor={(item) => item.id}
                         renderItem={(item) => this._renderPost(item)}
                     />
@@ -110,5 +129,31 @@ class NewsFeedComponent extends Component {
         );
     }
 }
+const styles = StyleSheet.create({
+    modalView: {
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        elevation: 5,
+        transform: [{ translateX: -(width * 0.4) }, 
+                    { translateY: -90 }],
+        height: 180,
+        width: width * 0.8,
+        backgroundColor: "#fff",
+        borderRadius: 7,
+        marginTop: 100
+    },
+    textInput: {
+        width: "80%",
+        borderRadius: 5,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderColor: "rgba(0, 0, 0, 0.2)",
+        borderWidth: 1,
+        marginBottom: 8,
+    }
+});
 
 export default NewsFeedComponent;
