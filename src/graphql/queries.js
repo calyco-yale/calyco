@@ -22,10 +22,8 @@ export const getUser = /* GraphQL */ `
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -104,10 +102,8 @@ export const getEvent = /* GraphQL */ `
     getEvent(id: $id) {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
       avatar {
         bucket
@@ -160,10 +156,8 @@ export const listEvents = /* GraphQL */ `
       items {
         id
         name
-        date
-        start_time
-        end_time
-        location
+        start_datetime
+        end_datetime
         image_url
         avatar {
           bucket

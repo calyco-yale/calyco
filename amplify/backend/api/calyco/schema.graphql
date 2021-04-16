@@ -19,10 +19,8 @@ type Event @model
   @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   name: String!
-  date: AWSDate!
-  start_time: AWSTime!
-  end_time: AWSTime!
-  location: String
+  start_datetime: String!
+  end_datetime: String!
   image_url: String
   avatar: S3Object
   public: Boolean! @default(value: "false")

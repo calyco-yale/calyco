@@ -22,10 +22,8 @@ export const onCreateUser = /* GraphQL */ `
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -82,10 +80,8 @@ export const onUpdateUser = /* GraphQL */ `
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -142,10 +138,8 @@ export const onDeleteUser = /* GraphQL */ `
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -186,10 +180,8 @@ export const onCreateEvent = /* GraphQL */ `
     onCreateEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
       avatar {
         bucket
@@ -237,10 +229,8 @@ export const onUpdateEvent = /* GraphQL */ `
     onUpdateEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
       avatar {
         bucket
@@ -288,10 +278,8 @@ export const onDeleteEvent = /* GraphQL */ `
     onDeleteEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
       avatar {
         bucket

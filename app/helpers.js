@@ -5,13 +5,14 @@ import UserComponent from './components/User';
 import { Auth } from 'aws-amplify';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getUser, usersByEmail } from '../src/graphql/queries';
+import { getUsersByEmail } from '../src/graphql/custom_queries';
 import { createSimpleFriendship, deleteFriendshipById } from '../src/graphql/custom_mutations';
 
 // Get currently logged in user
 export const getloggedInUser = async() => {
   const { attributes } = await Auth.currentAuthenticatedUser();
   // Get user with attributes.email
-  const res = await API.graphql(graphqlOperation(usersByEmail, { email: attributes.email }))
+  const res = await API.graphql(graphqlOperation(getUsersByEmail, { email: attributes.email }))
   try {
     const loggedInUser = res.data.usersByEmail.items[0]
     return loggedInUser
