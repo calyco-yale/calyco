@@ -24,5 +24,11 @@
       "dependsOn": [],
       "customAuth": false
     }
+  },
+  "storage": {
+    "calycoImages": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
