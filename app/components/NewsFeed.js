@@ -98,7 +98,7 @@ class NewsFeedComponent extends Component {
             };
             await API.graphql(graphqlOperation(updateUser, {input: userData}));
             } else {
-            alert('Must use physical device for Push Notifications');
+                console.log('Must use physical device for Push Notifications');
             }
         
             if (Platform.OS === 'android') {
