@@ -1,3 +1,6 @@
+/* eslint-disable */
+// this is an auto generated file. This will be overwritten
+
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
@@ -9,14 +12,18 @@ export const getUser = /* GraphQL */ `
       dob
       location
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
+      pushToken
       events {
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -68,6 +75,12 @@ export const listUsers = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -89,11 +102,14 @@ export const getEvent = /* GraphQL */ `
     getEvent(id: $id) {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
       public
       description
       participants
@@ -107,6 +123,12 @@ export const getEvent = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -134,11 +156,14 @@ export const listEvents = /* GraphQL */ `
       items {
         id
         name
-        date
-        start_time
-        end_time
-        location
+        start_datetime
+        end_datetime
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
         public
         description
         participants
@@ -152,6 +177,7 @@ export const listEvents = /* GraphQL */ `
           dob
           location
           image_url
+          pushToken
           createdAt
           updatedAt
         }
@@ -186,40 +212,19 @@ export const usersByEmail = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
-          items {
-            id
-            name
-            date
-            start_time
-            end_time
-            location
-            image_url
-            public
-            userID
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         friendships {
-        items {
-          id
-          userID
-          friendID
-          createdAt
-          updatedAt
-        }
-        nextToken
+          nextToken
         }
         friendRequests {
-          items {
-            id
-            userID
-            senderID
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         createdAt
