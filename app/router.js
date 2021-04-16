@@ -11,6 +11,7 @@ import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
 import NewsFeedScreen from './screens/NewsFeedScreen';
 import CreateEventScreen from './screens/CreateEventScreen.js';
+import AddParticipantsScreen from './screens/AddParticipantsScreen';
 
 const AppRouter = () => (
   <Router>
@@ -85,6 +86,12 @@ const AppRouter = () => (
         component={CreateEventScreen}
         hideNavBar
       />
+    
+    <Scene
+        key="addParticipantsScreen"
+        component={AddParticipantsScreen}
+        hideNavBar
+    />
     
     </Scene>
   </Router>

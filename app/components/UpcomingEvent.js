@@ -93,6 +93,7 @@ class UpcomingEvent extends Component {
   };
 
   render() {
+    this.fetchEventData();
     const { events } = this.state;
     if (events) {
       const sortedEvents = this.sortEvents(events);

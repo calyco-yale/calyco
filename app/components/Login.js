@@ -10,6 +10,7 @@ import BR from "../base_components/BR";
 import TextInput from "../base_components/TextInput";
 import RoundButton from "../base_components/RoundButton";
 import TextButton from "../base_components/TextButton";
+import { Image } from "react-native";
 
 class LoginComponent extends Component {
   render() {
@@ -28,10 +29,12 @@ class LoginComponent extends Component {
           justifyContent: "center"
         }}
       >
-        <PrimaryText bold size={"40px"}>
-          Calyco
-        </PrimaryText>
-        <BR size={50} />
+        <BR size={30} />
+        <Image
+          source={require("../../assets/serious_calyco.png")}
+          style={{ width: 200, height: 230 }}
+        />
+        <BR size={20} />
         {loginError &&
           <PrimaryText>
             {loginError.message}

@@ -41,22 +41,15 @@ class NewsFeedComponent extends Component {
             end_time={item.item.end_datetime}
             event_host={item.item.user.username}
             event_participants={item.item.participants}
+            event_description={item.item.description}
         />;
         }
-    }
-
-    createPost = async(loggedInUser, isPublic, image_url, end_datetime, start_datetime, hostName) => {
-        try {
-            await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: isPublic, image_url: image_url, end_datetime: end_datetime, start_datetime: start_datetime, name: hostName}))
-          } catch (e) {
-            console.log(e);
-          }
     }
 
 
     deletePost = async() => {
         try {
-            await API.graphql(graphqlOperation(deleteEvent, { id: 'c14db569-952d-492d-ac1b-f5685526f303' }))
+            await API.graphql(graphqlOperation(deleteEvent, { id: '3f5a1fc1-30be-4659-aa92-c6c1e9259f72' }))
         } catch (e) {
             console.log(e);
         }

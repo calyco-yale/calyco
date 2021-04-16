@@ -45,12 +45,33 @@ class CalendarEvent extends Component {
       listOfMarkedDates[event.start_datetime.substring(0, 10)] = {
         marked: true,
         dotColor: "#5a5757",
-        startingDay: true,
-        endingDay: false,
+        // startingDay: true,
         color: "#f4a95d"
       };
     });
+
     events.forEach(event => {
+      const daysSpan =
+        event.end_datetime.substring(8, 10) -
+        event.start_datetime.substring(8, 10);
+      if (daysSpan == 0) {
+        listOfMarkedDates[event.start_datetime.substring(0, 10)] = {
+          marked: true,
+          dotColor: "#5a5757",
+          // startingDay: true,
+          // endingDay: true,
+          color: "#f4a95d"
+        };
+        return listOfMarkedDates;
+      }
+      for (let i = 0; i < daysSpan - 1; i++) {
+        let newDate =
+          event.start_datetime.substring(0, 8) +
+          (parseInt(event.start_datetime.substring(8, 10)) + i + 1).toString();
+        listOfMarkedDates[newDate] = {
+          color: "#f4a95d"
+        };
+      }
       if (
         Object.keys(listOfMarkedDates).includes(
           event.end_datetime.substring(0, 10)
@@ -59,27 +80,11 @@ class CalendarEvent extends Component {
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
           marked: true,
           dotColor: "#5a5757",
-          startingDay: true,
-          endingDay: true,
           color: "#f4a95d"
         };
       } else {
-        const daysSpan =
-          event.end_datetime.substring(8, 10) -
-          event.start_datetime.substring(8, 10);
-        for (let i = 0; i < daysSpan - 1; i++) {
-          let newDate =
-            event.start_datetime.substring(0, 8) +
-            (parseInt(event.start_datetime.substring(8, 10)) +
-              i +
-              1).toString();
-          listOfMarkedDates[newDate] = {
-            color: "#f4a95d"
-          };
-        }
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
-          startingDay: false,
-          endingDay: true,
+          // endingDay: true,
           color: "#f4a95d"
         };
       }
@@ -122,6 +127,7 @@ class CalendarEvent extends Component {
   };
 
   render() {
+    this.fetchEventData();
     const { events } = this.state;
     if (events) {
       const listOfMarkedDates = this.parseEvents(events);
