@@ -12,14 +12,18 @@ export const onCreateUser = /* GraphQL */ `
       dob
       location
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
+      pushToken
       events {
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -66,14 +70,18 @@ export const onUpdateUser = /* GraphQL */ `
       dob
       location
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
+      pushToken
       events {
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -120,14 +128,18 @@ export const onDeleteUser = /* GraphQL */ `
       dob
       location
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
+      pushToken
       events {
         items {
           id
           name
-          date
-          start_time
-          end_time
-          location
+          start_datetime
+          end_datetime
           image_url
           public
           description
@@ -168,11 +180,14 @@ export const onCreateEvent = /* GraphQL */ `
     onCreateEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
       public
       description
       participants
@@ -186,6 +201,12 @@ export const onCreateEvent = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -208,11 +229,14 @@ export const onUpdateEvent = /* GraphQL */ `
     onUpdateEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
       public
       description
       participants
@@ -226,6 +250,12 @@ export const onUpdateEvent = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -248,11 +278,14 @@ export const onDeleteEvent = /* GraphQL */ `
     onDeleteEvent {
       id
       name
-      date
-      start_time
-      end_time
-      location
+      start_datetime
+      end_datetime
       image_url
+      avatar {
+        bucket
+        region
+        key
+      }
       public
       description
       participants
@@ -266,6 +299,12 @@ export const onDeleteEvent = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -298,6 +337,12 @@ export const onCreateFriendship = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -330,6 +375,12 @@ export const onUpdateFriendship = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -362,6 +413,12 @@ export const onDeleteFriendship = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -394,6 +451,12 @@ export const onCreateFriendRequest = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -426,6 +489,12 @@ export const onUpdateFriendRequest = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
@@ -458,6 +527,12 @@ export const onDeleteFriendRequest = /* GraphQL */ `
         dob
         location
         image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
         events {
           nextToken
         }
