@@ -1,12 +1,28 @@
 import React from "react";
 import AppBase from "./base_components/AppBase";
 import UserComponent from "./components/User";
+import global from './global';
+import { Auth } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
+import { getUser, usersByEmail } from "../src/graphql/queries";
+import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
 
-import { Auth } from 'aws-amplify';
-import { API, graphqlOperation } from 'aws-amplify';
-import { getUser, usersByEmail } from '../src/graphql/queries';
-import { getUsersByEmail } from '../src/graphql/custom_queries';
-import { createSimpleFriendship, deleteFriendshipById } from '../src/graphql/custom_mutations';
+export const retrieveOffset = () => {
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  // console.log(date);
+  // console.log(offset);
+  global.offset = offset;
+  return offset;
+}
+
+//sign for whether the user is recieving or sending time requests
+export const getCorrectTime = (date, sign) => {
+  const offset = global.offset;
+  var currDate = new Date(date);
+  currDate.setMinutes(currDate.getMinutes() + (sign)*offset);
+  return new Date(currDate);
+}
 
 // Get currently logged in user
 export const getloggedInUser = async () => {
