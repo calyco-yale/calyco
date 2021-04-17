@@ -39,8 +39,8 @@ class CreateEventScreen extends Component {
 
   handleEventCreationSubmit = async () => {
     const { user, is_public, event_pic, event_name, start_time, end_time, description, participants} = this.state;
-    console.log("event pic uri");
-    console.log(event_pic);
+    console.log("start time");
+    console.log(start_time);
     this.createPost(user.id, is_public, event_pic, end_time, start_time, event_name, description, participants);
     Actions.newsFeed();
   };
