@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { Actions } from 'react-native-router-flux';
-import { Button, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, Text, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -16,15 +16,32 @@ import TextButton from '../base_components/TextButton';
 import EventImage from '../components/EventImage';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import DatePicker from 'react-native-datepicker'
+
+const createDateTime = () => {
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  var hours = new Date().getHours(); //To get the Current Hours
+  var min = new Date().getMinutes();
+
+  var dateTimeString = year + "-" + month + "-" + date + " " + hours + ":" + min;
+  return dateTimeString
+};
+
+
 class CreateEventComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: null
+            image: null,
+            datetime: createDateTime(),
+            datetime1: createDateTime()
         };
     }
 
     pickImage = async () => {
+      const { onEventImageChange } = this.props;
         if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
@@ -39,8 +56,7 @@ class CreateEventComponent extends Component {
             
                 if (!result.cancelled) {
                     this.setState({image: result.uri});
-                    console.log("IMAGE URI");
-                    console.log(this.state.image);
+                    onEventImageChange(result.uri);
                 }
             }
         }
@@ -50,9 +66,9 @@ class CreateEventComponent extends Component {
     const {
       loading, registerMessage, registerError,
       onEventCreationSubmit, onPublicChange,
-      onEventNameChange, onEventDateChange,
+      onEventNameChange,
       onStartTimeChange, onEndTimeChange,
-      onLocationChange, onEventImageChange, disableCreateEvent,
+      onEventImageChange, disableCreateEvent,
       onDescriptionChange, onParticipantsChange,
     } = this.props;
 
@@ -87,55 +103,56 @@ class CreateEventComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           placeholder="Event Name"
         />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onEventDateChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
+        <BR>
+        <Text>Start Date Time</Text>
+        </BR>
+        <DatePicker
+          style={{width: 200}}
+          date={this.state.datetime}
+          mode="datetime"
+          format="YYYY-MM-DD HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
           }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Event Date"
+          onDateChange={(datetime) => {this.setState({datetime: datetime});
+            console.log('please');
+            console.log(datetime);
+            onStartTimeChange(datetime);}}
         />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onStartTimeChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
+        <BR>
+        <Text>End Date Time</Text>
+        </BR>
+        <DatePicker
+          style={{width: 200}}
+          date={this.state.datetime1}
+          mode="datetime"
+          format="YYYY-MM-DD HH:mm"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
           }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Start Time"
+          minuteInterval={10}
+          onDateChange={(datetime) => {this.setState({datetime1: datetime}); onEndTimeChange(datetime);}}
         />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onEndTimeChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="End Time"
-        />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onLocationChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Location"
-        />
-        <BR />
         <TextInput
           autoCorrect={false}
           onChangeText={debounce(onPublicChange, 500)}
@@ -255,10 +272,8 @@ CreateEventComponent.propTypes = {
   onEventCreationSubmit:PropTypes.func.isRequired,
   onPublicChange: PropTypes.func.isRequired,
   onEventNameChange: PropTypes.func.isRequired,
-  onEventDateChange: PropTypes.func.isRequired,
   onStartTimeChange: PropTypes.func.isRequired,
   onEndTimeChange: PropTypes.func.isRequired,
-  onLocationChange: PropTypes.func.isRequired,
   onEventImageChange: PropTypes.func.isRequired,
   onDescriptionChange: PropTypes.func.isRequired,
   onParticipantsChange: PropTypes.func.isRequired

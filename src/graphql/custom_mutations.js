@@ -31,8 +31,8 @@ export const createSimpleFriendRequest = /* GraphQL */ `
 `;
 
 export const createEvent = /* GraphQL */ `
-  mutation CreateEvent($userId: ID!, $public: Boolean!, $image_url: String, $location: String, $end_datetime: AWSTime!, $start_datetime: AWSTime!, $date: AWSDate!, $name: String!) {
-    createEvent(input: {userID: $userId, public: $public, image_url: $image_url, location: $location, end_datetime: $end_datetime, start_datetime: $start_datetime, name: $name}) {
+  mutation CreateEvent($userId: ID!, $public: Boolean!, $image_url: String, $end_datetime: String!, $start_datetime: String!, $name: String!, $description: String!, $participants: [String]) {
+    createEvent(input: {userID: $userId, public: $public, image_url: $image_url, end_datetime: $end_datetime, start_datetime: $start_datetime, name: $name, description: $description, participants: $participants}) {
       id
     }
   }
