@@ -21,19 +21,16 @@ class CreateEventScreen extends Component {
         is_public: null,
         event_pic: null,
         event_name: null,
-        event_date: null,
         start_time: null,
         end_time: null,
-        location: null,
         description: null,
-        // Might have this as list of objects or just strings, not sure yet
-        participants: null
+        participants: []
     };
   }
 
-  createPost = async(loggedInUser, is_public, image_url, location, end_time, start_time, date, event_name) => {
+  createPost = async(loggedInUser, is_public, image_url, end_time, start_time, event_name, description, participants) => {
     try {
-        await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, location: location, end_time: end_time, start_time: start_time, date: date, name: event_name}))
+        await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: end_time, start_datetime: start_time, name: event_name, description: description, participants: participants}))
       } catch (e) {
         console.log(e);
       }
@@ -41,8 +38,10 @@ class CreateEventScreen extends Component {
   
 
   handleEventCreationSubmit = async () => {
-    const { user, is_public, event_pic, event_name, event_date, start_time, end_time, location} = this.state;
-    this.createPost(user.id, is_public, event_pic, location, end_time, start_time, event_date, event_name);
+    const { user, is_public, event_pic, event_name, start_time, end_time, description, participants} = this.state;
+    console.log("event pic uri");
+    console.log(event_pic);
+    this.createPost(user.id, is_public, event_pic, end_time, start_time, event_name, description, participants);
     Actions.newsFeed();
   };
 
@@ -59,11 +58,6 @@ class CreateEventScreen extends Component {
   };
 
 
-  handleEventDateChange = (event_date) => {
-    this.setState({
-        event_date,
-    });
-  };
 
   handleStartTimeChange = (start_time) => {
     this.setState({
@@ -74,12 +68,6 @@ class CreateEventScreen extends Component {
   handleEndTimeChange = (end_time) => {
     this.setState({
         end_time,
-    });
-  };
-
-  handleLocationChange = (location) => {
-    this.setState({
-        location,
     });
   };
 
@@ -132,7 +120,7 @@ componentWillUnmount() {
   render() {
     const { registerLoading, registerError, registerMessage } = this.props;
     // add error checking to parameters
-    const { host, is_public, event_pic, event_name, event_date, start_time, end_time, location} = this.state;
+    const { host, is_public, event_pic, event_name, start_time, end_time} = this.state;
     const disableCreateEvent = false;
 
     return (
@@ -144,10 +132,8 @@ componentWillUnmount() {
         onEventCreationSubmit={this.handleEventCreationSubmit}
         onPublicChange={this.handlePublicChange}
         onEventNameChange={this.handleEventNameChange}
-        onEventDateChange={this.handleEventDateChange}
         onStartTimeChange={this.handleStartTimeChange}
         onEndTimeChange={this.handleEndTimeChange}
-        onLocationChange={this.handleLocationChange}
         onEventImageChange={this.handleEventImageChange}
         onParticipantsChange={this.handleParticipantsChange}
         onDescriptionChange={this.handleDescriptionChange}

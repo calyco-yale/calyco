@@ -25,6 +25,7 @@ class CreateEventComponent extends Component {
     }
 
     pickImage = async () => {
+      const { onEventImageChange } = this.props;
         if (Platform.OS !== 'web') {
             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (status !== 'granted') {
@@ -39,8 +40,7 @@ class CreateEventComponent extends Component {
             
                 if (!result.cancelled) {
                     this.setState({image: result.uri});
-                    console.log("IMAGE URI");
-                    console.log(this.state.image);
+                    onEventImageChange(result.uri);
                 }
             }
         }
@@ -50,9 +50,9 @@ class CreateEventComponent extends Component {
     const {
       loading, registerMessage, registerError,
       onEventCreationSubmit, onPublicChange,
-      onEventNameChange, onEventDateChange,
+      onEventNameChange,
       onStartTimeChange, onEndTimeChange,
-      onLocationChange, onEventImageChange, disableCreateEvent,
+      onEventImageChange, disableCreateEvent,
       onDescriptionChange, onParticipantsChange,
     } = this.props;
 
@@ -90,18 +90,6 @@ class CreateEventComponent extends Component {
         <BR />
         <TextInput
           autoCorrect={false}
-          onChangeText={debounce(onEventDateChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Event Date"
-        />
-        <BR />
-        <TextInput
-          autoCorrect={false}
           onChangeText={debounce(onStartTimeChange, 500)}
           style={{
             width: '80%',
@@ -122,18 +110,6 @@ class CreateEventComponent extends Component {
           }}
           underlineColorAndroid="#B9B9B9"
           placeholder="End Time"
-        />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onLocationChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Location"
         />
         <BR />
         <TextInput
@@ -255,10 +231,8 @@ CreateEventComponent.propTypes = {
   onEventCreationSubmit:PropTypes.func.isRequired,
   onPublicChange: PropTypes.func.isRequired,
   onEventNameChange: PropTypes.func.isRequired,
-  onEventDateChange: PropTypes.func.isRequired,
   onStartTimeChange: PropTypes.func.isRequired,
   onEndTimeChange: PropTypes.func.isRequired,
-  onLocationChange: PropTypes.func.isRequired,
   onEventImageChange: PropTypes.func.isRequired,
   onDescriptionChange: PropTypes.func.isRequired,
   onParticipantsChange: PropTypes.func.isRequired
