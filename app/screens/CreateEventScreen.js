@@ -39,8 +39,6 @@ class CreateEventScreen extends Component {
 
   handleEventCreationSubmit = async () => {
     const { user, is_public, event_pic, event_name, start_time, end_time, description, participants} = this.state;
-    console.log("start time");
-    console.log(start_time);
     this.createPost(user.id, is_public, event_pic, end_time, start_time, event_name, description, participants);
     Actions.newsFeed();
   };
@@ -95,9 +93,6 @@ class CreateEventScreen extends Component {
         const user = await getloggedInUser()
         const loggedInUserData = await API.graphql(graphqlOperation(getUser, { id: user.id }))
         this.setState({user: user, userData: loggedInUserData});
-        console.log('BRUH MOMENT')
-        console.log(user);
-        console.log(loggedInUserData)
     } catch (e) {
         console.log(e);
     }
@@ -120,8 +115,8 @@ componentWillUnmount() {
   render() {
     const { registerLoading, registerError, registerMessage } = this.props;
     // add error checking to parameters
-    const { host, is_public, event_pic, event_name, start_time, end_time} = this.state;
-    const disableCreateEvent = false;
+    const { is_public, start_time, end_time, description, participants} = this.state;
+    const disableCreateEvent = (!is_public || !start_time || !end_time || !description);
 
     return (
       <CreateEventComponent
