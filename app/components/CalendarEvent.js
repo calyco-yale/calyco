@@ -80,9 +80,20 @@ class CalendarEvent extends Component {
           color: "#f4a95d"
         };
       } else {
+        const daysSpan =
+          event.end_datetime.substring(8, 10) -
+          event.start_datetime.substring(8, 10);
+        for (let i = 0; i < daysSpan - 1; i++) {
+          let newDate =
+            event.start_datetime.substring(0, 8) +
+            (parseInt(event.start_datetime.substring(8, 10)) +
+              i +
+              1).toString();
+          listOfMarkedDates[newDate] = {
+            color: "#f4a95d"
+          };
+        }
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
-          // marked: true,
-          // dotColor: "red",
           startingDay: false,
           endingDay: true,
           color: "#f4a95d"
