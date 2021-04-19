@@ -11,11 +11,12 @@ import { Actions } from "react-native-router-flux";
 import { userItemSeparator } from "../helpers";
 
 import { getUser } from "../../src/graphql/queries";
-import { Alert, View, Text, FlatList, StyleSheet } from "react-native";
+import { Alert, View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { SearchBar } from "react-native-elements";
 import TextButton from "../base_components/TextButton";
 import Header from "../components/Header";
 import ParticipantsListItem from "../components/ParticipantsListItem";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 
 class AddParticipantScreen extends Component {
   constructor(props) {
@@ -69,7 +70,6 @@ class AddParticipantScreen extends Component {
   };
 
   renderUser(item) {
-    // console.log(item);
     <TextButton
       title={item.username}
       primary
@@ -106,6 +106,23 @@ class AddParticipantScreen extends Component {
     this.setState({ participants: participants})
   }
 
+  renderParticipantsListItem(item){
+    return (
+      <View style={styles.listItemView}>
+        <Text style={styles.listItemText}>
+          {item.username}
+        </Text>
+        <TouchableOpacity onPress={() => this.deleteParticipant(item.id)}>
+          <Image
+          style={styles.removeIcon}
+          source={require("../../assets/remove_icon.png")}
+          />
+        </TouchableOpacity>
+        
+      </View>
+    );
+  };
+
   render() {
     const { participants, search, filteredData, allData } = this.state;
     if (participants && this.props.loggedInUser) {
@@ -128,7 +145,7 @@ class AddParticipantScreen extends Component {
             style={styles.participantList}
             horizontal={true}
             data={participants}
-            renderItem={({ item }) => <ParticipantsListItem item={item} />}
+            renderItem={({ item }) => this.renderParticipantsListItem(item)}
           />
 
           <SearchBar
@@ -188,7 +205,25 @@ const styles = StyleSheet.create({
   searchText: {
     fontSize: 20,
     padding: 15
+  },
+  listItemView: {
+    padding: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  listItemText: {
+    fontSize: 23,
+    color: "black"
+  },
+  removeIcon: {
+    marginLeft: 5,
+    marginBottom: 5,
+    width: 15,
+    height: 15,
+    tintColor: "firebrick"
   }
 });
+
 
 export default AddParticipantScreen;

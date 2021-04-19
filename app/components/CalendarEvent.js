@@ -33,7 +33,7 @@ class CalendarEvent extends Component {
   fetchEventData = async () => {
     try {
       const tempEvents = this.props.user.events.items;
-      const invitedEvents = await getInvitedEvents(this.props.user)
+      // const invitedEvents = await getInvitedEvents(this.props.user)
       if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
         this.setState({ events: publicEvents });

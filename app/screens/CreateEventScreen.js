@@ -41,14 +41,13 @@ class CreateEventScreen extends Component {
   ) => {
     try {
         const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: end_time, start_datetime: start_time, name: event_name, description: description, participants: participants}))
-        const eventID = event.data.createEvent.id
+        const eventID = event.data.createEvent.id;
         for (let i = 0; i < participants.length; i++){
           await API.graphql(graphqlOperation(createInvite, { userId: participants[i], eventId: eventID, senderId: loggedInUser }))
         }
       } catch (e) {
         console.log(e);
       }
-    }
   };
 
   handleEventCreationSubmit = async () => {
@@ -102,14 +101,12 @@ class CreateEventScreen extends Component {
   fetchRequestData = async () => {
     try {
       const user = await getloggedInUser();
-      const loggedInUserData = await API.graphql(
-        graphqlOperation(getUser, { id: user.id })
-      );
+      const loggedInUserData = await API.graphql(graphqlOperation(getUser, { id: user.id }));
       this.setState({ user: user, userData: loggedInUserData });
     } catch (e) {
       console.log(e);
     }
-  };
+  }
 
   componentDidMount() {
     this.didFocusListener = this.props.navigation.addListener(
@@ -118,7 +115,7 @@ class CreateEventScreen extends Component {
         this.fetchRequestData();
       }
     );
-  }
+  };
 
   componentWillUnmount() {
     this.didFocusListener.remove();
