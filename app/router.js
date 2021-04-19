@@ -82,7 +82,7 @@ const AppRouter = () => (
         component = {FriendRequestScreen}
       />
 
-    <Scene
+      <Scene
         key="createEventScreen"
         component={CreateEventScreen}
         hideNavBar

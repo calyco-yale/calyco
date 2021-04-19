@@ -4,7 +4,7 @@ import UserComponent from "./components/User";
 import global from './global';
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
-import { getUser, getusersByEmail } from "../src/graphql/queries";
+import { getUser, getusersByEmail, getEvent } from "../src/graphql/queries";
 import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
 import { getUsersByEmail } from "../src/graphql/custom_queries";
 import * as Notifications from 'expo-notifications';
@@ -36,6 +36,23 @@ export const getloggedInUser = async () => {
     console.log(e);
     return null;
   }
+};
+
+// Helper function to get user's invited events
+export const getInvitedEvents = async(user) => {
+  let invitedEventData = user.invited_events.items
+  let events = [];
+  for (let i = 0; i < invitedEventIds.length; i++) {
+    try {
+      const eventData = await API.graphql(
+        graphqlOperation(getEvent, { id: invitedEventData[i].eventID })
+      );
+      events.push(eventData.data.getEvent);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  return events;
 };
 
 // Helper function to get a user's busy times for a date

@@ -37,6 +37,17 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      invited_events {
+        items {
+          id
+          userID
+          eventID
+          senderID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       friendships {
         items {
           id
@@ -98,6 +109,17 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      invited_events {
+        items {
+          id
+          userID
+          eventID
+          senderID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       friendships {
         items {
           id
@@ -154,6 +176,17 @@ export const deleteUser = /* GraphQL */ `
           description
           participants
           userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      invited_events {
+        items {
+          id
+          userID
+          eventID
+          senderID
           createdAt
           updatedAt
         }
@@ -222,6 +255,9 @@ export const createEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -272,6 +308,9 @@ export const updateEvent = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {
@@ -326,6 +365,144 @@ export const deleteEvent = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
+        friendships {
+          nextToken
+        }
+        friendRequests {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createInvite = /* GraphQL */ `
+  mutation CreateInvite(
+    $input: CreateInviteInput!
+    $condition: ModelInviteConditionInput
+  ) {
+    createInvite(input: $input, condition: $condition) {
+      id
+      userID
+      eventID
+      senderID
+      user {
+        id
+        email
+        username
+        first_name
+        last_name
+        dob
+        location
+        image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
+        events {
+          nextToken
+        }
+        invited_events {
+          nextToken
+        }
+        friendships {
+          nextToken
+        }
+        friendRequests {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateInvite = /* GraphQL */ `
+  mutation UpdateInvite(
+    $input: UpdateInviteInput!
+    $condition: ModelInviteConditionInput
+  ) {
+    updateInvite(input: $input, condition: $condition) {
+      id
+      userID
+      eventID
+      senderID
+      user {
+        id
+        email
+        username
+        first_name
+        last_name
+        dob
+        location
+        image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
+        events {
+          nextToken
+        }
+        invited_events {
+          nextToken
+        }
+        friendships {
+          nextToken
+        }
+        friendRequests {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteInvite = /* GraphQL */ `
+  mutation DeleteInvite(
+    $input: DeleteInviteInput!
+    $condition: ModelInviteConditionInput
+  ) {
+    deleteInvite(input: $input, condition: $condition) {
+      id
+      userID
+      eventID
+      senderID
+      user {
+        id
+        email
+        username
+        first_name
+        last_name
+        dob
+        location
+        image_url
+        avatar {
+          bucket
+          region
+          key
+        }
+        pushToken
+        events {
+          nextToken
+        }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -365,6 +542,9 @@ export const createFriendship = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {
@@ -408,6 +588,9 @@ export const updateFriendship = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -447,6 +630,9 @@ export const deleteFriendship = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {
@@ -490,6 +676,9 @@ export const createFriendRequest = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -531,6 +720,9 @@ export const updateFriendRequest = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -570,6 +762,9 @@ export const deleteFriendRequest = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {

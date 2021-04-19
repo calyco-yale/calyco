@@ -42,6 +42,13 @@ export const getUsersByEmail = /* GraphQL */ `
           }
           nextToken
         }
+        invited_events {
+          items {
+            eventID
+            id
+            senderID
+          }
+        }
         friendships {
           items {
             id
