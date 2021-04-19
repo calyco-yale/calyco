@@ -66,9 +66,9 @@ class Post extends Component {
                 </View>
 
                 <View>
-                    <Text style = {styles.eventDate}> Start: {this.start_time} </Text>
-                    <Text style = {styles.eventData}> End: {this.end_time} </Text>
-                    <Text style = {styles.eventData}> Description: {this.event_description} </Text>
+                    <Text style = {styles.eventDate}> Start: <Text style = {styles.eventText}> {this.start_time} </Text> </Text>
+                    <Text style = {styles.eventData}> End: <Text style = {styles.eventText}>  {this.end_time} </Text> </Text>
+                    <Text style = {styles.eventData}> Description: <Text style = {styles.eventText}>  {this.event_description} </Text> </Text>
                 </View>
 
                 {/* Event picture */}
@@ -109,7 +109,7 @@ class Post extends Component {
             height: 56,
             marginTop: 20,
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
         },
     
         eventPic: {
@@ -120,24 +120,37 @@ class Post extends Component {
         },
     
         eventName: {
-            marginLeft: 10,
-            marginTop: 30  
+            marginLeft: 5,
+            marginTop: 30,
+            fontFamily: "Georgia-Bold",
+            fontSize: 18,
+            color: "orange"
+
         },
     
         eventDate: {
-            marginLeft: 20,
-            marginTop: 25
+            marginLeft: 30,
+            marginTop: 30,
+            fontFamily: "Georgia-Bold",
+            fontSize: 15
+        },
+
+        eventText: {
+            fontFamily: "Georgia",
         },
 
             
         eventData: {
-            marginLeft: 20,
-            marginTop: 2
+            marginLeft: 30,
+            marginTop: 2,
+            fontFamily: "Georgia-Bold",
+            fontSize: 15
         },
     
         username: {
-            marginLeft: 10,
-            marginTop: 5
+            marginLeft: 8,
+            marginTop: 5,
+            fontFamily: "Georgia-Bold",
         },
     
         userBar: {

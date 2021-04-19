@@ -92,6 +92,8 @@ class CreateEventComponent extends Component {
         {registerMessage && <PrimaryText>{JSON.stringify(registerMessage)}</PrimaryText>}
         <BR size={50} />
 
+        <Text style = {styles.Title}>Create Event </Text>
+
         <TextInput
           autoCorrect={false}
           onChangeText={debounce(onEventNameChange, 500)}
@@ -103,11 +105,34 @@ class CreateEventComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           placeholder="*Event Name (eg: birthday)"
         />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onPublicChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="*Public (eg: true/false)"
+        />
+        <TextInput
+          autoCorrect={false}
+          onChangeText={debounce(onDescriptionChange, 500)}
+          style={{
+            width: '80%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          underlineColorAndroid="#B9B9B9"
+          placeholder="*Description (eg: alex's bday)"
+        />
+        <BR />
         <BR>
         <Text>Start Date Time</Text>
         </BR>
         <DatePicker
-          style={{width: 200}}
+          style={{width: 300}}
           date={this.state.datetime}
           mode="datetime"
           format="YYYY-MM-DD HH:mm"
@@ -127,11 +152,12 @@ class CreateEventComponent extends Component {
           onDateChange={(datetime) => {this.setState({datetime: datetime});
             onStartTimeChange(datetime);}}
         />
+        <BR></BR>
         <BR>
         <Text>End Date Time</Text>
         </BR>
         <DatePicker
-          style={{width: 200}}
+          style={{width: 300}}
           date={this.state.datetime1}
           mode="datetime"
           format="YYYY-MM-DD HH:mm"
@@ -151,44 +177,8 @@ class CreateEventComponent extends Component {
           minuteInterval={10}
           onDateChange={(datetime) => {this.setState({datetime1: datetime}); onEndTimeChange(datetime);}}
         />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onPublicChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="*Public (eg: true/false)"
-        />
-        <BR />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onDescriptionChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="*Description (eg: alex's bday)"
-        />
-        <BR />
+        <BR></BR>
         <Text>Upload Event Image</Text>
-{/* 
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onParticipantsChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="Participants"
-        />
-        <BR /> */}
         <View style={{ 
             flex: 1, 
             alignItems: 'center', 
@@ -204,7 +194,7 @@ class CreateEventComponent extends Component {
                 onPress={this.pickImage}
                 // {...onEventImageChange(this.state.image)}
                 >
-                <MaterialCommunityIcons name="plus-box" size={50} />
+                <MaterialCommunityIcons name="plus-box" size={80} />
                 </TouchableOpacity>
             }
         </View>
@@ -228,6 +218,7 @@ class CreateEventComponent extends Component {
           disabled={disableCreateEvent}
           loading={loading}
           onPress={onEventCreationSubmit}
+          buttonColor="orange"
         />
       </AppBase>
       </ScrollView>
@@ -238,7 +229,7 @@ class CreateEventComponent extends Component {
 const styles = StyleSheet.create({
     image: {
         position: 'absolute',
-        top: 20,
+        top: 10,
         left: -150,
         borderWidth:1,
         borderColor:'rgba(0,0,0,0.2)',
@@ -250,7 +241,7 @@ const styles = StyleSheet.create({
     },
     selected: {
       position: 'absolute',
-      top: 20,
+      top: 10,
       left: -150,
       borderWidth:1,
       borderColor:'rgba(0,0,0,0.2)',
@@ -259,6 +250,12 @@ const styles = StyleSheet.create({
       width: 300,
       height: 170,
       backgroundColor:'#fff',
+    },
+    Title: {
+      marginBottom: 10,
+      fontFamily: "Arial",
+      fontSize: 40,
+      color: "orange"
     }
   
 });
