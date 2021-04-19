@@ -101,7 +101,7 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="Event Name"
+          placeholder="*Event Name (eg: birthday)"
         />
         <BR>
         <Text>Start Date Time</Text>
@@ -125,8 +125,6 @@ class CreateEventComponent extends Component {
             }
           }}
           onDateChange={(datetime) => {this.setState({datetime: datetime});
-            console.log('please');
-            console.log(datetime);
             onStartTimeChange(datetime);}}
         />
         <BR>
@@ -162,7 +160,7 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="Public"
+          placeholder="*Public (eg: true/false)"
         />
         <BR />
         <TextInput
@@ -174,9 +172,11 @@ class CreateEventComponent extends Component {
             marginRight: 'auto',
           }}
           underlineColorAndroid="#B9B9B9"
-          placeholder="Description"
+          placeholder="*Description (eg: alex's bday)"
         />
         <BR />
+        <Text>Upload Event Image</Text>
+{/* 
         <TextInput
           autoCorrect={false}
           onChangeText={debounce(onParticipantsChange, 500)}
@@ -188,7 +188,7 @@ class CreateEventComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           placeholder="Participants"
         />
-        <BR />
+        <BR /> */}
         <View style={{ 
             flex: 1, 
             alignItems: 'center', 
@@ -219,6 +219,10 @@ class CreateEventComponent extends Component {
         <BR />
         <BR />
         <BR />
+        <RoundButton
+          title="Add Participants"
+          onPress={Actions.addParticipantsScreen}
+        />
         <RoundButton
           title="Create Event"
           disabled={disableCreateEvent}
