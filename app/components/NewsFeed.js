@@ -34,7 +34,8 @@ class NewsFeedComponent extends Component {
     };
     
     _renderPost(item){
-        return <Post
+        if (item.item.public) {
+            return <Post
             profile_pic={item.item.user.image_url}
             event_pic={item.item.image_url}
             event_name={item.item.name}
@@ -43,6 +44,7 @@ class NewsFeedComponent extends Component {
             event_host={item.item.user.username}
             event_participants={item.item.participants}
         />;
+        }
     }
 
     createPost = async(loggedInUser, isPublic, image_url, end_datetime, start_datetime, hostName) => {
