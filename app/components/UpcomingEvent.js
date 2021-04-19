@@ -105,6 +105,7 @@ class UpcomingEvent extends Component {
   };
 
   render() {
+    this.fetchEventData();
     const { events } = this.state;
     if (events) {
       // const listOfNames = this.parseEventsNames(events);
