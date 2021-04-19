@@ -62,6 +62,11 @@ class CreateEventComponent extends Component {
         }
     };
 
+    moveToAddParticipantScreen = () => {
+      console.log(this.props.participants)
+      Actions.addParticipantScreen({participants: this.props.participants})
+    }
+
   render() {
     const {
       loading, registerMessage, registerError,
@@ -70,6 +75,7 @@ class CreateEventComponent extends Component {
       onStartTimeChange, onEndTimeChange,
       onEventImageChange, disableCreateEvent,
       onDescriptionChange, onParticipantsChange,
+      participants
     } = this.props;
 
     if (registerMessage && registerMessage.success) {
