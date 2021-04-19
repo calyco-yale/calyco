@@ -113,6 +113,20 @@ class CalendarEvent extends Component {
       if (
         !Object.keys(listOfNames).includes(event.end_datetime.substring(0, 10))
       ) {
+        const daysSpan =
+          event.end_datetime.substring(8, 10) -
+          event.start_datetime.substring(8, 10);
+        for (let i = 0; i < daysSpan - 1; i++) {
+          let newDate =
+            event.start_datetime.substring(0, 8) +
+            (parseInt(event.start_datetime.substring(8, 10)) +
+              i +
+              1).toString();
+          if (!listOfNames[newDate]) {
+            listOfNames[newDate] = [];
+          }
+          listOfNames[newDate].push(event.name);
+        }
         if (!listOfNames[event.end_datetime.substring(0, 10)]) {
           listOfNames[event.end_datetime.substring(0, 10)] = [];
         }
