@@ -62,6 +62,7 @@ class CalendarEvent extends Component {
         marked: true,
         dotColor: "#5a5757",
         startingDay: true,
+        endingDay: false,
         color: "#f4a95d"
       };
     });
@@ -93,6 +94,7 @@ class CalendarEvent extends Component {
           };
         }
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
+          startingDay: false,
           endingDay: true,
           color: "#f4a95d"
         };
