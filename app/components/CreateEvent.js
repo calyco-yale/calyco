@@ -62,11 +62,6 @@ class CreateEventComponent extends Component {
         }
     };
 
-    moveToAddParticipantScreen = () => {
-      console.log(this.props.participants)
-      Actions.addParticipantScreen({participants: this.props.participants})
-    }
-
   render() {
     const {
       loading, registerMessage, registerError,
@@ -75,6 +70,7 @@ class CreateEventComponent extends Component {
       onStartTimeChange, onEndTimeChange,
       onEventImageChange, disableCreateEvent,
       onDescriptionChange, onParticipantsChange,
+      user,
       participants
     } = this.props;
 
@@ -215,9 +211,10 @@ class CreateEventComponent extends Component {
         <BR />
         <BR />
         <BR />
+        <Text>{participants.map(p => <Text>{p.username}</Text>)}</Text>
         <RoundButton
           title="Add Participants"
-          onPress={Actions.addParticipantsScreen}
+          onPress={() => Actions.addParticipantsScreen({ loggedInUser: user, participants: participants })}
         />
         <RoundButton
           title="Create Event"

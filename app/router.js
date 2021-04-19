@@ -10,13 +10,8 @@ import LoggedInUserProfileScreen from './screens/LoggedInUserProfileScreen'
 import FriendScreen from './screens/FriendScreen';
 import FriendRequestScreen from './screens/FriendRequestScreen';
 import NewsFeedScreen from './screens/NewsFeedScreen';
-<<<<<<< HEAD
 import CreateEventScreen from './screens/CreateEventScreen.js';
 import AddParticipantsScreen from './screens/AddParticipantsScreen';
-=======
-import CreateEventScreen from './screens/CreateEventScreen';
-import AddParticipantScreen from './screens/AddParticipantScreen';
->>>>>>> cc17ef1 (Add participant screen)
 
 const AppRouter = () => (
   <Router>

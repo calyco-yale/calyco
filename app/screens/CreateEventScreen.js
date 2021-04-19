@@ -132,6 +132,7 @@ componentWillUnmount() {
         onEventImageChange={this.handleEventImageChange}
         onParticipantsChange={this.handleParticipantsChange}
         onDescriptionChange={this.handleDescriptionChange}
+        user={this.state.user}
         participants={this.state.participants}
       />);
   }

@@ -11,7 +11,7 @@ import { Actions } from 'react-native-router-flux';
 import { userItemSeparator} from '../helpers';
 
 import { getUser } from '../../src/graphql/queries';
-import { Alert, View, Text, FlatList } from 'react-native';
+import { Alert, View, Text, FlatList, StyleSheet } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import TextButton from '../base_components/TextButton';
 
@@ -75,49 +75,65 @@ class AddParticipantScreen extends Component {
 
   addParticipant(participant){
     let participants = this.state.participants
-    console.log('here')
-    console.log(participant)
-    console.log(participants)
-    if (participant == this.props.loggedInUser){
+    let pids = participants.map(p => p.id)
+    if (participant.id == this.props.loggedInUser.id){
       Alert.alert("Cannot add yourself as a participant.")
-    } else if (participants.includes(participant)) {
+    } else if (pids.includes(participant.id)) {
       Alert.alert("Participant already added.")
     } else {
       participants.push(participant)
-      console.log(participants)
       this.setState({ participants: participants})
     }
   }
 
   render() {
     const { participants, search, filteredData, allData } = this.state
-    console.log('render', participants)
-    console.log(filteredData)
-    return (
-      <View>
-        <Text>
-          {participants.map(p => {
-            <TextButton title={p.username} primary onPress={() => Actions.userProfileScreen({ userId: p.id })}/>
-          })}
-        </Text>
-
-        <SearchBar
-          placeholder="Search..."
-          onChangeText={(text) => this._filterSearch(text)}
-          onClear={() => this._filterSearch("")}
-          value={search}
-        />
-
-        <FlatList
-          data={filteredData}
-          // keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={userItemSeparator}
-          renderItem={({ item }) => <TextButton title={item.username} primary onPress={() => this.addParticipant(item)}/>}
-        />
-      </View>
-
-    );
+    if (participants){
+      let displayParticipants = []
+      for(let i = 0; i < participants.length; i++){
+        displayParticipants.push(
+          <Text key={participants[i].id}>{participants[i].username}</Text>
+        )
+      }
+      // let displayParticipants = participants.map(p => {
+      //   <Text>{p.username}</Text>
+      //   // <TextButton title={p.username} primary onPress={() => Actions.userProfileScreen({ userId: p.id })}/>
+      // });
+      return (
+        <View>
+          <View style={styles.participantList}>
+            <Text>
+              {displayParticipants}
+            </Text>
+          </View>
+  
+          <SearchBar
+            placeholder="Search..."
+            onChangeText={(text) => this._filterSearch(text)}
+            onClear={() => this._filterSearch("")}
+            value={search}
+          />
+  
+          <FlatList
+            data={filteredData}
+            // keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={userItemSeparator}
+            renderItem={({ item }) => <TextButton title={item.username} primary onPress={() => this.addParticipant(item)}/>}
+          />
+        </View>
+  
+      );
+    } else {
+      return (null)
+    }
   }
 }
+
+const styles = StyleSheet.create({
+  participantList: {
+    paddingTop: 100,
+    padding: 50  
+  }
+})
 
 export default AddParticipantScreen;
