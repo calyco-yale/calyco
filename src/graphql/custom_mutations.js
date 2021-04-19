@@ -45,3 +45,11 @@ mutation DeleteEvent($id: ID!) {
   }
 }
 `;
+
+export const createInvite = /* GraphQL */ `
+  mutation CreateInvite($userId: ID!, $eventId: ID!, $senderId: ID!) {
+    createInvite(input: {userID: $userId, eventID: $eventId, senderID: $senderId}) {
+      id
+    }
+  }
+`;

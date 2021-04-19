@@ -31,12 +31,8 @@ class AddParticipantScreen extends Component {
 
   fetchRequestData = async () => {
     try {
-      const userData = await API.graphql(graphqlOperation(listUsersShortened));
-      console.log("fetch", this.props.participants);
-      this.setState({
-        allData: userData.data.listUsers.items,
-        participants: this.props.participants
-      });
+      const userData = await API.graphql(graphqlOperation(listUsersShortened))
+      this.setState({allData: userData.data.listUsers.items, participants: this.props.participants})
     } catch (e) {
       console.log(e);
     }
@@ -92,6 +88,22 @@ class AddParticipantScreen extends Component {
       participants.push(participant);
       this.setState({ participants: participants });
     }
+  }
+
+  // TODO: Get participant_id from button? Add ID as attribute when displaying
+  deleteParticipant(participant_id){
+    let participants = this.state.participants
+    let index = -1
+    for (let i = 0; i < participants.length; i++){
+      if (participants[i].id == participant_id){
+        index = i;
+        break;
+      }
+    };
+    if (index > -1){
+      participants.splice(index, 1);
+    }
+    this.setState({ participants: participants})
   }
 
   render() {

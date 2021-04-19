@@ -5,7 +5,7 @@ import { SearchBar } from "react-native-elements";
 import Colors from "../../src/constants/colors";
 import AppBase from "../base_components/AppBase";
 import UserComponent from "../components/User";
-import { renderUserItem, userItemSeparator } from "../helpers";
+import { getInvitedEvents, renderUserItem, userItemSeparator } from "../helpers";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
@@ -14,7 +14,8 @@ class CalendarEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: []
+      events: [],
+      invitedEvents: []
     };
   }
 
@@ -32,6 +33,7 @@ class CalendarEvent extends Component {
   fetchEventData = async () => {
     try {
       const tempEvents = this.props.user.events.items;
+      const invitedEvents = await getInvitedEvents(this.props.user)
       if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
         this.setState({ events: publicEvents });

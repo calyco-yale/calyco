@@ -34,6 +34,17 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      invited_events {
+        items {
+          id
+          userID
+          eventID
+          senderID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       friendships {
         items {
           id
@@ -84,6 +95,9 @@ export const listUsers = /* GraphQL */ `
         events {
           nextToken
         }
+        invited_events {
+          nextToken
+        }
         friendships {
           nextToken
         }
@@ -130,6 +144,9 @@ export const getEvent = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {
@@ -219,6 +236,9 @@ export const usersByEmail = /* GraphQL */ `
         }
         pushToken
         events {
+          nextToken
+        }
+        invited_events {
           nextToken
         }
         friendships {

@@ -11,6 +11,7 @@ type User @model
   avatar: S3Object
   pushToken: String
   events: [Event] @connection(keyName: "byUser", fields: ["id"])
+  invited_events: [Invite] @connection(keyName: "byUser", fields: ["id"])
   friendships: [Friendship] @connection(keyName: "byUser", fields: ["id"])
   friendRequests: [FriendRequest] @connection(keyName: "byUser", fields: ["id"])
 }
@@ -35,6 +36,16 @@ type S3Object {
   region: String!
   key: String!
 }
+
+type Invite
+  @model(queries: null)
+  @key (name: "byUser", fields: ["userID", "eventID", "senderID"]) {
+    id: ID!
+    userID: ID!
+    eventID: ID!
+    senderID: ID!
+    user: User! @connection(fields: ["userID"])
+  }
 
 type Friendship 
   @model(queries: null)

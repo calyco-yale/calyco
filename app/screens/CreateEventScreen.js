@@ -7,7 +7,7 @@ import CreateEventComponent from "../components/CreateEvent";
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
 import { Actions } from "react-native-router-flux";
-import { createEvent, deleteEvent } from "../../src/graphql/custom_mutations";
+import { createEvent, deleteEvent, createInvite  } from "../../src/graphql/custom_mutations";
 import { getloggedInUser } from "../helpers";
 import { getUser } from "../../src/graphql/queries";
 import { View, Text, StyleSheet } from "react-native";
@@ -40,44 +40,20 @@ class CreateEventScreen extends Component {
     participants
   ) => {
     try {
-      await API.graphql(
-        graphqlOperation(createEvent, {
-          userId: loggedInUser,
-          public: is_public,
-          image_url: image_url,
-          end_datetime: end_time,
-          start_datetime: start_time,
-          name: event_name,
-          description: description,
-          participants: participants
-        })
-      );
-    } catch (e) {
-      console.log(e);
+        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: end_time, start_datetime: start_time, name: event_name, description: description, participants: participants}))
+        const eventID = event.data.createEvent.id
+        for (let i = 0; i < participants.length; i++){
+          await API.graphql(graphqlOperation(createInvite, { userId: participants[i], eventId: eventID, senderId: loggedInUser }))
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
   handleEventCreationSubmit = async () => {
-    const {
-      user,
-      is_public,
-      event_pic,
-      event_name,
-      start_time,
-      end_time,
-      description,
-      participants
-    } = this.state;
-    this.createPost(
-      user.id,
-      is_public,
-      event_pic,
-      end_time,
-      start_time,
-      event_name,
-      description,
-      participants
-    );
+    const { user, is_public, event_pic, event_name, start_time, end_time, description, participants} = this.state;
+    this.createPost(user.id, is_public, event_pic, end_time, start_time, event_name, description, participants.map(p => p.id));
     Actions.newsFeed();
   };
 
