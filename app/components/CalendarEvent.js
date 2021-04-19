@@ -58,22 +58,55 @@ class CalendarEvent extends Component {
   parseEvents = events => {
     const listOfMarkedDates = {};
     events.forEach(event => {
-      listOfMarkedDates[event.date] = {
+      listOfMarkedDates[event.start_datetime.substring(0, 10)] = {
         marked: true,
-        dotColor: "red"
+        dotColor: "#5a5757",
+        startingDay: true,
+        endingDay: false,
+        color: "#f4a95d"
       };
     });
-
+    events.forEach(event => {
+      if (
+        Object.keys(listOfMarkedDates).includes(
+          event.end_datetime.substring(0, 10)
+        )
+      ) {
+        listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
+          marked: true,
+          dotColor: "#5a5757",
+          startingDay: true,
+          endingDay: true,
+          color: "#f4a95d"
+        };
+      } else {
+        listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
+          // marked: true,
+          // dotColor: "red",
+          startingDay: false,
+          endingDay: true,
+          color: "#f4a95d"
+        };
+      }
+    });
     return listOfMarkedDates;
   };
 
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
-      if (!listOfNames[event.date]) {
-        listOfNames[event.date] = [];
+      if (!listOfNames[event.start_datetime.substring(0, 10)]) {
+        listOfNames[event.start_datetime.substring(0, 10)] = [];
       }
-      listOfNames[event.date].push(event.name);
+      listOfNames[event.start_datetime.substring(0, 10)].push(event.name);
+      if (
+        !Object.keys(listOfNames).includes(event.end_datetime.substring(0, 10))
+      ) {
+        if (!listOfNames[event.end_datetime.substring(0, 10)]) {
+          listOfNames[event.end_datetime.substring(0, 10)] = [];
+        }
+        listOfNames[event.end_datetime.substring(0, 10)].push(event.name);
+      }
     });
 
     return listOfNames;
@@ -91,6 +124,7 @@ class CalendarEvent extends Component {
           <Calendar
             // Collection of dates that have to be marked. Default = {}
             markedDates={listOfMarkedDates}
+            markingType={"period"}
             onDayPress={day => {
               if (Object.keys(listOfMarkedDates).includes(day.dateString)) {
                 alert(
