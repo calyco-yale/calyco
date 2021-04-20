@@ -6,6 +6,7 @@ import Colors from "../../src/constants/colors";
 import AppBase from "../base_components/AppBase";
 import UserComponent from "../components/User";
 import { renderUserItem, userItemSeparator } from "../helpers";
+import { convertLocalTime } from '../helpers'
 
 import BoxSimple from "../components/EventBox";
 
@@ -102,13 +103,15 @@ class UpcomingEvent extends Component {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           {sortedEvents.map(event => {
+            const start_time = convertLocalTime(event.start_datetime);
+            const end_time = convertLocalTime(event.end_datetime);
             return (
               <BoxSimple style={{ backgroundColor: "#ffffff" }}>
                 <Text>
                   {event.name}
                 </Text>
                 <Text>
-                  {event.start_datetime} - {event.end_datetime}
+                  {start_time} - {end_time}
                 </Text>
               </BoxSimple>
             );

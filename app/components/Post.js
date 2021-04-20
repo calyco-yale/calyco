@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import BR from '../base_components/BR';
+import { convertLocalTime } from '../helpers'
 
 class Post extends Component {
     constructor(props) {
@@ -8,8 +9,8 @@ class Post extends Component {
         this.profile_pic = props.profile_pic;
         this.event_pic = props.event_pic;
         this.event_name = props.event_name;
-        this.start_time = props.start_time;
-        this.end_time = props.end_time;
+        this.start_time = convertLocalTime(props.start_time);
+        this.end_time = convertLocalTime(props.end_time);
         this.event_host = props.event_host;
         this.event_participants = props.event_participants;
         this.event_description = props.event_description;

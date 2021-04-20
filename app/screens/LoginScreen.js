@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import LoginComponent from '../components/Login';
 import { Auth } from 'aws-amplify';
+import { retrieveOffset } from '../helpers'
 
 class LoginScreen extends Component {
   displayName = 'LoginScreen';
@@ -27,6 +28,8 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
     try {
         const user = await Auth.signIn(email, password);
+        const offset = retrieveOffset();
+        console.log(offset);
         Actions.newsFeed();
     } catch (error) {
         console.log('error signing in', error);

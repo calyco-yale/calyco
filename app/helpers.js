@@ -17,11 +17,76 @@ export const retrieveOffset = () => {
 }
 
 //sign for whether the user is receiving or sending time requests
-export const getCorrectTime = (date, sign) => {
+export const getUTCTime = (date) => {
   const offset = global.offset;
-  var currDate = new Date(date);
-  currDate.setMinutes(currDate.getMinutes() + (sign)*offset);
-  return new Date(currDate);
+  // console.log("input_date");
+  // console.log(date);
+  var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
+  // console.log(new_string);
+  var currDate = new Date(new_string);
+  // console.log("old");
+  // console.log(currDate.toString());
+  // currDate.setMinutes(currDate.getMinutes() + (sign)*offset);
+  // console.log("new");
+  // console.log(currDate.toString());
+  var curr_string = currDate.toISOString();
+  var new_string = curr_string.substring(0, 10) + " " + curr_string.substring(11, 16);
+  // console.log("new_string");
+  // console.log(new_string);
+  return new_string;
+}
+
+export const convertLocalTime = (date) => {
+  const offset = global.offset;
+  // console.log("input_date");
+  // console.log(date);
+  var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
+  // console.log(new_string);
+  var currDate = new Date(new_string);
+  currDate.setMinutes(currDate.getMinutes() - offset);
+  var curr_string = currDate.toISOString();
+  var curr_month = currDate.getMonth() + 1;
+  var curr_date = currDate.getDate();
+  var curr_year = currDate.getFullYear();
+  var curr_hour = currDate.getHours();
+  var curr_minute = currDate.getMinutes();
+  var temp_curr_date = curr_date;
+  var temp_curr_month = curr_month;
+  var temp_curr_hour = curr_hour;
+  var temp_curr_minute = curr_minute;
+  if (curr_date < 10) {
+    temp_curr_date = "0" + curr_date.toString();
+  }
+
+  if (curr_month < 10) {
+    temp_curr_month = "0" + curr_month.toString();
+  }
+
+  if (curr_hour < 10) {
+    temp_curr_hour = "0" + curr_hour.toString();
+  }
+
+  if (curr_minute < 10) {
+    temp_curr_minute = "0" + curr_minute.toString();
+  }
+  var new_string = curr_year + "-" + temp_curr_month + "-" + temp_curr_date + " " + temp_curr_hour + ":" + temp_curr_minute;
+  return new_string;
+}
+
+function calcTime(city, offset) {
+
+  // create Date object for current location
+  var d = new Date();
+ 
+  // get UTC time in msec
+  var utc = d.getTime();
+ 
+  // create new Date object for different city
+  // using supplied offset
+  var nd = new Date(utc + (3600000*offset));
+ 
+  // return time as a string
+  return "The local time in " + city + " is " + nd.toLocaleString();
 }
 
 // Get currently logged in user

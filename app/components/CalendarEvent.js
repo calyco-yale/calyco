@@ -9,6 +9,7 @@ import { getInvitedEvents, renderUserItem, userItemSeparator } from "../helpers"
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
+import { convertLocalTime } from "../helpers";
 
 class CalendarEvent extends Component {
   constructor(props) {
@@ -28,6 +29,18 @@ class CalendarEvent extends Component {
     });
 
     return publicEvents;
+  };
+
+  timeZoneConvertEvent = events => {
+    const change_events = [];
+    events.forEach(event => {
+      const _ = require('lodash');
+      var temp_event = _.cloneDeep(event);
+      temp_event.start_datetime = convertLocalTime(event.start_datetime);
+      temp_event.end_datetime = convertLocalTime(event.end_datetime);
+      change_events.push(temp_event);
+    })
+    return change_events;
   };
 
   fetchEventData = async () => {
@@ -139,9 +152,11 @@ class CalendarEvent extends Component {
   render() {
     this.fetchEventData();
     const { events } = this.state;
+    const second_events = events;
+    const a_events = this.timeZoneConvertEvent(second_events);
     if (events) {
-      const listOfMarkedDates = this.parseEvents(events);
-      const listOfNames = this.parseEventsNames(events);
+      const listOfMarkedDates = this.parseEvents(a_events);
+      const listOfNames = this.parseEventsNames(a_events);
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}

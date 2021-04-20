@@ -15,9 +15,10 @@ import TextButton from "../base_components/TextButton";
 import EventImage from "../components/EventImage";
 import { ScrollView } from "react-native-gesture-handler";
 
-import DatePicker from "react-native-datepicker";
-
 import Colors from "../../src/constants/colors";
+import DatePicker from 'react-native-datepicker'
+import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
 
 const createDateTime = () => {
   var date = new Date().getDate(); //To get the Current Date
@@ -36,6 +37,7 @@ class CreateEventComponent extends Component {
     super(props);
     this.state = {
       image: null,
+      eventType: null,
       datetime: createDateTime(),
       datetime1: createDateTime()
     };
@@ -189,25 +191,43 @@ class CreateEventComponent extends Component {
           onDateChange={(datetime) => {this.setState({datetime1: datetime}); onEndTimeChange(datetime);}}
         />
         <BR></BR>
-        <Text>Upload Event Image</Text>
-        <View style={{ 
-            flex: 1, 
-            alignItems: 'center', 
-            justifyContent: 'center' 
-            }}>
-            {this.state.image ? 
-                <Image 
-                source={{ uri: this.state.image }} 
-                style={styles.image} 
-                onPress={this.pickImage}/> : 
-                <TouchableOpacity
-                style={styles.selected}
-                onPress={this.pickImage}
-                >
-                <MaterialCommunityIcons name="plus-box" size={80} />
-                </TouchableOpacity>
-            }
-        </View>
+        <Text>Select Event Type</Text>
+        {/* exercise, rest, study, party, meeting, meal, other */}
+        <DropDownPicker
+            items={[
+                {label: 'exercise', value: 'exercise', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'rest', value: 'rest', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'study', value: 'study', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'party', value: 'party', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'meeting', value: 'meeting', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'meal', value: 'meal', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+                {label: 'other', value: 'other', icon: () => <Icon name="plus-square" size={18} color="#900" />},
+            ]}
+            defaultValue={this.state.country}
+            containerStyle={{height: 70, width: 350}}
+            style={{backgroundColor: '#fafafa'}}
+            itemStyle={{
+                justifyContent: 'flex-start'
+            }}
+            dropDownStyle={{backgroundColor: '#fafafa'}}
+            onChangeItem={item => {this.setState({ eventType: item.value });
+              // if (this.state.eventType.localeCompare('exercise')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('rest')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('study')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('party')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('meeting')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('meal')) {
+              //   onEventImageChange();
+              // } else {
+              //   onEventImageChange();
+              // }
+            }}
+        />
         <BR size={200}/>
         <Text style={styles.pText}>
           Participants:

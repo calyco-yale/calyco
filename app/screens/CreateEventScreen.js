@@ -11,6 +11,7 @@ import { createEvent, deleteEvent, createInvite  } from "../../src/graphql/custo
 import { getloggedInUser } from "../helpers";
 import { getUser } from "../../src/graphql/queries";
 import { View, Text, StyleSheet } from "react-native";
+import { getUTCTime } from '../helpers'
 
 class CreateEventScreen extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class CreateEventScreen extends Component {
     participants
   ) => {
     try {
-        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: end_time, start_datetime: start_time, name: event_name, description: description, participants: participants}))
+        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: getUTCTime(end_time), start_datetime: getUTCTime(start_time), name: event_name, description: description, participants: participants}))
         const eventID = event.data.createEvent.id;
         for (let i = 0; i < participants.length; i++){
           await API.graphql(graphqlOperation(createInvite, { userId: participants[i], eventId: eventID, senderId: loggedInUser }))

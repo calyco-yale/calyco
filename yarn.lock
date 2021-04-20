@@ -8867,6 +8867,13 @@
   dependencies:
     "moment" "^2.22.0"
 
+"react-native-dropdown-picker@^4.0.9":
+  "integrity" "sha512-HJtl0KpgzEVY8AWoONTSIfs6tnCAXCnlGkT/aTX2UwQmcdtp9Y83aFnZEwsXZDLtpHvVqDJvyNJ6XX8cCZWaVg=="
+  "resolved" "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-4.0.9.tgz"
+  "version" "4.0.9"
+  dependencies:
+    "react-native-vector-icons" "^7.0.0"
+
 "react-native-elements@^3.3.2":
   "integrity" "sha512-bDWQt0WEuJEOrwzSYx0mVBV3aoRtJAsK0Kc2sioMsshSEhPOZK17Ccx+EvLBSpZ9uWxPyx42Z7hUH/8dQNu67g=="
   "resolved" "https://registry.npmjs.org/react-native-elements/-/react-native-elements-3.3.2.tgz"
@@ -8987,10 +8994,17 @@
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.0.0.tgz"
   "version" "3.0.0"
 
+<<<<<<< HEAD
 "react-native-vector-icons@^8.1.0":
   "integrity" "sha512-sHIdBB6Y0dHaot2fMXgy5J/hhCn5YuyN7SKDNFgPzL8KA1oF2/v7mgYMavnK7LIIs2dJoGnDANKf61dsU+TZlg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz"
   "version" "8.1.0"
+=======
+"react-native-vector-icons@^7.0.0":
+  "integrity" "sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ=="
+  "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz"
+  "version" "7.1.0"
+>>>>>>> 8ce1653... changed event image input for create event using drop down menu of event choices
   dependencies:
     "lodash.frompairs" "^4.0.1"
     "lodash.isequal" "^4.5.0"
@@ -8999,7 +9013,11 @@
     "lodash.pick" "^4.4.0"
     "lodash.template" "^4.5.0"
     "prop-types" "^15.7.2"
+<<<<<<< HEAD
     "yargs" "^16.1.1"
+=======
+    "yargs" "^15.0.2"
+>>>>>>> 8ce1653... changed event image input for create event using drop down menu of event choices
 
 "react-native-web@^0.15.0":
   "integrity" "sha512-42Ax8MyQ8FX2t4iJC2i091IIlXR1KuQn4lPvX+dm1K86Z6uuibwRZgJOxUBsQZJqdLrZQ9qeknJsGErOcJgaOg=="
@@ -10868,7 +10886,7 @@
     "y18n" "^4.0.0"
     "yargs-parser" "^15.0.1"
 
-"yargs@^15.1.0":
+"yargs@^15.0.2", "yargs@^15.1.0":
   "integrity" "sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A=="
   "resolved" "https://registry.npmjs.org/yargs/-/yargs-15.4.1.tgz"
   "version" "15.4.1"
