@@ -228,6 +228,26 @@ class CreateEventComponent extends Component {
               // }
             }}
         />
+        <Text>Upload Event Image</Text>
+        <View style={{ 
+            flex: 1, 
+            alignItems: 'center', 
+            justifyContent: 'center' 
+            }}>
+            {/* {this.state.image ? 
+                <Image 
+                source={{ uri: this.state.image }} 
+                style={styles.image} 
+                onPress={this.pickImage}/> : 
+                <TouchableOpacity
+                style={styles.selected}
+                onPress={this.pickImage}
+                >
+                <MaterialCommunityIcons name="plus-box" size={80} />
+                </TouchableOpacity>
+            } */}
+            <EventImage />
+        </View>
         <BR size={200}/>
         <Text style={styles.pText}>
           Participants:
