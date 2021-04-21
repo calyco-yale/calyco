@@ -124,20 +124,24 @@ class UpcomingEvent extends Component {
       if (this.props.loggedIn) {
         return (
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" }}
           >
             {sortedEvents.map(event => {
               const start_time = convertLocalTime(event.start_datetime);
               const end_time = convertLocalTime(event.end_datetime);
               return (
                 <BoxSimple style={{ backgroundColor: "#ffffff" }}>
-                  <TouchableOpacity onPress={() => this.deleteEvent(event.id)}>
-                    <Image
-                    style={styles.removeIcon}
-                    source={require("../../assets/delete.png")}
-                    />
-                  </TouchableOpacity>
-                  <Text>
+                  <View
+                    style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end" }}
+                  >
+                    <TouchableOpacity onPress={() => this.deleteEvent(event.id)}>
+                      <Image
+                      style={styles.removeIcon}
+                      source={require("../../assets/delete.png")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={styles.eventText}>
                     {event.name}
                   </Text>
                   <Text>
@@ -182,6 +186,11 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     tintColor: "firebrick"
+  },
+  eventText: {
+    color: "#f4a95d", 
+    fontWeight: 'bold',
+    fontSize: 16
   }
 });
 
