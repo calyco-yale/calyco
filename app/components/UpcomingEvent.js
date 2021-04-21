@@ -67,7 +67,13 @@ class UpcomingEvent extends Component {
   render() {
     const events = this.props.events
     const invitedEvents = this.props.invitedEvents
-
+    const newInvitedEvents = [];
+    for (let i = 0; i < invitedEvents.length; i++) {
+      if (invitedEvents[i] != null) {
+        newInvitedEvents.push(invitedEvents[i]);
+      }
+    }
+    const total_events = Object.assign(events, newInvitedEvents)
     if (events) {
       const sortedEvents = this.sortEvents(events);
       if (this.props.loggedIn) {
@@ -112,7 +118,7 @@ class UpcomingEvent extends Component {
               const end_time = convertLocalTime(event.end_datetime);
               return (
                 <BoxSimple style={{ backgroundColor: "#ffffff" }}>
-                  <Text>
+                  <Text style={styles.eventText}>
                     {event.name}
                   </Text>
                   <Text>
