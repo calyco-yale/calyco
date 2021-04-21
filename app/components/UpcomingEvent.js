@@ -134,7 +134,7 @@ class UpcomingEvent extends Component {
                   <TouchableOpacity onPress={() => this.deleteEvent(event.id)}>
                     <Image
                     style={styles.removeIcon}
-                    source={require("../../assets/remove_icon.png")}
+                    source={require("../../assets/delete.png")}
                     />
                   </TouchableOpacity>
                   <Text>
