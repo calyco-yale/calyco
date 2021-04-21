@@ -4,7 +4,7 @@ import UserComponent from "./components/User";
 import global from "./global";
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
-import { getUser, getusersByEmail, getEvent } from "../src/graphql/queries";
+import { getUser, getEvent } from "../src/graphql/queries";
 import {
   createSimpleFriendship,
   deleteFriendshipById
@@ -22,33 +22,19 @@ export const retrieveOffset = () => {
 //sign for whether the user is receiving or sending time requests
 export const getUTCTime = date => {
   const offset = global.offset;
-  // console.log("input_date");
-  // console.log(date);
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
-  // console.log(new_string);
   var currDate = new Date(new_string);
-  // console.log("old");
-  // console.log(currDate.toString());
-  // currDate.setMinutes(currDate.getMinutes() + (sign)*offset);
-  // console.log("new");
-  // console.log(currDate.toString());
   var curr_string = currDate.toISOString();
   var new_string =
     curr_string.substring(0, 10) + " " + curr_string.substring(11, 16);
-  // console.log("new_string");
-  // console.log(new_string);
   return new_string;
 };
 
 export const convertLocalTime = date => {
   const offset = global.offset;
-  // console.log("input_date");
-  // console.log(date);
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
-  // console.log(new_string);
   var currDate = new Date(new_string);
   currDate.setMinutes(currDate.getMinutes() - offset);
-  var curr_string = currDate.toISOString();
   var curr_month = currDate.getMonth() + 1;
   var curr_date = currDate.getDate();
   var curr_year = currDate.getFullYear();
@@ -134,40 +120,108 @@ export const getInvitedEvents = async user => {
   return events;
 };
 
-// Helper function to get a user's busy times for a date
-export const getUserSchedule = (user, date) => {
-  const userEvents = user.events.items.filter(event => event.date == date);
+export const getDateFromDatetime = datetime => {
+  let arr = datetime.split(" ");
+  return arr[0];
+};
+
+export const getDateFromString = datetimeString => {
+  return new Date(
+    Date.UTC(
+      datetimeString.substring(0, 4),
+      datetimeString.substring(5, 7) - 1,
+      datetimeString.substring(8, 10),
+      datetimeString.substring(11, 13),
+      datetimeString.substring(14, 16)
+    )
+  );
+};
+
+export const getStringFromDate = date => {
+  const iso = date.toISOString();
+  return iso.substring(0, 10) + " " + iso.substring(11, 16);
+};
+
+// Helper function to get a user's busy times during a given interval
+export const getUserSchedule = (user, startDatetime, endDatetime) => {
+  // UTC Date objects
+  const startDate = getDateFromString(startDatetime);
+  const endDate = getDateFromString(endDatetime);
+
+  let dateArray = [];
+  var currentDate = new Date(startDate);
+  currentDate.setUTCHours(0, 0);
+
+  while (currentDate <= endDate) {
+    dateArray.push(new Date(currentDate).toISOString().substring(0, 10));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  const userEvents = user.events.items.filter(
+    event =>
+      dateArray.includes(getDateFromDatetime(event.start_datetime)) ||
+      dateArray.includes(getDateFromDatetime(event.end_datetime))
+  );
   let busyTimes = [];
   userEvents.forEach(event => {
-    busyTimes.push([event.start_time, event.end_time]);
+    let startString = getStringFromDate(startDate);
+    let endString = getStringFromDate(endDate);
+    if (
+      event.start_datetime.localeCompare(endString) < 0 &&
+      event.end_datetime.localeCompare(startString) > 0
+    ) {
+      busyTimes.push([
+        event.start_datetime.localeCompare(startString) > 0
+          ? event.start_datetime
+          : startString,
+        event.end_datetime.localeCompare(endString) < 0
+          ? event.end_datetime
+          : endString
+      ]);
+    }
   });
   return busyTimes;
 };
 
 //  Helper function to suggest user available times for a date
-export const suggestTimes = (users, date) => {
-  let allTimes = []; //Merge all users' busy times together
-  users.forEach(user => {
-    allTimes = allTimes.concat(getUserSchedule(user, date));
-  });
+export const suggestTimes = (users, startDatetime, endDatetime) => {
+  let allTimes = [];
+  //Merge all users' busy times together
+  for (let i = 0; i < users.length; i++) {
+    allTimes = allTimes.concat(
+      getUserSchedule(users[i], startDatetime, endDatetime)
+    );
+  }
+  //Sort time intervals by starting time
   allTimes.sort((a, b) => {
     return a.toString().localeCompare(b.toString());
-  }); //Sort time intervals by starting time
+  });
+
   let mergedTimes = [];
   while (allTimes.length > 0) {
     let lastIndex = mergedTimes.length - 1;
     let slot = allTimes.shift(); // Get first time slot
     if (mergedTimes.length > 0 && mergedTimes[lastIndex][1] >= slot[0]) {
       //If last time slot in merged ends after next slot starts
-      mergedTimes[lastIndex][1] = max(slot[1], mergedTimes[lastIndex][1]); //Merge slots
+      mergedTimes[lastIndex][1] = Math.max(slot[1], mergedTimes[lastIndex][1]); //Merge slots
     } else {
       mergedTimes.push(slot);
     }
   }
   //Get free time intervals
   let freeTimes = [];
-  for (var i = 0; i < mergedTimes.length - 1; i++) {
-    freeTimes.push([mergedTimes[i][1], mergedTimes[i + 1][0]]);
+  if (mergedTimes.length > 0) {
+    if (startDatetime != mergedTimes[0][0]) {
+      freeTimes.push([startDatetime, mergedTimes[0][0]]);
+    }
+    for (var i = 0; i < mergedTimes.length - 1; i++) {
+      freeTimes.push([mergedTimes[i][1], mergedTimes[i + 1][0]]);
+    }
+    if (mergedTimes[mergedTimes.length - 1][1] != endDatetime) {
+      freeTimes.push([mergedTimes[mergedTimes.length - 1][1], endDatetime]);
+    }
+  } else {
+    freeTimes.push([startDatetime, endDatetime]);
   }
   return freeTimes;
 };

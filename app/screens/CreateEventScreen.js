@@ -19,7 +19,7 @@ class CreateEventScreen extends Component {
     this.state = {
       user: null,
       user_data: null,
-      is_public: null,
+      // is_public: null,
       event_pic: null,
       event_name: null,
       start_time: null,
@@ -31,7 +31,8 @@ class CreateEventScreen extends Component {
 
   createPost = async (
     loggedInUser,
-    is_public,
+    // is_public,
+    publicEnabled,
     image_url,
     end_time,
     start_time,
@@ -40,7 +41,7 @@ class CreateEventScreen extends Component {
     participants
   ) => {
     try {
-        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: is_public, image_url: image_url, end_datetime: getUTCTime(end_time), start_datetime: getUTCTime(start_time), name: event_name, description: description, participants: participants}))
+        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: publicEnabled, image_url: image_url, end_datetime: getUTCTime(end_time), start_datetime: getUTCTime(start_time), name: event_name, description: description, participants: participants}))
         const eventID = event.data.createEvent.id;
         for (let i = 0; i < participants.length; i++){
           await API.graphql(graphqlOperation(createInvite, { userId: participants[i], eventId: eventID, senderId: loggedInUser }))
@@ -50,9 +51,9 @@ class CreateEventScreen extends Component {
       }
   };
 
-  handleEventCreationSubmit = async () => {
+  handleEventCreationSubmit = async (publicEnabled) => {
     const { user, is_public, event_pic, event_name, start_time, end_time, description, participants} = this.state;
-    this.createPost(user.id, is_public, event_pic, end_time, start_time, event_name, description, participants.map(p => p.id));
+    this.createPost(user.id, publicEnabled, event_pic, end_time, start_time, event_name, description, participants.map(p => p.id));
     Actions.newsFeed();
   };
 
@@ -62,11 +63,11 @@ class CreateEventScreen extends Component {
     });
   };
 
-  handlePublicChange = is_public => {
-    this.setState({
-      is_public
-    });
-  };
+  // handlePublicChange = is_public => {
+  //   this.setState({
+  //     is_public
+  //   });
+  // };
 
   handleStartTimeChange = (start_time) => {
     this.setState({
@@ -127,7 +128,7 @@ class CreateEventScreen extends Component {
     const {
       user,
       user_data,
-      is_public,
+      // is_public,
       event_pic,
       start_time,
       end_time,
@@ -135,7 +136,7 @@ class CreateEventScreen extends Component {
       participants
     } = this.state;
     const disableCreateEvent =
-      !is_public || !start_time || !end_time || !description;
+      !start_time || !end_time || !description;
     if (user) {
       return (
         <CreateEventComponent
@@ -144,7 +145,7 @@ class CreateEventScreen extends Component {
           registerError={registerError}
           disableCreateEvent={disableCreateEvent}
           onEventCreationSubmit={this.handleEventCreationSubmit}
-          onPublicChange={this.handlePublicChange}
+          // onPublicChange={this.handlePublicChange}
           onEventNameChange={this.handleEventNameChange}
           onStartTimeChange={this.handleStartTimeChange}
           onEndTimeChange={this.handleEndTimeChange}
