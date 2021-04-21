@@ -34,7 +34,8 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
-      this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: getInvitedEvents(loggedInUser) })
+      const invitedEvents = await getInvitedEvents(loggedInUser)
+      this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: invitedEvents })
     } catch (e) {
       console.log(e);
     }
@@ -103,7 +104,6 @@ class UserProfileScreen extends Component {
     first: this.FirstRoute,
     second: this.SecondRoute,
   });
-
 
   render() {
     const layout = Dimensions.get('window');

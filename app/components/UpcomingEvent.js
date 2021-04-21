@@ -66,6 +66,8 @@ class UpcomingEvent extends Component {
 
   render() {
     const events = this.props.events
+    const invitedEvents = this.props.invitedEvents
+
     if (events) {
       const sortedEvents = this.sortEvents(events);
       if (this.props.loggedIn) {

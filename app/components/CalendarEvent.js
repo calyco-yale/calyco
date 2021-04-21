@@ -117,7 +117,8 @@ class CalendarEvent extends Component {
 
   render() {
     const events = this.props.events
-
+    const invitedEvents = this.props.invitedEvents
+    
     if (events) {
       const second_events = events;
       const a_events = this.timeZoneConvertEvent(second_events);

@@ -33,7 +33,8 @@ class UserProfileScreen extends Component {
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
       const user = userData.data.getUser
       const loggedIn = (user.id == loggedInUser.id)
-      this.setState({ user: user, loggedInUser: loggedInUser, loggedIn: loggedIn, events: this.fetchEventData(user.events.items, loggedIn), invitedEvents: this.fetchEventData(getInvitedEvents(user), loggedIn) })
+      const invitedEvents = await getInvitedEvents(user)
+      this.setState({ user: user, loggedInUser: loggedInUser, loggedIn: loggedIn, events: this.fetchEventData(user.events.items, loggedIn), invitedEvents: this.fetchEventData(invitedEvents, loggedIn) })
     } catch (e) {
       console.log(e);
     }
@@ -58,7 +59,7 @@ class UserProfileScreen extends Component {
       if (!loggedIn) {
         let publicEvents = [];
         for (let i = 0; i < events.length; i++){
-          if (events[i].public) {
+          if (events[i] && events[i].public) {
             publicEvents.push(events[i]);
           }
         }
