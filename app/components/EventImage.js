@@ -2,15 +2,23 @@ import React, { useState, useEffect, Component } from 'react';
 import { StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const EventImage = () => {
+const EventImage = (event) => {
   const eventDict = {
     //1: 'https://assets10.lottiefiles.com/packages/lf20_4jfpujz6.json',
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-    6: null,
-    7: null
+    exercise: require("../../assets/29951-healthy-lifestyle-exercise.json"),
+    rest: require("../../assets/9626-levitate-meditate-peace-and-love.json"),
+    study: require("../../assets/25200-student.json"),
+    party: require("../../assets/29774-dance-party.json"),
+    meeting: require("../../assets/41448-online-team-collaboration-animation.json"),
+    meal: require("../../assets/48950-bento-box.json"),
+    other: require("../../assets/46864-lovely-cats.json"),
+    
+  }
+
+  console.log(event);
+  var eventPath = eventDict[event.event];
+  if (event.event == null) {
+    eventPath = eventDict["exercise"];
   }
 
   return ( 
@@ -28,7 +36,7 @@ const EventImage = () => {
             height: 200,
             backgroundColor: '#eee',
           }}
-          source={require("../../assets/48950-bento-box.json")}
+          source={eventPath}
           autoPlay
           loop
           // OR find more Lottie files @ https://lottiefiles.com/featured

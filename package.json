@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@killerwink/lottie-react-native-color": "^1.0.2",
     "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/material-bottom-tabs": "^5.3.14",
@@ -22,6 +23,7 @@
     "expo-notifications": "^0.11.5",
     "expo-status-bar": "~1.0.3",
     "expo-updates": "^0.4.2",
+    "lottie-colorify": "^0.8.0",
     "lottie-ios": "^3.1.8",
     "lottie-react-native": "^3.5.0",
     "react": "16.13.1",

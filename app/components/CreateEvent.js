@@ -37,7 +37,7 @@ class CreateEventComponent extends Component {
     super(props);
     this.state = {
       image: null,
-      eventType: null,
+      eventType: "exercise",
       datetime: createDateTime(),
       datetime1: createDateTime()
     };
@@ -211,24 +211,23 @@ class CreateEventComponent extends Component {
             }}
             dropDownStyle={{backgroundColor: '#fafafa'}}
             onChangeItem={item => {this.setState({ eventType: item.value });
-              // if (this.state.eventType.localeCompare('exercise')) {
-              //   onEventImageChange();
-              // } else if (this.state.eventType.localeCompare('rest')) {
-              //   onEventImageChange();
-              // } else if (this.state.eventType.localeCompare('study')) {
-              //   onEventImageChange();
-              // } else if (this.state.eventType.localeCompare('party')) {
-              //   onEventImageChange();
-              // } else if (this.state.eventType.localeCompare('meeting')) {
-              //   onEventImageChange();
-              // } else if (this.state.eventType.localeCompare('meal')) {
-              //   onEventImageChange();
-              // } else {
-              //   onEventImageChange();
-              // }
+              if (this.state.eventType.localeCompare('exercise')) {
+                onEventImageChange("exercise");
+              } else if (this.state.eventType.localeCompare('rest')) {
+                onEventImageChange("rest");
+              } else if (this.state.eventType.localeCompare('study')) {
+                onEventImageChange("study");
+              } else if (this.state.eventType.localeCompare('party')) {
+                onEventImageChange("party");
+              } else if (this.state.eventType.localeCompare('meeting')) {
+                onEventImageChange("meeting");
+              } else if (this.state.eventType.localeCompare('meal')) {
+                onEventImageChange("meal");
+              } else {
+                onEventImageChange("other");
+              }
             }}
         />
-        <Text>Upload Event Image</Text>
         <View style={{ 
             flex: 1, 
             alignItems: 'center', 
@@ -246,9 +245,9 @@ class CreateEventComponent extends Component {
                 <MaterialCommunityIcons name="plus-box" size={80} />
                 </TouchableOpacity>
             } */}
-            <EventImage />
+            <EventImage event = {this.state.eventType} />
         </View>
-        <BR size={200}/>
+        <BR size={50}/>
         <Text style={styles.pText}>
           Participants:
           {participants.map(p =>

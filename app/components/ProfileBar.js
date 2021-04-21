@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View, Platform, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { getColors } from 'lottie-colorify';
+import LottieView from 'lottie-react-native';
+import RoundButton from '../base_components/RoundButton';
+import changeSVGColor from '@killerwink/lottie-react-native-color';
 
 export default function ProfileBar() {
   const [image, setImage] = useState(null);
+  const [color, setColor] = useState("gray");
 
   useEffect(() => {
     (async () => {
@@ -30,6 +35,14 @@ export default function ProfileBar() {
     }
   };
 
+  const pickColor = () => {
+
+  }
+
+  const profilecat = "../../assets/8874-cat.json";
+  const imagePath = require(profilecat);
+
+
   return (
     <>
     <View style={{ 
@@ -37,7 +50,7 @@ export default function ProfileBar() {
       alignItems: 'center', 
       justifyContent: 'center' 
     }}>
-      {image ? 
+      {/* {image ? 
         <Image 
           source={{ uri: image }} 
           style={styles.image} 
@@ -48,7 +61,23 @@ export default function ProfileBar() {
         >
           <MaterialCommunityIcons name="account" size={50} />
         </TouchableOpacity>
-      }
+      } */}
+      <LottieView
+        style={{
+          width: 150,
+          height: 150,
+          backgroundColor: '#eee',
+        }}
+        source={changeSVGColor(imagePath, '#000000')}
+      />
+      <Button
+        title="Change Color"
+        buttonColor="gray"
+        style={{
+          fontSize: 12
+        }}
+        onPress={() => {pickColor}}
+      />
 
     </View>
     </>

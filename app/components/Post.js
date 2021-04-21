@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import BR from '../base_components/BR';
 import { convertLocalTime } from '../helpers'
+import EventImage from './EventImage';
 
 class Post extends Component {
     constructor(props) {
@@ -62,10 +63,15 @@ class Post extends Component {
                 </View>
 
                 {/* Event picture */}
-                <Image
-                    style={styles.eventPic}
-                    source={{uri: this.event_pic}}
-                />
+                <View style={{ 
+                    flex: 1, 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                }}>
+                    <EventImage
+                        event = {this.event_pic}
+                    />
+                </View>
                 <View style = {styles.iconBar}>
                     {/* like event */}
                     <TouchableOpacity
