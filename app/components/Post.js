@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'rea
 import BR from '../base_components/BR';
 import { convertLocalTime } from '../helpers'
 import EventImage from './EventImage';
+import LottieView from 'lottie-react-native';
+import changeSVGColor from '@killerwink/lottie-react-native-color';
 
 class Post extends Component {
     constructor(props) {
@@ -19,8 +21,6 @@ class Post extends Component {
             post_liked: false,
             view_participants: false
         }
-        console.log("EVENT_PIC IN POST")
-        console.log(this.event_pic)
     }
 
     likeToggled(){
@@ -45,10 +45,21 @@ class Post extends Component {
 
                     {/* profile pic */}
                     <View>
-                        <Image
-                            style={styles.userPic}
-                            source={{ uri: this.profile_pic }}
+                    <TouchableOpacity
+                        style={{
+                            borderColor: this.profile_pic,
+                            borderWidth: 3,
+                            height: 50,
+                            width: 50,
+                            marginLeft: 20,
+                            marginTop: 25, 
+                            borderRadius: 25
+                        }}
+                    >
+                        <LottieView
+                        source={changeSVGColor(require("../../assets/8874-cat.json"), this.profile_pic)}
                         />
+                    </TouchableOpacity>
                     </View>
 
                     {/* Username and event name*/}

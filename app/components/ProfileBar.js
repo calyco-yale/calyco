@@ -20,9 +20,27 @@ export default function ProfileBar() {
   const [color, setColor] = useState("#54d05d");
   const [isModalVisible, setModalVisible] = useState(false);
 
+  const userColor = async() => {    
+    const user = await getloggedInUser();
+    const userData = await API.graphql(graphqlOperation(getUser, { id: user.id }));
+    const iconColor = userData.data.getUser.image_url;
+
+    if (iconColor != null) {
+      // console.log('icon Color from db');
+      // console.log(iconColor);
+      setColor(iconColor);
+    } else {
+      setColor("#54d05d");
+    }
+  };
+
+  // retrieve color from database and set if valid
+  userColor();
+
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-    console.log(isModalVisible);
+    // console.log(isModalVisible);
   };
 
   useEffect(() => {
@@ -50,16 +68,9 @@ export default function ProfileBar() {
   };
 
   const pickColor = async (color) => {
-    console.log("whassup")
-    console.log(color)
     setColor(color)
-    console.log('END MY SUFFERING');
     const user = await getloggedInUser();
-    const user1 = await API.graphql(graphqlOperation(getUser, { id: user.id }));
-    console.log(user1)
     await API.graphql(graphqlOperation(updateUser, { id: user.id, image_url: color}))
-    const user2 = await API.graphql(graphqlOperation(getUser, { id: user.id }));
-    console.log(user2)
   }
 
   const profilecat = "../../assets/8874-cat.json";
@@ -118,7 +129,7 @@ export default function ProfileBar() {
       <Modal isVisible={isModalVisible}>
         <View style={{flex: 1}}>
           <ColorPicker
-            onColorChange={(color) => console.log(color)}
+            // onColorChange={(color) => console.log(color)}
             onColorChangeComplete={(color) => pickColor(color)}
           />
           {/* <Text>HI There</Text> */}
