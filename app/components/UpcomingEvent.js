@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   eventText: {
     color: "#f4a95d", 
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 20
   }
 });
 
