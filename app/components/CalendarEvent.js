@@ -47,22 +47,12 @@ class CalendarEvent extends Component {
     return change_events;
   };
 
-  getInvite = async () => {
-    try {
-      const invitedEvents = await getInvitedEvents(this.props.user);
-    } catch (e) {
-      console.log(e);
-    }
-    return invitedEvents;
-  };
-
   fetchEventData = async () => {
     try {
       const tempEvents = this.props.user.events.items;
-      const invitedEvents = this.getInvite();
+      const invitedEvents = await getInvitedEvents(this.props.user);
       if (invitedEvents.length > 0) {
-        console.log("invitedEvents here");
-        console.log(invitedEvents);
+        console.log("invitedEvents print:", invitedEvents);
       } else {
         console.log("no invitedEvents");
       }
@@ -169,10 +159,18 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    this.fetchEventData();
+    // this.fetchEventData();
+    // console.log("user print:", this.props.user);
     const { events } = this.state;
     const second_events = events;
     const a_events = this.timeZoneConvertEvent(second_events);
+    // var a = {};
+    // a["fruit"] = "apple";
+
+    // var b = {};
+    // b["vegetable"] = "carrot";
+
+    // var food = Object.assign({}, a, b);
     if (events) {
       const listOfMarkedDates = this.parseEvents(a_events);
       const listOfNames = this.parseEventsNames(a_events);

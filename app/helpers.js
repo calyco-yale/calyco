@@ -107,16 +107,19 @@ export const getloggedInUser = async () => {
 export const getInvitedEvents = async user => {
   let invitedEventData = user.invited_events.items;
   let events = [];
-  for (let i = 0; i < invitedEventIds.length; i++) {
+  for (let i = 0; i < invitedEventData.length; i++) {
     try {
       const eventData = await API.graphql(
         graphqlOperation(getEvent, { id: invitedEventData[i].eventID })
       );
+      // console.log("invitedEventData[i] print: ", invitedEventData[i]);
+      // console.log("eventData print: ", eventData);
       events.push(eventData.data.getEvent);
     } catch (e) {
       console.log(e);
     }
   }
+  console.log("events print: ", events);
   return events;
 };
 
