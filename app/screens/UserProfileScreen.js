@@ -87,10 +87,6 @@ class UserProfileScreen extends Component {
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <Button
-      title="Add Event"
-      color="#841584"
-      />
       <CalendarEvent user = {this.state.user} loggedIn = {false}/>
     </ScrollView>
     </>
