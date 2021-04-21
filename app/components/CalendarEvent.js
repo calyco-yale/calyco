@@ -52,9 +52,9 @@ class CalendarEvent extends Component {
       const tempEvents = this.props.user.events.items;
       const invitedEvents = await getInvitedEvents(this.props.user);
       if (invitedEvents.length > 0) {
-        console.log("invitedEvents print:", invitedEvents);
+        // console.log("invitedEvents print:", invitedEvents);
       } else {
-        console.log("no invitedEvents");
+        // console.log("no invitedEvents");
       }
       if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
@@ -159,7 +159,7 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    // this.fetchEventData();
+    this.fetchEventData();
     // console.log("user print:", this.props.user);
     const { events } = this.state;
     const second_events = events;

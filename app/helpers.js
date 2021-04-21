@@ -119,7 +119,7 @@ export const getInvitedEvents = async user => {
       console.log(e);
     }
   }
-  console.log("events print: ", events);
+  // console.log("events print: ", events);
   return events;
 };
 
