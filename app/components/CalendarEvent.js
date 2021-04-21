@@ -14,22 +14,7 @@ import { convertLocalTime } from "../helpers";
 class CalendarEvent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      events: [],
-      invitedEvents: []
-    };
   }
-
-  getPublicEvents = events => {
-    const publicEvents = [];
-    events.forEach(event => {
-      if (event.public) {
-        publicEvents.push(event);
-      }
-    });
-
-    return publicEvents;
-  };
 
   timeZoneConvertEvent = events => {
     const change_events = [];
@@ -42,25 +27,6 @@ class CalendarEvent extends Component {
     })
     return change_events;
   };
-
-  fetchEventData = async () => {
-    try {
-      const tempEvents = this.props.user.events.items;
-      // const invitedEvents = await getInvitedEvents(this.props.user)
-      if (!this.props.loggedIn) {
-        const publicEvents = this.getPublicEvents(tempEvents);
-        this.setState({ events: publicEvents });
-      } else {
-        this.setState({ events: tempEvents });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  componentDidMount() {
-    this.fetchEventData();
-  }
 
   parseEvents = events => {
     const listOfMarkedDates = {};
@@ -150,11 +116,11 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    this.fetchEventData();
-    const { events } = this.state;
-    const second_events = events;
-    const a_events = this.timeZoneConvertEvent(second_events);
+    const events = this.props.events
+
     if (events) {
+      const second_events = events;
+      const a_events = this.timeZoneConvertEvent(second_events);
       const listOfMarkedDates = this.parseEvents(a_events);
       const listOfNames = this.parseEventsNames(a_events);
       return (
@@ -202,6 +168,8 @@ class CalendarEvent extends Component {
           />
         </View>
       );
+    } else {
+      return null;
     }
   }
 }

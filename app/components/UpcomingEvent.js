@@ -23,43 +23,7 @@ import { getUser } from "../../src/graphql/queries";
 class UpcomingEvent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      events: []
-    };
   }
-
-  getPublicEvents = events => {
-    const publicEvents = [];
-    events.forEach(event => {
-      if (event.public) {
-        publicEvents.push(event);
-      }
-    });
-
-    return publicEvents;
-  };
-
-  fetchEventData = async () => {
-    try {
-      const tempEvents = this.props.user.events.items;
-      if (!this.props.loggedIn) {
-        const publicEvents = this.getPublicEvents(tempEvents);
-        this.setState({ events: publicEvents });
-      } else {
-        this.setState({ events: tempEvents });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  componentDidMount() {
-    this.fetchEventData();
-  }
-
-  // componentWillUnmount() {
-  //   this.didFocusListener.remove();
-  // }
 
   parseEventsNames = events => {
     const listOfNames = {};
@@ -100,25 +64,8 @@ class UpcomingEvent extends Component {
     return newEvents;
   };
 
-  async deleteEvent (eventId) {
-    try {
-      await API.graphql(
-        graphqlOperation(deleteEvent, { id: eventId })
-      );
-      const refetch = await API.graphql(
-        graphqlOperation(getUser, { id: this.props.user.id })
-      );
-      const events = refetch.data.getUser.events.items;
-      this.setState({ events: events });
-      Actions.newsFeed();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   render() {
-    this.fetchEventData();
-    const { events } = this.state;
+    const events = this.props.events
     if (events) {
       const sortedEvents = this.sortEvents(events);
       if (this.props.loggedIn) {
@@ -134,7 +81,7 @@ class UpcomingEvent extends Component {
                   <View
                     style={{justifyContent: "flex-end", alignItems: "flex-end" }}
                   >
-                    <TouchableOpacity onPress={() => this.deleteEvent(event.id)}>
+                    <TouchableOpacity onPress={() => this.props.deleteEvent(event.id)}>
                       <Image
                       style={styles.removeIcon}
                       source={require("../../assets/delete.png")}
@@ -175,6 +122,8 @@ class UpcomingEvent extends Component {
           </View>
         );
       }
+    } else {
+      return null;
     }
   }
 }

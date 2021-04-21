@@ -13,6 +13,10 @@ import ProfileBar from '../components/ProfileBar';
 import { getloggedInUser } from '../helpers';
 import { Auth } from 'aws-amplify';
 import { Actions } from 'react-native-router-flux';
+import { API, graphqlOperation } from "aws-amplify";
+import { deleteEvent } from "../../src/graphql/custom_mutations";
+import { getInvitedEvents } from "../helpers";
+
 
 
 class UserProfileScreen extends Component {
@@ -20,6 +24,8 @@ class UserProfileScreen extends Component {
     super(props);
     this.state = {
       loggedInUser: null,
+      events: [],
+      invitedEvents: [],
       index: 0,
       routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'My Events' }]
     };
@@ -28,7 +34,7 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
-      this.setState({ loggedInUser: loggedInUser })
+      this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: getInvitedEvents(loggedInUser) })
     } catch (e) {
       console.log(e);
     }
@@ -46,6 +52,17 @@ class UserProfileScreen extends Component {
   componentWillUnmount() {
     this.didFocusListener.remove();
   }
+
+  deleteEvent = async(eventId)  => {
+    try {
+      await API.graphql(
+        graphqlOperation(deleteEvent, { id: eventId })
+      );
+      await this.fetchUserData();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // Sign out Function
   signOutProfile = async () => {
@@ -69,7 +86,7 @@ class UserProfileScreen extends Component {
       buttonColor='grey'
       />
       <BR size={5}/>
-      <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true}/>
+      <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>
     </ScrollView>
     </>
   );
@@ -77,7 +94,7 @@ class UserProfileScreen extends Component {
   SecondRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <UpcomingEvent user = {this.state.loggedInUser} loggedIn = {true}></UpcomingEvent>
+      <UpcomingEvent user = {this.state.loggedInUser} loggedIn = {true} events = {this.state.events} invitedEvents={this.state.invitedEvents} deleteEvent = {this.deleteEvent}></UpcomingEvent>
     </ScrollView>
     </>
   );
@@ -90,8 +107,7 @@ class UserProfileScreen extends Component {
 
   render() {
     const layout = Dimensions.get('window');
-    const { loggedInUser, index, routes } = this.state;
-
+    const { loggedInUser, events, invitedEvents, index, routes } = this.state;
     if (loggedInUser) {
       return (
         <>
