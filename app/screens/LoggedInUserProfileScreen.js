@@ -15,6 +15,7 @@ import { Auth } from 'aws-amplify';
 import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation } from "aws-amplify";
 import { deleteEvent } from "../../src/graphql/custom_mutations";
+import { getInvitedEvents } from "../helpers";
 
 
 
@@ -23,8 +24,8 @@ class UserProfileScreen extends Component {
     super(props);
     this.state = {
       loggedInUser: null,
-      events: null,
-      invitedEvents: null,
+      events: [],
+      invitedEvents: [],
       index: 0,
       routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'My Events' }]
     };
@@ -33,7 +34,7 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
-      this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: loggedInUser.invitedEvents.items })
+      this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: getInvitedEvents(loggedInUser) })
     } catch (e) {
       console.log(e);
     }
@@ -106,8 +107,7 @@ class UserProfileScreen extends Component {
 
   render() {
     const layout = Dimensions.get('window');
-    const { loggedInUser, index, routes } = this.state;
-
+    const { loggedInUser, events, invitedEvents, index, routes } = this.state;
     if (loggedInUser) {
       return (
         <>

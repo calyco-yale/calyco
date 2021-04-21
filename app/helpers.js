@@ -4,8 +4,8 @@ import UserComponent from "./components/User";
 import global from './global';
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
-import { getUser, getEvent } from "../src/graphql/queries";
-import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
+import { getUser, getEvent, listEvents } from "../src/graphql/queries";
+import { createSimpleFriendship, deleteFriendshipById, deleteEvent } from "../src/graphql/custom_mutations";
 import { getUsersByEmail } from "../src/graphql/custom_queries";
 import * as Notifications from 'expo-notifications';
 
@@ -93,7 +93,7 @@ export const getloggedInUser = async () => {
 export const getInvitedEvents = async(user) => {
   let invitedEventData = user.invited_events.items
   let events = [];
-  for (let i = 0; i < invitedEventIds.length; i++) {
+  for (let i = 0; i < invitedEventData.length; i++) {
     try {
       const eventData = await API.graphql(
         graphqlOperation(getEvent, { id: invitedEventData[i].eventID })
@@ -332,3 +332,12 @@ export const sendFriendNotification = async (expoPushToken) => {
     body: JSON.stringify(message),
   });
 }
+
+export const deleteAllEvents = async() => {
+  const events = await API.graphql(graphqlOperation(listEvents));
+  console.log(events)
+  const eventIds = events.data.listEvents.items.map(e => e.id)
+  for (let i = 0; i < eventIds.length; i++){
+    await API.graphql(graphqlOperation(deleteEvent, {id: eventIds[i] }))
+  }
+};

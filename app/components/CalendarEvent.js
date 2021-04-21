@@ -16,17 +16,6 @@ class CalendarEvent extends Component {
     super(props);
   }
 
-  getPublicEvents = events => {
-    const publicEvents = [];
-    events.forEach(event => {
-      if (event.public) {
-        publicEvents.push(event);
-      }
-    });
-
-    return publicEvents;
-  };
-
   timeZoneConvertEvent = events => {
     const change_events = [];
     events.forEach(event => {
@@ -38,24 +27,6 @@ class CalendarEvent extends Component {
     })
     return change_events;
   };
-
-  fetchEventData = async () => {
-    try {
-      const tempEvents = this.props.events
-      if (!this.props.loggedIn) {
-        const publicEvents = this.getPublicEvents(tempEvents);
-        this.setState({ events: publicEvents });
-      } else {
-        this.setState({ events: tempEvents });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  componentDidMount() {
-    this.fetchEventData();
-  }
 
   parseEvents = events => {
     const listOfMarkedDates = {};
@@ -145,8 +116,6 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    // this.fetchEventData();
-    // const { events } = this.state;
     const events = this.props.events
 
     if (events) {
@@ -199,6 +168,8 @@ class CalendarEvent extends Component {
           />
         </View>
       );
+    } else {
+      return null;
     }
   }
 }

@@ -5,7 +5,7 @@ import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
 import CalendarEvent from '../components/CalendarEvent';
-import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification } from '../helpers';
+import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification, getInvitedEvents } from '../helpers';
 import UpcomingEvent from '../components/UpcomingEvent';
 import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation, loadingBar } from 'aws-amplify';
@@ -32,8 +32,8 @@ class UserProfileScreen extends Component {
       const loggedInUser = await getloggedInUser()
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
       const user = userData.data.getUser
-
-      this.setState({ user: user, loggedInUser: loggedInUser, loggedIn: user.id == loggedInUser.id, events: this.fetchEventData(user.events.items), invitedEvents: this.fetchEventData(user.invited_events.items) })
+      const loggedIn = (user.id == loggedInUser.id)
+      this.setState({ user: user, loggedInUser: loggedInUser, loggedIn: loggedIn, events: this.fetchEventData(user.events.items, loggedIn), invitedEvents: this.fetchEventData(getInvitedEvents(user), loggedIn) })
     } catch (e) {
       console.log(e);
     }
@@ -53,15 +53,15 @@ class UserProfileScreen extends Component {
   }
 
   // Event processing function
-  fetchEventData = events => {
+  fetchEventData(events, loggedIn){
     try {
-      if (this.state.user.id != this.state.loggedInUser.id) {
-        const publicEvents = [];
-        events.forEach(event => {
-          if (event.public) {
-            publicEvents.push(event);
+      if (!loggedIn) {
+        let publicEvents = [];
+        for (let i = 0; i < events.length; i++){
+          if (events[i].public) {
+            publicEvents.push(events[i]);
           }
-        });
+        }
         return publicEvents
       } else {
         return events
@@ -105,15 +105,22 @@ class UserProfileScreen extends Component {
     }
   }
 
+  deleteEvent = async(eventId)  => {
+    try {
+      await API.graphql(
+        graphqlOperation(deleteEvent, { id: eventId })
+      );
+      await this.fetchUserData();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // Tab Related Functions
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <Button
-      title="Add Event"
-      color="#841584"
-      />
-      <CalendarEvent user = {this.state.user} loggedIn = {false} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>
+      <CalendarEvent user = {this.state.user} loggedIn = {this.state.loggedIn} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>
     </ScrollView>
     </>
   );
@@ -121,7 +128,7 @@ class UserProfileScreen extends Component {
   SecondRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
-      <UpcomingEvent user = {this.state.user} loggedIn = {false}></UpcomingEvent>
+      <UpcomingEvent user = {this.state.user} loggedIn = {this.state.loggedIn} events = {this.state.events} invitedEvents={this.state.invitedEvents} deleteEvent = {this.deleteEvent}></UpcomingEvent>
     </ScrollView>
     </>
   );
@@ -131,11 +138,9 @@ class UserProfileScreen extends Component {
     second: this.SecondRoute,
   });
 
-  
-
   render() {
     const layout = Dimensions.get('window');
-    const { user, loggedInUser, index, routes } = this.state;
+    const { user, loggedInUser, loggedIn, events, invitedEvents, index, routes } = this.state;
 
     if (user && loggedInUser) {
       let requestOrDelete = null;

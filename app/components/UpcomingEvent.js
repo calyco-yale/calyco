@@ -25,35 +25,6 @@ class UpcomingEvent extends Component {
     super(props);
   }
 
-  // getPublicEvents = events => {
-  //   const publicEvents = [];
-  //   events.forEach(event => {
-  //     if (event.public) {
-  //       publicEvents.push(event);
-  //     }
-  //   });
-
-  //   return publicEvents;
-  // };
-
-  // fetchEventData = async () => {
-  //   try {
-  //     const tempEvents = this.props.user.events.items;
-  //     if (!this.props.loggedIn) {
-  //       const publicEvents = this.getPublicEvents(tempEvents);
-  //       this.setState({ events: publicEvents });
-  //     } else {
-  //       this.setState({ events: tempEvents });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  componentDidMount() {
-    this.fetchEventData();
-  }
-
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
@@ -151,6 +122,8 @@ class UpcomingEvent extends Component {
           </View>
         );
       }
+    } else {
+      return null;
     }
   }
 }
