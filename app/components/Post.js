@@ -13,8 +13,6 @@ const convertParticipants = async (userIds) => {
     var outputParticipants = "";
     for (var i = 0; i < userIds.length; i++ ){
         const userData = await API.graphql(graphqlOperation(getUser, { id: userIds[i]}));
-        console.log('PARTICPANTS USER DATA');
-        console.log(userData.data.getUser.username);
         outputParticipants = outputParticipants.concat(userData.data.getUser.username);
         if (i != userIds.length - 1) {
             outputParticipants = outputParticipants.concat(', ')

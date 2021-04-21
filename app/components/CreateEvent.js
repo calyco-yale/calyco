@@ -230,8 +230,7 @@ class CreateEventComponent extends Component {
               onEventImageChange(item.value);
             }}
         />
-        <BR size={200}/>
-
+        <BR size={50}/>
         {addParticipants}
         <View style={{ 
             flex: 1, 
