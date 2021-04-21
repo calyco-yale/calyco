@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash/debounce";
 import { Actions } from "react-native-router-flux";
-import { Button, Text, Image, View, Platform, StyleSheet, TouchableOpacity } from "react-native";
+import { Button, Text, Image, View, Platform, StyleSheet, TouchableOpacity, Switch } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -20,12 +20,15 @@ import DatePicker from 'react-native-datepicker'
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { getUTCTime, convertLocalTime, suggestTimes } from "../helpers";
+
 const createDateTime = () => {
-  var date = new Date().getDate(); //To get the Current Date
-  var month = new Date().getMonth() + 1; //To get the Current Month
-  var year = new Date().getFullYear(); //To get the Current Year
-  var hours = new Date().getHours(); //To get the Current Hours
-  var min = new Date().getMinutes();
+  var date = ('0' + new Date().getDate()).slice(-2)
+  var month = ('0' + (new Date().getMonth()+1)).slice(-2)
+  var year = new Date().getFullYear();
+  var hours = ('0' + new Date().getHours()).slice(-2)
+  var min = ('0' + new Date().getMinutes()).slice(-2)
+
 
   var dateTimeString =
     year + "-" + month + "-" + date + " " + hours + ":" + min;
@@ -38,6 +41,7 @@ class CreateEventComponent extends Component {
     this.state = {
       image: null,
       eventType: null,
+      privateEnabled: false,
       datetime: createDateTime(),
       datetime1: createDateTime()
     };
@@ -67,6 +71,10 @@ class CreateEventComponent extends Component {
     }
   };
 
+  toggleSwitch = () => {
+    this.setState({ privateEnabled: !this.state.privateEnabled})
+  }
+
   render() {
     const {
       loading,
@@ -85,12 +93,41 @@ class CreateEventComponent extends Component {
       participants
     } = this.props;
 
+    let privateEnabled = this.state.privateEnabled
+
     if (registerMessage && registerMessage.success) {
       Actions.replace("loginScreen", {
         loginError: {
           message: "Sign Up successful"
         }
       });
+    }
+
+    let suggestedTimes = null;
+    let addParticipants = null;
+    if (participants && participants.length > 0){
+      suggestedTimes = <View style={styles.center}>
+         <Text style={styles.pTextBold}>Common Free Times for Participants:</Text>
+         <Text>
+           {suggestTimes(participants.concat(user), getUTCTime(this.state.datetime), getUTCTime(this.state.datetime1)).map(timeInterval =>
+            <View style={styles.pView}>
+              <Text style={styles.pText}>
+                {convertLocalTime(timeInterval[0])} ~ {convertLocalTime(timeInterval[1])}
+              </Text>
+            </View>)}
+          </Text>
+        </View>
+
+      addParticipants = <Text style={styles.pTextBold}>
+      Participants:
+      {participants.map(p =>
+        <View style={styles.pView}>
+          <Text style={styles.pText}>
+            {p.username}
+          </Text>
+        </View>
+      )}
+      </Text>
     }
 
     return (
@@ -118,17 +155,7 @@ class CreateEventComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           placeholder="*Event Name (e.g. birthday)"
         />
-        <TextInput
-          autoCorrect={false}
-          onChangeText={debounce(onPublicChange, 500)}
-          style={{
-            width: '80%',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          underlineColorAndroid="#B9B9B9"
-          placeholder="*Public (e.g. true/false)"
-        />
+
         <TextInput
           autoCorrect={false}
           onChangeText={debounce(onDescriptionChange, 500)}
@@ -140,56 +167,74 @@ class CreateEventComponent extends Component {
           underlineColorAndroid="#B9B9B9"
           placeholder="*Description (e.g. alex's bday)"
         />
-        <BR />
-        <BR>
-        <Text>Start Date Time</Text>
-        </BR>
-        <DatePicker
-          style={{width: 300}}
-          date={this.state.datetime}
-          mode="datetime"
-          format="YYYY-MM-DD HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36
-            }
-          }}
-          onDateChange={(datetime) => {this.setState({datetime: datetime});
-            onStartTimeChange(datetime);}}
-        />
-        <BR></BR>
-        <BR>
-        <Text>End Date Time</Text>
-        </BR>
-        <DatePicker
-          style={{width: 300}}
-          date={this.state.datetime1}
-          mode="datetime"
-          format="YYYY-MM-DD HH:mm"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36
-            }
-          }}
-          minuteInterval={10}
-          onDateChange={(datetime) => {this.setState({datetime1: datetime}); onEndTimeChange(datetime);}}
-        />
+        <BR/>
+
+        <View style={styles.container}>
+          <Text>
+            <View style={styles.padded}><Text style = {styles.graytext}>Private Event?</Text></View>
+            <Switch
+              trackColor={{ false: "#767577", true: Colors.calycoColor  }}
+              thumbColor={privateEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={this.toggleSwitch}
+              value={privateEnabled}
+            />
+          </Text>
+        </View>
+
+        <BR/>
+        <BR/>
+        <View style = {styles.center}>
+          <Text>Start Date Time</Text>
+          <DatePicker
+            style={{width: 300}}
+            date={this.state.datetime}
+            mode="datetime"
+            format="YYYY-MM-DD HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+            }}
+            onDateChange={(datetime) => {this.setState({datetime: datetime});
+              onStartTimeChange(datetime);}}
+          />
+          <BR></BR>
+          <BR>
+          <Text>End Date Time</Text>
+          </BR>
+          <DatePicker
+            style={{width: 300}}
+            date={this.state.datetime1}
+            mode="datetime"
+            format="YYYY-MM-DD HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+            }}
+            minuteInterval={10}
+            onDateChange={(datetime) => {this.setState({datetime1: datetime}); onEndTimeChange(datetime);}}
+          />
+        </View>
+        <BR/>
+        {suggestedTimes}
         <BR></BR>
         <Text>Select Event Type</Text>
         {/* exercise, rest, study, party, meeting, meal, other */}
@@ -229,16 +274,9 @@ class CreateEventComponent extends Component {
             }}
         />
         <BR size={200}/>
-        <Text style={styles.pText}>
-          Participants:
-          {participants.map(p =>
-            <View style={styles.pView}>
-              <Text style={styles.pText}>
-                {p.username}
-              </Text>
-            </View>
-          )}
-        </Text>
+
+        {addParticipants}
+
         <RoundButton
           title="Add Participants"
           onPress={() =>
@@ -251,7 +289,7 @@ class CreateEventComponent extends Component {
           title="Create Event"
           disabled={disableCreateEvent}
           loading={loading}
-          onPress={onEventCreationSubmit}
+          onPress={() => onEventCreationSubmit(!privateEnabled)}
           buttonColor="orange"
         />
       </AppBase>
@@ -261,6 +299,20 @@ class CreateEventComponent extends Component {
 }
 
 const styles = StyleSheet.create({
+    graytext: {
+      color: Colors.slateGrey,
+      fontSize: 17
+    },
+    padded: {
+      paddingRight: 20,
+    },
+    switch: {
+      paddingRight: 5,
+      paddingLeft: 5
+    },
+    center: {
+      alignItems: 'center'
+    },
     pView: {
       paddingRight: 5,
       paddingLeft: 5
@@ -268,6 +320,11 @@ const styles = StyleSheet.create({
     pText: {
       fontSize: 20,
       color: Colors.calycoColor
+    },
+    pTextBold: {
+      fontSize: 20,
+      color: Colors.calycoColor,
+      fontWeight: "bold"
     },
     image: {
         position: 'absolute',

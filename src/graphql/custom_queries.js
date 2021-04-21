@@ -91,6 +91,47 @@ export const listUsersShortened = /* GraphQL */ `
   }
 `;
 
+export const listUsersWithEvents = /* GraphQL */ `
+query ListUsersShortened {
+  listUsers {
+    nextToken
+    items {
+      id
+      username
+      first_name
+      last_name
+      events {
+        items {
+          id
+          name
+          start_datetime
+          end_datetime
+          image_url
+          public
+          description
+          participants
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      invited_events {
+        items {
+          id
+          userID
+          eventID
+          senderID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+}
+`;
+
 export const getUserFriendRequests = /* GraphQL */ `
 query getUserFriendRequests($id: ID!) {
   getUser(id: $id) {

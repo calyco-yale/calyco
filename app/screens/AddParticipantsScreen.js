@@ -5,7 +5,7 @@ import CreateEventComponent from "../components/CreateEvent";
 
 // query imports
 import { API, graphqlOperation } from "aws-amplify";
-import { listUsersShortened } from "../../src/graphql/custom_queries";
+import { listUsersWithEvents } from "../../src/graphql/custom_queries";
 
 import { Actions } from "react-native-router-flux";
 import { userItemSeparator } from "../helpers";
@@ -32,7 +32,7 @@ class AddParticipantScreen extends Component {
 
   fetchRequestData = async () => {
     try {
-      const userData = await API.graphql(graphqlOperation(listUsersShortened))
+      const userData = await API.graphql(graphqlOperation(listUsersWithEvents))
       this.setState({allData: userData.data.listUsers.items, participants: this.props.participants})
     } catch (e) {
       console.log(e);
