@@ -50,17 +50,15 @@ class CalendarEvent extends Component {
   fetchEventData = async () => {
     try {
       const tempEvents = this.props.user.events.items;
-      const invitedEvents = await getInvitedEvents(this.props.user);
-      if (invitedEvents.length > 0) {
-        // console.log("invitedEvents print:", invitedEvents);
-      } else {
-        // console.log("no invitedEvents");
-      }
+      const tempInvitedEvents = await getInvitedEvents(this.props.user);
       if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
-        this.setState({ events: publicEvents });
+        this.setState({
+          events: publicEvents,
+          invitedEvents: tempInvitedEvents
+        });
       } else {
-        this.setState({ events: tempEvents });
+        this.setState({ events: tempEvents, invitedEvents: tempInvitedEvents });
       }
     } catch (e) {
       console.log(e);
@@ -162,18 +160,19 @@ class CalendarEvent extends Component {
     this.fetchEventData();
     // console.log("user print:", this.props.user);
     const { events } = this.state;
-    const second_events = events;
-    const a_events = this.timeZoneConvertEvent(second_events);
+    const { invitedEvents } = this.state;
+    const tz_events = this.timeZoneConvertEvent(events);
+    const tz_invitedEvents = this.timeZoneConvertEvent(invitedEvents);
     // var a = {};
     // a["fruit"] = "apple";
-
     // var b = {};
     // b["vegetable"] = "carrot";
-
     // var food = Object.assign({}, a, b);
     if (events) {
-      const listOfMarkedDates = this.parseEvents(a_events);
-      const listOfNames = this.parseEventsNames(a_events);
+      const listOfMarkedDates = this.parseEvents(tz_events);
+      const listOfMarkedInvitedDates = this.parseEvents(tz_invitedEvents);
+      const listOfNames = this.parseEventsNames(tz_events);
+      const listOfInvitedNames = this.parseEventsNames(tz_invitedEvents);
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
