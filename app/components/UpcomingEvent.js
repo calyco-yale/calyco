@@ -124,7 +124,7 @@ class UpcomingEvent extends Component {
       if (this.props.loggedIn) {
         return (
           <View
-            style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
             {sortedEvents.map(event => {
               const start_time = convertLocalTime(event.start_datetime);
@@ -132,7 +132,7 @@ class UpcomingEvent extends Component {
               return (
                 <BoxSimple style={{ backgroundColor: "#ffffff" }}>
                   <View
-                    style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end" }}
+                    style={{justifyContent: "flex-end", alignItems: "flex-end" }}
                   >
                     <TouchableOpacity onPress={() => this.deleteEvent(event.id)}>
                       <Image
