@@ -1,23 +1,26 @@
 import React from "react";
 import AppBase from "./base_components/AppBase";
 import UserComponent from "./components/User";
-import global from './global';
+import global from "./global";
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser, getusersByEmail, getEvent } from "../src/graphql/queries";
-import { createSimpleFriendship, deleteFriendshipById } from "../src/graphql/custom_mutations";
+import {
+  createSimpleFriendship,
+  deleteFriendshipById
+} from "../src/graphql/custom_mutations";
 import { getUsersByEmail } from "../src/graphql/custom_queries";
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
 
 export const retrieveOffset = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset();
   global.offset = offset;
   return offset;
-}
+};
 
 //sign for whether the user is receiving or sending time requests
-export const getUTCTime = (date) => {
+export const getUTCTime = date => {
   const offset = global.offset;
   // console.log("input_date");
   // console.log(date);
@@ -30,13 +33,14 @@ export const getUTCTime = (date) => {
   // console.log("new");
   // console.log(currDate.toString());
   var curr_string = currDate.toISOString();
-  var new_string = curr_string.substring(0, 10) + " " + curr_string.substring(11, 16);
+  var new_string =
+    curr_string.substring(0, 10) + " " + curr_string.substring(11, 16);
   // console.log("new_string");
   // console.log(new_string);
   return new_string;
-}
+};
 
-export const convertLocalTime = (date) => {
+export const convertLocalTime = date => {
   const offset = global.offset;
   // console.log("input_date");
   // console.log(date);
@@ -69,22 +73,30 @@ export const convertLocalTime = (date) => {
   if (curr_minute < 10) {
     temp_curr_minute = "0" + curr_minute.toString();
   }
-  var new_string = curr_year + "-" + temp_curr_month + "-" + temp_curr_date + " " + temp_curr_hour + ":" + temp_curr_minute;
+  var new_string =
+    curr_year +
+    "-" +
+    temp_curr_month +
+    "-" +
+    temp_curr_date +
+    " " +
+    temp_curr_hour +
+    ":" +
+    temp_curr_minute;
   return new_string;
-}
+};
 
 function calcTime(city, offset) {
-
   // create Date object for current location
   var d = new Date();
- 
+
   // get UTC time in msec
   var utc = d.getTime();
- 
+
   // create new Date object for different city
   // using supplied offset
-  var nd = new Date(utc + (3600000*offset));
- 
+  var nd = new Date(utc + 3600000 * offset);
+
   // return time as a string
   return "The local time in " + city + " is " + nd.toLocaleString();
 }
@@ -93,7 +105,9 @@ function calcTime(city, offset) {
 export const getloggedInUser = async () => {
   const { attributes } = await Auth.currentAuthenticatedUser();
   // Get user with attributes.email
-  const res = await API.graphql(graphqlOperation(getUsersByEmail, { email: attributes.email }))
+  const res = await API.graphql(
+    graphqlOperation(getUsersByEmail, { email: attributes.email })
+  );
   try {
     const loggedInUser = res.data.usersByEmail.items[0];
     return loggedInUser;
@@ -104,8 +118,8 @@ export const getloggedInUser = async () => {
 };
 
 // Helper function to get user's invited events
-export const getInvitedEvents = async(user) => {
-  let invitedEventData = user.invited_events.items
+export const getInvitedEvents = async user => {
+  let invitedEventData = user.invited_events.items;
   let events = [];
   for (let i = 0; i < invitedEventIds.length; i++) {
     try {
@@ -281,27 +295,27 @@ export const userItemSeparator = () => {
 };
 
 // Sends a friend notification to the device associated with expoPushToken
-export const sendFriendNotification = async (expoPushToken) => {
+export const sendFriendNotification = async expoPushToken => {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
       shouldPlaySound: false,
-      shouldSetBadge: false,
-    }),
+      shouldSetBadge: false
+    })
   });
   const message = {
     to: expoPushToken,
-    sound: 'default',
-    title: 'Calyco',
-    body: 'You have a pending friend request!',
+    sound: "default",
+    title: "Calyco",
+    body: "You have a pending friend request!"
   };
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
+  await fetch("https://exp.host/--/api/v2/push/send", {
+    method: "POST",
     headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Accept-encoding": "gzip, deflate",
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify(message),
+    body: JSON.stringify(message)
   });
-}
+};
