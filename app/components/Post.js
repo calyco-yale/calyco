@@ -3,6 +3,23 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'rea
 import BR from '../base_components/BR';
 import { convertLocalTime } from '../helpers'
 
+import { API, graphqlOperation } from "aws-amplify";
+import { getUser } from "../../src/graphql/queries";
+
+const convertParticipants = async (userIds) => {
+    var outputParticipants = "";
+    for (var i = 0; i < userIds.length; i++ ){
+        const userData = await API.graphql(graphqlOperation(getUser, { id: userIds[i]}));
+        console.log('PARTICPANTS USER DATA');
+        console.log(userData.data.getUser.username);
+        outputParticipants = outputParticipants.concat(userData.data.getUser.username);
+        if (i != userIds.length - 1) {
+            outputParticipants = outputParticipants.concat(', ')
+        }
+    }
+    return outputParticipants;
+};
+
 class Post extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +36,7 @@ class Post extends Component {
             view_participants: false
         }
     }
+    
 
     likeToggled(){
         this.setState({
@@ -79,8 +97,9 @@ class Post extends Component {
                     </TouchableOpacity>
                     {/* view event participants */}
                     <TouchableOpacity
-                        onPress={() =>{
-                            alert("The participants are: " + this.event_participants);
+                        onPress={async () =>{
+                            const participantUsernames = await convertParticipants(this.event_participants);
+                            alert("The participants are: " + participantUsernames);
                         }}>
                         <Image
                             style={styles.iconPic}

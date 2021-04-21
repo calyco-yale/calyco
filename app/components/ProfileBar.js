@@ -3,6 +3,12 @@ import { Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-nativ
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { updateUser } from "../../src/graphql/custom_mutations";
+import { getloggedInUser } from "../helpers";
+import { getUser } from "../../src/graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+
+
 export default function ProfileBar() {
   const [image, setImage] = useState(null);
 
@@ -27,6 +33,13 @@ export default function ProfileBar() {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      console.log('END MY SUFFERING');
+      const user = await getloggedInUser();
+      const user1 = await API.graphql(graphqlOperation(getUser, { id: user.id }));
+      console.log(user1)
+      await API.graphql(graphqlOperation(updateUser, { id: user.id, image_url: result.uri}))
+      const user2 = await API.graphql(graphqlOperation(getUser, { id: user.id }));
+      console.log(user2)
     }
   };
 
