@@ -19,6 +19,8 @@ class Post extends Component {
             post_liked: false,
             view_participants: false
         }
+        console.log("EVENT_PIC IN POST")
+        console.log(this.event_pic)
     }
 
     likeToggled(){

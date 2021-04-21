@@ -15,7 +15,6 @@ const EventImage = (event) => {
     
   }
 
-  console.log(event);
   var eventPath = eventDict[event.event];
   if (event.event == null) {
     eventPath = eventDict["exercise"];
@@ -34,7 +33,7 @@ const EventImage = (event) => {
           style={{
             width: 200,
             height: 200,
-            backgroundColor: '#eee',
+            backgroundColor: '#f0f0f0',
           }}
           source={eventPath}
           autoPlay

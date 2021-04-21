@@ -43,32 +43,8 @@ class CreateEventComponent extends Component {
     };
   }
 
-  pickImage = async () => {
-    const { onEventImageChange } = this.props;
-    if (Platform.OS !== "web") {
-      const {
-        status
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
-      } else {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1
-        });
-
-        if (!result.cancelled) {
-          this.setState({ image: result.uri });
-          onEventImageChange(result.uri);
-        }
-      }
-    }
-  };
-
   render() {
-    const {
+    var {
       loading,
       registerMessage,
       registerError,
@@ -211,21 +187,7 @@ class CreateEventComponent extends Component {
             }}
             dropDownStyle={{backgroundColor: '#fafafa'}}
             onChangeItem={item => {this.setState({ eventType: item.value });
-              if (this.state.eventType.localeCompare('exercise')) {
-                onEventImageChange("exercise");
-              } else if (this.state.eventType.localeCompare('rest')) {
-                onEventImageChange("rest");
-              } else if (this.state.eventType.localeCompare('study')) {
-                onEventImageChange("study");
-              } else if (this.state.eventType.localeCompare('party')) {
-                onEventImageChange("party");
-              } else if (this.state.eventType.localeCompare('meeting')) {
-                onEventImageChange("meeting");
-              } else if (this.state.eventType.localeCompare('meal')) {
-                onEventImageChange("meal");
-              } else {
-                onEventImageChange("other");
-              }
+              onEventImageChange(item.value);
             }}
         />
         <View style={{ 
