@@ -19,6 +19,9 @@ class UserProfileScreen extends Component {
     this.state = {
       user: null,
       loggedInUser: null,
+      loggedIn: false,
+      events: [],
+      invitedEvents: [],
       index: 0,
       routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'Upcoming Events' }]
     };
@@ -30,7 +33,7 @@ class UserProfileScreen extends Component {
       const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }))
       const user = userData.data.getUser
 
-      this.setState({ user: user, loggedInUser: loggedInUser })
+      this.setState({ user: user, loggedInUser: loggedInUser, loggedIn: user.id == loggedInUser.id, events: this.fetchEventData(user.events.items), invitedEvents: this.fetchEventData(user.invited_events.items) })
     } catch (e) {
       console.log(e);
     }
@@ -48,6 +51,25 @@ class UserProfileScreen extends Component {
   componentWillUnmount() {
     this.didFocusListener.remove();
   }
+
+  // Event processing function
+  fetchEventData = events => {
+    try {
+      if (this.state.user.id != this.state.loggedInUser.id) {
+        const publicEvents = [];
+        events.forEach(event => {
+          if (event.public) {
+            publicEvents.push(event);
+          }
+        });
+        return publicEvents
+      } else {
+        return events
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // Friendship Related Functions
   deleteFriendship = async(loggedInUser, user)  => {
@@ -91,7 +113,7 @@ class UserProfileScreen extends Component {
       title="Add Event"
       color="#841584"
       />
-      <CalendarEvent user = {this.state.user} loggedIn = {false}/>
+      <CalendarEvent user = {this.state.user} loggedIn = {false} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>
     </ScrollView>
     </>
   );

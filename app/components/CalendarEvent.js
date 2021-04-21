@@ -14,10 +14,6 @@ import { convertLocalTime } from "../helpers";
 class CalendarEvent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      events: [],
-      invitedEvents: []
-    };
   }
 
   getPublicEvents = events => {
@@ -45,8 +41,7 @@ class CalendarEvent extends Component {
 
   fetchEventData = async () => {
     try {
-      const tempEvents = this.props.user.events.items;
-      // const invitedEvents = await getInvitedEvents(this.props.user)
+      const tempEvents = this.props.events
       if (!this.props.loggedIn) {
         const publicEvents = this.getPublicEvents(tempEvents);
         this.setState({ events: publicEvents });
@@ -150,11 +145,13 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    this.fetchEventData();
-    const { events } = this.state;
-    const second_events = events;
-    const a_events = this.timeZoneConvertEvent(second_events);
+    // this.fetchEventData();
+    // const { events } = this.state;
+    const events = this.props.events
+
     if (events) {
+      const second_events = events;
+      const a_events = this.timeZoneConvertEvent(second_events);
       const listOfMarkedDates = this.parseEvents(a_events);
       const listOfNames = this.parseEventsNames(a_events);
       return (
