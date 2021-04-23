@@ -8,6 +8,9 @@
     "eject": "expo eject",
     "test": "jest"
   },
+  "jest": {
+    "preset": "react-native"
+  },
   "dependencies": {
     "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/bottom-tabs": "^5.11.8",
@@ -23,6 +26,7 @@
     "expo-notifications": "^0.11.5",
     "expo-status-bar": "~1.0.3",
     "expo-updates": "^0.4.2",
+    "jest-styled-components": "^7.0.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
