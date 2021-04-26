@@ -64,12 +64,8 @@ class NewsFeedComponent extends Component {
         }
     }
 
-<<<<<<< HEAD
-    // Enable push notifications
-=======
     // Registers each user with a unique API token with expo-notifications API,
     // allowing them to send out notifications after specific events (friend requests, event invites, etc.)
->>>>>>> testing-framework
     registerForPushNotificationsAsync = async () => {
         const loggedInUser = await getloggedInUser();
         if (Constants.isDevice) {
