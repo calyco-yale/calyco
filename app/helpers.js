@@ -9,6 +9,7 @@ import { createSimpleFriendship, deleteFriendshipById, deleteEvent, updateUser }
 import { getUsersByEmail, listUsersShortened } from "../src/graphql/custom_queries";
 import * as Notifications from 'expo-notifications';
 
+//get the offset between the current logged in user time zone and UTC 
 export const retrieveOffset = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset();
@@ -16,7 +17,8 @@ export const retrieveOffset = () => {
   return offset;
 }
 
-//sign for whether the user is receiving or sending time requests
+//function for when we take in a time and send to the back end
+//converts time to UTC
 export const getUTCTime = (date) => {
   const offset = global.offset;
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
@@ -26,6 +28,8 @@ export const getUTCTime = (date) => {
   return new_string;
 }
 
+//function for when we pull time from backend and output on user's end 
+//converts UTC to user local time 
 export const convertLocalTime = (date) => {
   const offset = global.offset;
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";

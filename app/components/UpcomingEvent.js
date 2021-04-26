@@ -32,6 +32,7 @@ class UpcomingEvent extends Component {
     super(props);
   }
 
+  //get names of events from backend
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
@@ -44,24 +45,7 @@ class UpcomingEvent extends Component {
     return listOfNames;
   };
 
-  parseEventsStartTimes = events => {
-    const listOfStartTimes = {};
-    events.forEach(event => {
-      listOfStartTimes[event.date] = event.start_time;
-    });
-
-    return listOfStartTimes;
-  };
-
-  parseEventsEndTimes = events => {
-    const listOfEndTimes = {};
-    events.forEach(event => {
-      listOfEndTimes[event.date] = event.end_time;
-    });
-
-    return listOfEndTimes;
-  };
-
+  //sort the events by time to output in order
   sortEvents = events => {
     const newEvents = events.sort((a, b) =>
       a.start_datetime
@@ -71,6 +55,7 @@ class UpcomingEvent extends Component {
     return newEvents;
   };
 
+  //output upcoming events component that shows name, time, and ability to delete if logged in user
   render() {
     const events = this.props.events;
     const invitedEvents = this.props.invitedEvents;

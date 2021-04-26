@@ -106,6 +106,7 @@ class UserProfileScreen extends Component {
     }
   }
 
+  //function to delete event
   deleteEvent = async(eventId)  => {
     try {
       await API.graphql(
@@ -118,6 +119,8 @@ class UserProfileScreen extends Component {
   };
 
   // Tab Related Functions
+
+  //showing calendar tab
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -126,6 +129,7 @@ class UserProfileScreen extends Component {
     </>
   );
   
+  //showing upcoming events tab
   SecondRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -139,6 +143,11 @@ class UserProfileScreen extends Component {
     second: this.SecondRoute,
   });
 
+  //output the profile page layout with the 3 parts - 
+  // 1. shows user profile information 
+  // 2. shows user's calendar
+  // 3. shows user's upcoming events
+  // outputs friendships 
   render() {
     const layout = Dimensions.get('window');
     const { user, loggedInUser, loggedIn, events, invitedEvents, index, routes } = this.state;
