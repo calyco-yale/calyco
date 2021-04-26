@@ -94,16 +94,18 @@ export const getInvitedEvents = async(user) => {
   return events;
 };
 
-
+//  Function to get just the date string from a datetime string
 export const getDateFromDatetime = (datetime) => {
   let arr = datetime.split(' ')
   return arr[0]
 };
 
+// Function to get a JavaScript Date object from a datetime string
 export const getDateFromString = (datetimeString) => {
   return new Date(Date.UTC(datetimeString.substring(0, 4), datetimeString.substring(5, 7)-1, datetimeString.substring(8, 10), datetimeString.substring(11, 13), datetimeString.substring(14, 16)))
 }
 
+// Function to get a datetime string in UTC time from Date object
 export const getStringFromDate = (date) => {
   const iso = date.toISOString()
   return iso.substring(0, 10) + " " + iso.substring(11, 16)
@@ -115,15 +117,16 @@ export const getUserSchedule = (user, startDatetime, endDatetime) => {
   const startDate = getDateFromString(startDatetime)
   const endDate = getDateFromString(endDatetime)
 
+  // Get all dates within start and end datetime boundaries
   let dateArray = []
   var currentDate = new Date(startDate);
   currentDate.setUTCHours(0, 0)
-
   while (currentDate <= endDate) {
     dateArray.push(new Date(currentDate).toISOString().substring(0, 10));
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
+  // Get user's events for every date within the interval
   const userEvents = user.events.items.filter(event => dateArray.includes(getDateFromDatetime(event.start_datetime)) || dateArray.includes(getDateFromDatetime(event.end_datetime)));
   let busyTimes = [];
   userEvents.forEach(event => {
@@ -321,6 +324,7 @@ export const sendFriendNotification = async (expoPushToken) => {
   });
 }
 
+// Function to delete all events in database
 export const deleteAllEvents = async() => {
   const events = await API.graphql(graphqlOperation(listEvents));
   console.log(events)
@@ -330,6 +334,7 @@ export const deleteAllEvents = async() => {
   }
 };
 
+// Function to update the image strings for all users in database
 export const updateUserImages = async() => {
   const userData = await API.graphql(graphqlOperation(listUsersShortened));
   const users = userData.data.listUsers.items

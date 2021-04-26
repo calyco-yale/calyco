@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { Actions } from "react-native-router-flux";
 
+// Component for rendering information of given user
+// Should go to profile page of user when clicked
 class UserComponent extends Component {
   render() {
-    const { userItem } = this.props;
+    const { userItem } = this.props; //User object
     return (
       <TouchableOpacity
         style={styles.listItem}

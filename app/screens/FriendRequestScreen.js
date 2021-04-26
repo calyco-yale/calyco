@@ -1,27 +1,16 @@
 import React, { Component } from "react";
-import {
-  View,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import { View, FlatList, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import LottieView from "lottie-react-native";
 import changeSVGColor from "@killerwink/lottie-react-native-color";
-
-import {
-  getFriendRequests,
-  createMutualFriendship,
-  userItemSeparator
-} from "../helpers";
-
+import { getFriendRequests, createMutualFriendship, userItemSeparator } from "../helpers";
 import AppBase from "../base_components/AppBase";
 import { API, graphqlOperation } from "aws-amplify";
 import { getUserFriendRequests } from "../../src/graphql/custom_queries";
 import { deleteFriendRequestById } from "../../src/graphql/custom_mutations";
 import RoundButton from "../base_components/RoundButton";
 
+// Screen for displaying friend requests
+// Array of friend request ids and user object passed in as props
 class FriendRequestScreen extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +21,7 @@ class FriendRequestScreen extends Component {
 
   fetchRequestData = async () => {
     try {
+      // Fetch the friend request objects from the list of ids and set state of component
       const requests = await getFriendRequests(this.props.friendRequests);
       this.setState({ friendRequests: requests });
     } catch (e) {
@@ -39,37 +29,30 @@ class FriendRequestScreen extends Component {
     }
   };
 
+  // Function to accept friend request given request id and sender of request
   acceptRequest = async (requestId, sender) => {
     try {
       // Create friendships on both sides
       await createMutualFriendship(sender.id, this.props.user.id);
       // Delete friend request
-      await API.graphql(
-        graphqlOperation(deleteFriendRequestById, { id: requestId })
-      );
-      const refetch = await API.graphql(
-        graphqlOperation(getUserFriendRequests, { id: this.props.user.id })
-      );
-      const requests = await getFriendRequests(
-        refetch.data.getUser.friendRequests.items
-      );
+      await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }));
+      // Refetch user's friend requests after update
+      const refetch = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }));
+      const requests = await getFriendRequests(refetch.data.getUser.friendRequests.items);
       this.setState({ friendRequests: requests });
     } catch (e) {
       console.log(e);
     }
   };
 
+  // Function to decline friend request given request id
   declineRequest = async requestId => {
     try {
-      await API.graphql(
-        graphqlOperation(deleteFriendRequestById, { id: requestId })
-      );
-      const refetch = await API.graphql(
-        graphqlOperation(getUserFriendRequests, { id: this.props.user.id })
-      );
-      const requests = await getFriendRequests(
-        refetch.data.getUser.friendRequests.items
-      );
+      // Delete the request
+      await API.graphql(graphqlOperation(deleteFriendRequestById, { id: requestId }));
+      // Refetch user's friend request data
+      const refetch = await API.graphql(graphqlOperation(getUserFriendRequests, { id: this.props.user.id }));
+      const requests = await getFriendRequests(refetch.data.getUser.friendRequests.items);
       this.setState({ friendRequests: requests });
     } catch (e) {
       console.log(e);
@@ -89,6 +72,7 @@ class FriendRequestScreen extends Component {
     this.didFocusListener.remove();
   }
 
+  // Function to render friend request item for Flatlist
   renderRequestItem(item) {
     const { requestId, sender } = item;
     const profilecat = "../../assets/8874-cat.json";
