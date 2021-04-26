@@ -15,11 +15,13 @@ import { getUser } from "../../src/graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 
 
+//renders the profile picture in the profile screen
 export default function ProfileBar() {
   const [image, setImage] = useState(null);
   const [color, setColor] = useState("#54d05d");
   const [isModalVisible, setModalVisible] = useState(false);
 
+  //retrieves color by backend graphql call
   const userColor = async() => {    
     const user = await getloggedInUser();
     const userData = await API.graphql(graphqlOperation(getUser, { id: user.id }));
@@ -43,17 +45,6 @@ export default function ProfileBar() {
     // console.log(isModalVisible);
   };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
-
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -72,10 +63,22 @@ export default function ProfileBar() {
     const user = await getloggedInUser();
     await API.graphql(graphqlOperation(updateUser, { id: user.id, image_url: color}))
   }
-
+  
+  //Lottie file path of profile image
   const profilecat = "../../assets/8874-cat.json";
   const imagePath = require(profilecat);
 
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+  
   return (
     <>
     <View style={{ 
