@@ -38,7 +38,8 @@ class SignupScreen extends Component {
             email: email,
             username: username,
             first_name: first_name,
-            last_name: last_name
+            last_name: last_name,
+            image_url: "#54d05d"
           };
           const response = await API.graphql(graphqlOperation(createUser, {input: userData}));
         }

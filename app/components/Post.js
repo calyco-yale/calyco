@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import BR from '../base_components/BR';
 import { convertLocalTime } from '../helpers'
+import EventImage from './EventImage';
+import LottieView from 'lottie-react-native';
+import changeSVGColor from '@killerwink/lottie-react-native-color';
 
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../src/graphql/queries";
@@ -10,8 +13,6 @@ const convertParticipants = async (userIds) => {
     var outputParticipants = "";
     for (var i = 0; i < userIds.length; i++ ){
         const userData = await API.graphql(graphqlOperation(getUser, { id: userIds[i]}));
-        console.log('PARTICPANTS USER DATA');
-        console.log(userData.data.getUser.username);
         outputParticipants = outputParticipants.concat(userData.data.getUser.username);
         if (i != userIds.length - 1) {
             outputParticipants = outputParticipants.concat(', ')
@@ -59,10 +60,21 @@ class Post extends Component {
 
                     {/* profile pic */}
                     <View>
-                        <Image
-                            style={styles.userPic}
-                            source={{ uri: this.profile_pic }}
+                    <TouchableOpacity
+                        style={{
+                            borderColor: this.profile_pic,
+                            borderWidth: 3,
+                            height: 50,
+                            width: 50,
+                            marginLeft: 20,
+                            marginTop: 25, 
+                            borderRadius: 25
+                        }}
+                    >
+                        <LottieView
+                        source={changeSVGColor(require("../../assets/8874-cat.json"), this.profile_pic)}
                         />
+                    </TouchableOpacity>
                     </View>
 
                     {/* Username and event name*/}
@@ -79,10 +91,15 @@ class Post extends Component {
                 </View>
 
                 {/* Event picture */}
-                <Image
-                    style={styles.eventPic}
-                    source={{uri: this.event_pic}}
-                />
+                <View style={{ 
+                    flex: 1, 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                }}>
+                    <EventImage
+                        event = {this.event_pic}
+                    />
+                </View>
                 <View style = {styles.iconBar}>
                     {/* like event */}
                     <TouchableOpacity

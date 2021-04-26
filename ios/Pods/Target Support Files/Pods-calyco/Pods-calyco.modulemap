@@ -1,0 +1,6 @@
+module Pods_calyco {
+  umbrella header "Pods-calyco-umbrella.h"
+
+  export *
+  module * { export * }
+}
