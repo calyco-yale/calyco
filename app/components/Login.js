@@ -12,6 +12,8 @@ import RoundButton from "../base_components/RoundButton";
 import TextButton from "../base_components/TextButton";
 import { Image } from "react-native";
 
+// Component for rendering the login screen
+
 class LoginComponent extends Component {
   render() {
     const {

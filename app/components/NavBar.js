@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, Image, View } from 'react-native';
 
+// Bottom navbar elements, used to render the persistent navbar in the three main screens of the app
+
 export const NewsFeedTab = (props) => {
   let textColor = props.focused ? '#333333' : '#999999'
   const newsFeedIconFocused = require("../../assets/home-variant.png")

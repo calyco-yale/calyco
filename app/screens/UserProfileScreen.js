@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Button, Dimensions  } from 'react-native';
+import { View, Text, ScrollView, Dimensions  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
@@ -8,7 +8,7 @@ import CalendarEvent from '../components/CalendarEvent';
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification, getInvitedEvents } from '../helpers';
 import UpcomingEvent from '../components/UpcomingEvent';
 import { Actions } from 'react-native-router-flux';
-import { API, graphqlOperation, loadingBar } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 

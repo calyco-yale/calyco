@@ -8,6 +8,8 @@ import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
 import TextButton from '../base_components/TextButton';
 
+// Component for rendering the verification screen after sign up
+
 class VerificationComponent extends Component {
   render() {
     const {

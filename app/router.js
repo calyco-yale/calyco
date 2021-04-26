@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import VerificationScreen from './screens/VerificationScreen';
@@ -13,6 +13,8 @@ import NewsFeedScreen from './screens/NewsFeedScreen';
 import CreateEventScreen from './screens/CreateEventScreen.js';
 import AddParticipantsScreen from './screens/AddParticipantsScreen';
 import { NewsFeedTab, SearchTab, ProfileTab } from './components/NavBar';
+
+// Primary logic for navigating between each screen of the app
 
 const AppRouter = () => (
   <Router>

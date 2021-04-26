@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import React, { Component, useState, useEffect } from "react";
 import {
@@ -15,17 +16,13 @@ import UserComponent from "../components/User";
 import { renderUserItem, userItemSeparator } from "../helpers";
 import { convertLocalTime } from "../helpers";
 import { Actions } from "react-native-router-flux";
+=======
+import React, { Component } from "react";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { convertLocalTime } from '../helpers';
+>>>>>>> testing-framework
 
 import BoxSimple from "../components/EventBox";
-
-import CalendarEvent from "../components/CalendarEvent";
-
-import Post from "./Post";
-
-import { API, graphqlOperation, SortDirection } from "aws-amplify";
-import { listEventsUpcoming } from "../../src/graphql/custom_queries";
-import { deleteEvent } from "../../src/graphql/custom_mutations";
-import { getUser } from "../../src/graphql/queries";
 
 class UpcomingEvent extends Component {
   constructor(props) {
@@ -65,10 +62,15 @@ class UpcomingEvent extends Component {
         newInvitedEvents.push(invitedEvents[i]);
       }
     }
+<<<<<<< HEAD
     const total_events = events.concat(newInvitedEvents);
     // console.log("total_events", total_events);
     if (total_events) {
       const sortedEvents = this.sortEvents(total_events);
+=======
+    if (events) {
+      const sortedEvents = this.sortEvents(events);
+>>>>>>> testing-framework
       if (this.props.loggedIn) {
         return (
           <View

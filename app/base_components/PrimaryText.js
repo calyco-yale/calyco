@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Color from '../../src/constants/colors';
 
+// Component for rendering larger title texts
 const PrimaryText = styled.Text`
   width: 100%;
   color: ${props => (props.color ? props.color : Color.primaryColor)};

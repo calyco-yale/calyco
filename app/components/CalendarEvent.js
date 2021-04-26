@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import React, { Component, useState, useEffect } from "react";
 import { View, FlatList } from "react-native";
@@ -13,6 +14,11 @@ import {
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
+=======
+import { Calendar } from "react-native-calendars";
+import React, { Component } from "react";
+import { View } from "react-native";
+>>>>>>> testing-framework
 import { convertLocalTime } from "../helpers";
 
 class CalendarEvent extends Component {

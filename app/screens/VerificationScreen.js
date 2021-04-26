@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import VerificationComponent from '../components/Verification';
 import { Auth } from 'aws-amplify';
