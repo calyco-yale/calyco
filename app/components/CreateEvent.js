@@ -42,8 +42,13 @@ class CreateEventComponent extends Component {
       image: null,
       eventType: "other",
       datetime: createDateTime(),
-      datetime1: createDateTime()
+      datetime1: createDateTime(),
+      privateEnabled: false
     };
+  }
+
+  toggleSwitch = () => {
+    this.setState({ privateEnabled: !this.state.privateEnabled})
   }
 
   render() {
