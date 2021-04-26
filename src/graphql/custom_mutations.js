@@ -55,9 +55,9 @@ export const createInvite = /* GraphQL */ `
 `;
 
 export const updateUser = /* GraphQL */ `
-mutation UpdateUser($id: ID!, $image_url: String!) {
-  updateUser(input: {id: $id, image_url: $image_url}) {
-    id
+  mutation UpdateUser($id: ID!, $image_url: String!) {
+    updateUser(input: {id: $id, image_url: $image_url}) {
+      id
+    }
   }
-}
 `;
