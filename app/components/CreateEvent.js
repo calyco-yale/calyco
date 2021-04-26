@@ -22,19 +22,19 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { getUTCTime, convertLocalTime, suggestTimes } from "../helpers";
 
+// Function to create a date time object with current date and time
 const createDateTime = () => {
   var date = ('0' + new Date().getDate()).slice(-2)
   var month = ('0' + (new Date().getMonth()+1)).slice(-2)
   var year = new Date().getFullYear();
   var hours = ('0' + new Date().getHours()).slice(-2)
   var min = ('0' + new Date().getMinutes()).slice(-2)
-
-
   var dateTimeString =
     year + "-" + month + "-" + date + " " + hours + ":" + min;
   return dateTimeString;
 };
 
+// CreateEventComponent that displays frontend portion of create event screen
 class CreateEventComponent extends Component {
   constructor(props) {
     super(props);
@@ -52,14 +52,12 @@ class CreateEventComponent extends Component {
       registerMessage,
       registerError,
       onEventCreationSubmit,
-      onPublicChange,
       onEventNameChange,
       onStartTimeChange,
       onEndTimeChange,
       onEventImageChange,
       disableCreateEvent,
       onDescriptionChange,
-      onParticipantsChange,
       user,
       participants
     } = this.props;
@@ -237,18 +235,6 @@ class CreateEventComponent extends Component {
             alignItems: 'center', 
             justifyContent: 'center' 
             }}>
-            {/* {this.state.image ? 
-                <Image 
-                source={{ uri: this.state.image }} 
-                style={styles.image} 
-                onPress={this.pickImage}/> : 
-                <TouchableOpacity
-                style={styles.selected}
-                onPress={this.pickImage}
-                >
-                <MaterialCommunityIcons name="plus-box" size={80} />
-                </TouchableOpacity>
-            } */}
             <EventImage event = {this.state.eventType} />
         </View>
         <BR size={50}/>
