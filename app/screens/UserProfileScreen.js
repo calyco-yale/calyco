@@ -12,7 +12,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
 import { deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 
-
+// Screen to display given user's profile screen
 class UserProfileScreen extends Component {
   constructor(props) {
     super(props);
@@ -152,12 +152,13 @@ class UserProfileScreen extends Component {
     const layout = Dimensions.get('window');
     const { user, loggedInUser, loggedIn, events, invitedEvents, index, routes } = this.state;
 
+    // Once user data is fetched
     if (user && loggedInUser) {
       let requestOrDelete = null;
-      // TODO: Add check to see if user already received friend request 
+      // When the user is not the logged in user
       if (user.id != loggedInUser.id){
         const friendshipId = isFriend(loggedInUser, user)
-        if (friendshipId) {
+        if (friendshipId) { // If the user and logged in user are friends
           requestOrDelete = <TextButton
                               onPress={() => this.deleteFriendship(loggedInUser, user)}
                               title={"Remove Friend"}
@@ -165,7 +166,7 @@ class UserProfileScreen extends Component {
                             />;
         } else {
           const requestId = sentFriendRequest(loggedInUser, user)
-          if (requestId){
+          if (requestId){ //If the logged in user has sent a friend request to the user
             requestOrDelete = <TextButton
                                 onPress={() => this.deleteFriendRequest(requestId)}
                                 title={"Undo Friend Request"}
@@ -173,9 +174,9 @@ class UserProfileScreen extends Component {
                               />;
           } else {
             const receivedId = receivedFriendRequest(loggedInUser, user)
-            if (receivedId) {
+            if (receivedId) { //If the logged in user has received a friend request from the user
               requestOrDelete = <Text>Pending friend request from this user...</Text>
-            } else {
+            } else { //Else
               requestOrDelete = <TextButton
                                   onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
                                   title={"Send Friend Request"}
@@ -186,6 +187,7 @@ class UserProfileScreen extends Component {
         }
       }
 
+      // Display friend request page only if user is logged in
       let friendRequestPage = null;
       if (user.id == loggedInUser.id){
         friendRequestPage = <TextButton
@@ -195,6 +197,7 @@ class UserProfileScreen extends Component {
                             />
       }
 
+      // Display user details
       return (
         <>
           <View style={{ flex: 0.4, backgroundColor: '#ffffff'}}>

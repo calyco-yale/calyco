@@ -6,6 +6,7 @@ import {renderUserItem, userItemSeparator} from '../helpers';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsersShortened } from '../../src/graphql/custom_queries';
 
+// Screen to search users
 class SearchScreen extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +17,7 @@ class SearchScreen extends Component {
     };
   };
 
+  // Fetch all user data in database; called on component mount
   fetchUserData = async () => {
     try {
       const userData = await API.graphql(graphqlOperation(listUsersShortened))
@@ -25,9 +27,12 @@ class SearchScreen extends Component {
     }
   }
 
+  // Function to filter users to be called on change of search input
   _filterSearch = (text) => {
     const { search, filteredData, allData } = this.state;
     if (text) {
+      // Filters out users not matching the search query
+      // Case insensitive
       const newData = allData.filter(function (item) {
         const itemData = item.username
           ? item.username.toUpperCase()
@@ -39,7 +44,7 @@ class SearchScreen extends Component {
     } else {
       this.setState({filteredData: []}); //No query
     }
-    this.setState({search: text});
+    this.setState({search: text}); // Update query state
   };
 
   componentDidMount() {
@@ -57,6 +62,7 @@ class SearchScreen extends Component {
     this.didFocusListener.remove();
   }
 
+  // Renders search bar and list of filtered users underneath
   render() {
     const { search, filteredData, allData } = this.state;
     return (
