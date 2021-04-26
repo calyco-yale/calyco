@@ -34,7 +34,9 @@ class UserProfileScreen extends Component {
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
+      // console.log("loggedinuser");
       const invitedEvents = await getInvitedEvents(loggedInUser)
+      // console.log("setstate events", invitedEvents);
       this.setState({ loggedInUser: loggedInUser, events: loggedInUser.events.items, invitedEvents: invitedEvents })
     } catch (e) {
       console.log(e);

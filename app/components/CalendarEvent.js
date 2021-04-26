@@ -5,7 +5,11 @@ import { SearchBar } from "react-native-elements";
 import Colors from "../../src/constants/colors";
 import AppBase from "../base_components/AppBase";
 import UserComponent from "../components/User";
-import { getInvitedEvents, renderUserItem, userItemSeparator } from "../helpers";
+import {
+  getInvitedEvents,
+  renderUserItem,
+  userItemSeparator
+} from "../helpers";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
@@ -19,12 +23,12 @@ class CalendarEvent extends Component {
   timeZoneConvertEvent = events => {
     const change_events = [];
     events.forEach(event => {
-      const _ = require('lodash');
+      const _ = require("lodash");
       var temp_event = _.cloneDeep(event);
       temp_event.start_datetime = convertLocalTime(event.start_datetime);
       temp_event.end_datetime = convertLocalTime(event.end_datetime);
       change_events.push(temp_event);
-    })
+    });
     return change_events;
   };
 
@@ -116,11 +120,18 @@ class CalendarEvent extends Component {
   };
 
   render() {
-    const events = this.props.events
-    const invitedEvents = this.props.invitedEvents
-    
-    if (events) {
-      const second_events = events;
+    const events = this.props.events;
+    const invitedEvents = this.props.invitedEvents;
+    const newInvitedEvents = [];
+    for (let i = 0; i < invitedEvents.length; i++) {
+      if (invitedEvents[i] != null) {
+        newInvitedEvents.push(invitedEvents[i]);
+      }
+    }
+    const total_events = events.concat(newInvitedEvents);
+
+    if (total_events) {
+      const second_events = total_events;
       const a_events = this.timeZoneConvertEvent(second_events);
       const listOfMarkedDates = this.parseEvents(a_events);
       const listOfNames = this.parseEventsNames(a_events);
@@ -141,27 +152,27 @@ class CalendarEvent extends Component {
               // 1. for each date in event_dates --> mark dates
               // 2. if pressed date is in list of event dates => alert
             }}
-            style={{width: 350}}
+            style={{ width: 350 }}
             theme={{
-              backgroundColor: '#ffffff',
-              calendarBackground: '#ffffff',
-              textSectionTitleColor: '#b6c1cd',
-              textSectionTitleDisabledColor: '#d9e1e8',
-              selectedDayBackgroundColor: '#00adf5',
-              selectedDayTextColor: '#ffffff',
-              todayTextColor: '#00adf5',
-              dayTextColor: '#2d4150',
-              textDisabledColor: '#d9e1e8',
-              dotColor: '#00adf5',
-              selectedDotColor: '#ffffff',
-              arrowColor: 'orange',
-              disabledArrowColor: '#d9e1e8',
-              monthTextColor: 'orange',
-              indicatorColor: 'orange',
-              textDayFontFamily: 'Futura',
-              textDayFontWeight: '300',
-              textMonthFontWeight: 'bold',
-              textDayHeaderFontWeight: '300',
+              backgroundColor: "#ffffff",
+              calendarBackground: "#ffffff",
+              textSectionTitleColor: "#b6c1cd",
+              textSectionTitleDisabledColor: "#d9e1e8",
+              selectedDayBackgroundColor: "#00adf5",
+              selectedDayTextColor: "#ffffff",
+              todayTextColor: "#00adf5",
+              dayTextColor: "#2d4150",
+              textDisabledColor: "#d9e1e8",
+              dotColor: "#00adf5",
+              selectedDotColor: "#ffffff",
+              arrowColor: "orange",
+              disabledArrowColor: "#d9e1e8",
+              monthTextColor: "orange",
+              indicatorColor: "orange",
+              textDayFontFamily: "Futura",
+              textDayFontWeight: "300",
+              textMonthFontWeight: "bold",
+              textDayHeaderFontWeight: "300",
               textDayFontSize: 16,
               textMonthFontSize: 16,
               textDayHeaderFontSize: 16
