@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, View, FlatList } from 'react-native';
+import { Dimensions, View, FlatList } from 'react-native';
 import Post from '../components/Post'
 import RoundButton from '../base_components/RoundButton';
 
@@ -8,13 +8,11 @@ import Constants from 'expo-constants';
 
 // Query imports
 import { API, graphqlOperation } from 'aws-amplify';
-import { listEvents, getUser } from '../../src/graphql/queries'
+import { listEvents } from '../../src/graphql/queries'
 import { Actions } from 'react-native-router-flux';
-import { createEvent, deleteEvent} from '../../src/graphql/custom_mutations';
+import { deleteEvent } from '../../src/graphql/custom_mutations';
 import { updateUser } from '../../src/graphql/mutations';
 import { getloggedInUser } from '../helpers';
-
-const { width } = Dimensions.get("window");
 
 class NewsFeedComponent extends Component {
     constructor(props) {
@@ -25,8 +23,7 @@ class NewsFeedComponent extends Component {
         }
     };
       
-    // Create toggleModalVisibility function that will
-    // Open and close modal upon button clicks.
+    // Create toggleModalVisibility function that will open and close modal upon button clicks.
     toggleModalVisibility = () => {
         this.isModalVisible = !this.isModalVisible;
     };
@@ -65,6 +62,8 @@ class NewsFeedComponent extends Component {
         }
     }
 
+    // Registers each user with a unique API token with expo-notifications API,
+    // allowing them to send out notifications after specific events (friend requests, event invites, etc.)
     registerForPushNotificationsAsync = async () => {
         const loggedInUser = await getloggedInUser();
         if (Constants.isDevice) {

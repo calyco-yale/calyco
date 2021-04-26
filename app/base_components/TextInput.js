@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import styled from 'styled-components';
 
+// Component for rendering a text box prompting for user input
 const TextInput = styled.TextInput`
   padding: 15px;
   width: 100%;

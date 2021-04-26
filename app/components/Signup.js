@@ -8,6 +8,8 @@ import BR from '../base_components/BR';
 import TextInput from '../base_components/TextInput';
 import RoundButton from '../base_components/RoundButton';
 
+// Component that renders the sign up screen
+
 class SignupComponent extends Component {
   render() {
     const {

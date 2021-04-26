@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SecondaryText from './SecondaryText';
 import PrimaryText from './PrimaryText';
 
+// Component for rendering a basic, inline text button (like for links)
 const TextButton = ({
   title, primary, onPress, ...props
 }) => (

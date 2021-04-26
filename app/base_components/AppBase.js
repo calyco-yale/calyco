@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Colors from '../../src/constants/colors';
 import Assets from '../../src/constants/assets';
 
+// Component for rendering each screen's base for other components
 
 const AppBaseView = styled.View`
   background: ${Colors.baseColor};

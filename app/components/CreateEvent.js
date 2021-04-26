@@ -1,17 +1,14 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import debounce from "lodash/debounce";
 import { Actions } from "react-native-router-flux";
-import { Button, Text, Image, View, Platform, StyleSheet, TouchableOpacity, Switch } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Text, View, StyleSheet, Switch } from "react-native";
 
 import AppBase from "../base_components/AppBase";
 import PrimaryText from "../base_components/PrimaryText";
 import BR from "../base_components/BR";
 import TextInput from "../base_components/TextInput";
 import RoundButton from "../base_components/RoundButton";
-import TextButton from "../base_components/TextButton";
 import EventImage from "../components/EventImage";
 import { ScrollView } from "react-native-gesture-handler";
 

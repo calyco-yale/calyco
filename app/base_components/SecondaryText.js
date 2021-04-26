@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Color from '../../src/constants/colors';
 
+// Component for rendering smaller subtitle texts
 const SecondaryText = styled.Text`
   color: ${Color.secondaryColor};
   width: 100%;

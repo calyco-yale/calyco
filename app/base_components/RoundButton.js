@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Colors from '../../src/constants/colors';
 
+// Component for rendering a large, wide, rounded button for default button pressing
+
 const LoadingWrap = styled.View`
   background-color: ${props => props.buttonColor};
   margin: 10px auto;

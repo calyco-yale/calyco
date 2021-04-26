@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, useWindowDimensions, ScrollView, Button, Dimensions  } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Button, Dimensions  } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import * as Updates from 'expo-updates';
 import AppBase from '../base_components/AppBase';
