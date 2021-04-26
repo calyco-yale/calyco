@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { View, FlatList, Image, StyleSheet, Text } from "react-native";
+import { View, FlatList, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import LottieView from 'lottie-react-native';
+import changeSVGColor from '@killerwink/lottie-react-native-color';
 
 import {
   getFriendRequests,
@@ -82,28 +84,54 @@ class FriendRequestScreen extends Component {
 
   renderRequestItem(item) {
     const { requestId, sender } = item;
+    const profilecat = "../../assets/8874-cat.json";
+    const imagePath = require(profilecat);
+
     return (
       <View requestId={requestId} style={styles.requestList}>
         <View>
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri: "https://timesofindia.indiatimes.com/photo/67586673.cms"
+        <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: 10,
+              left: -15,
+              backgroundColor: 'white',
+              // justifyContent: 'center',
+              // alignContent: 'center',
+              borderColor: sender.image_url,
+              borderWidth: 3,
+              borderRadius: (140 / 2),
+              width: 120,
+              height: 120,
             }}
+            //onPress={pickColor}
+          >
+          <LottieView
+            style={{
+              width: 200,
+              height: 200,
+              // justifyContent: 'center',
+              // alignContent: 'center',
+              position: 'absolute',
+              top: -12,
+              left: -14,
+            }}
+            source={changeSVGColor(imagePath, sender.image_url)}
           />
+          </TouchableOpacity>
           {/* sender.image_url  */}
-          <Text style={styles.usernameText}>
-            @{sender.username}
-          </Text>
         </View>
-        <View style={{ paddingTop: 8 }}>
-          <Text style={styles.fullnameText}>
-            {sender.first_name} {sender.last_name}
-          </Text>
+        <View style={{ paddingTop: 6 }}>
           <View
             style={{ flexDirection: "row", paddingRight: 15, paddingLeft: 15 }}
           >
-            <View style={{ paddingRight: 10 }}>
+            <View style={{ paddingLeft: 100 }}>
+              <Text style={styles.usernameText}>
+                @{sender.username}
+              </Text>
+              <Text style={styles.fullnameText}>
+                {sender.first_name} {sender.last_name}
+              </Text>
               <RoundButton
                 small="true"
                 buttonColor="blue"
@@ -111,7 +139,7 @@ class FriendRequestScreen extends Component {
                 title="Confirm"
               />
             </View>
-            <View>
+            <View style={{ paddingTop: 70 }}>
               <RoundButton
                 small="true"
                 buttonColor="grey"
@@ -155,7 +183,7 @@ const styles = StyleSheet.create({
     color: "#717172",
     fontSize: 20,
     paddingTop: 5,
-    paddingLeft: 5
+    paddingLeft: 20
   },
   fullnameText: {
     fontSize: 25,
