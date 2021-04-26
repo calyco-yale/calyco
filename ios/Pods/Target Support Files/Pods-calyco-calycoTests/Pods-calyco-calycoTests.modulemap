@@ -1,6 +1,0 @@
-module Pods_calyco_calycoTests {
-  umbrella header "Pods-calyco-calycoTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -7,7 +7,7 @@ type User @model
   last_name: String!
   dob: AWSDate
   location: String
-  image_url: String @default(value: "#54d05d")
+  image_url: String @default(value: "https://i.pinimg.com/originals/ed/3b/ee/ed3beefd69c83e86241a31c001dd2f1a.png")
   avatar: S3Object
   pushToken: String
   events: [Event] @connection(keyName: "byUser", fields: ["id"])

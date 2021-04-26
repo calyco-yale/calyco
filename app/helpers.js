@@ -5,8 +5,8 @@ import global from './global';
 import { Auth } from "aws-amplify";
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser, getEvent, listEvents } from "../src/graphql/queries";
-import { createSimpleFriendship, deleteFriendshipById, deleteEvent, updateUser } from "../src/graphql/custom_mutations";
-import { getUsersByEmail, listUsersShortened } from "../src/graphql/custom_queries";
+import { createSimpleFriendship, deleteFriendshipById, deleteEvent } from "../src/graphql/custom_mutations";
+import { getUsersByEmail } from "../src/graphql/custom_queries";
 import * as Notifications from 'expo-notifications';
 
 export const retrieveOffset = () => {
@@ -325,11 +325,3 @@ export const deleteAllEvents = async() => {
     await API.graphql(graphqlOperation(deleteEvent, {id: eventIds[i] }))
   }
 };
-
-export const updateUserImages = async() => {
-  const userData = await API.graphql(graphqlOperation(listUsersShortened));
-  const users = userData.data.listUsers.items
-  for (let i=0; i < users.length; i++){
-    await API.graphql(graphqlOperation(updateUser, { id: users[i].id, image_url: "#54d05d" }))
-  }
-}

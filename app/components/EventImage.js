@@ -1,47 +1,69 @@
-import React, { useState, useEffect, Component } from 'react';
-import { StyleSheet} from 'react-native';
-import LottieView from 'lottie-react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 
-const EventImage = (event) => {
-  const eventDict = {
-    //1: 'https://assets10.lottiefiles.com/packages/lf20_4jfpujz6.json',
-    exercise: require("../../assets/29951-healthy-lifestyle-exercise.json"),
-    rest: require("../../assets/9626-levitate-meditate-peace-and-love.json"),
-    study: require("../../assets/25200-student.json"),
-    party: require("../../assets/29774-dance-party.json"),
-    meeting: require("../../assets/41448-online-team-collaboration-animation.json"),
-    meal: require("../../assets/48950-bento-box.json"),
-    other: require("../../assets/46864-lovely-cats.json"),
-    
-  }
+export default function EventImage() {
+  const [image, setImage] = useState(null);
 
-  var eventPath = eventDict[event.event];
-  if (event.event == null) {
-    eventPath = eventDict["exercise"];
-  }
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
 
-  return ( 
-    // <LottieView 
-    //   source={require("../../assets/48950-bento-box.json")} 
-    //   autoPlay 
-    //   loop 
-    // />
-    <LottieView
-          // ref={animation => {
-          //   this.animation = animation;
-          // }}
-          style={{
-            width: 200,
-            height: 200,
-            backgroundColor: '#f0f0f0',
-          }}
-          source={eventPath}
-          autoPlay
-          loop
-          // OR find more Lottie files @ https://lottiefiles.com/featured
-          // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
-    />
-  )
+  const pickImage = async () => {
+    if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        } else {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+        
+            if (!result.cancelled) {
+                setImage(result.uri);
+                return result.uri;
+            } else{
+                return null;
+            }
+        }
+    }
+  };
+
+  return (
+    <>
+    <View style={{ 
+      flex: 1, 
+      alignItems: 'center', 
+      justifyContent: 'center' 
+    }}>
+      {image ? 
+        <Image 
+          source={{ uri: image }} 
+          style={styles.image} 
+          onPress={pickImage}/> : 
+        <TouchableOpacity
+          style={styles.selected}
+          onPress={pickImage}
+        >
+          <MaterialCommunityIcons name="plus-box" size={50} />
+        </TouchableOpacity>
+      }
+
+    </View>
+    </>
+  );
 }
 
 
@@ -68,6 +90,4 @@ const styles = StyleSheet.create({
     borderRadius:100,
   }
 
-  });
-
-export default EventImage;
+});

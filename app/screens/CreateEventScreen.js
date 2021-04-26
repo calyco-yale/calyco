@@ -89,7 +89,7 @@ class CreateEventScreen extends Component {
 
   handleEventImageChange = event_pic => {
     this.setState({
-      event_pic: event_pic
+      event_pic
     });
   };
 

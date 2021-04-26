@@ -37,14 +37,43 @@ class CreateEventComponent extends Component {
     super(props);
     this.state = {
       image: null,
-      eventType: "other",
+      eventType: null,
+      privateEnabled: false,
       datetime: createDateTime(),
       datetime1: createDateTime()
     };
   }
 
+  pickImage = async () => {
+    const { onEventImageChange } = this.props;
+    if (Platform.OS !== "web") {
+      const {
+        status
+      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      } else {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1
+        });
+
+        if (!result.cancelled) {
+          this.setState({ image: result.uri });
+          onEventImageChange(result.uri);
+        }
+      }
+    }
+  };
+
+  toggleSwitch = () => {
+    this.setState({ privateEnabled: !this.state.privateEnabled})
+  }
+
   render() {
-    var {
+    const {
       loading,
       registerMessage,
       registerError,
@@ -224,31 +253,27 @@ class CreateEventComponent extends Component {
             }}
             dropDownStyle={{backgroundColor: '#fafafa'}}
             onChangeItem={item => {this.setState({ eventType: item.value });
-              onEventImageChange(item.value);
+              // if (this.state.eventType.localeCompare('exercise')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('rest')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('study')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('party')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('meeting')) {
+              //   onEventImageChange();
+              // } else if (this.state.eventType.localeCompare('meal')) {
+              //   onEventImageChange();
+              // } else {
+              //   onEventImageChange();
+              // }
             }}
         />
-        <BR size={50}/>
+        <BR size={200}/>
+
         {addParticipants}
-        <View style={{ 
-            flex: 1, 
-            alignItems: 'center', 
-            justifyContent: 'center' 
-            }}>
-            {/* {this.state.image ? 
-                <Image 
-                source={{ uri: this.state.image }} 
-                style={styles.image} 
-                onPress={this.pickImage}/> : 
-                <TouchableOpacity
-                style={styles.selected}
-                onPress={this.pickImage}
-                >
-                <MaterialCommunityIcons name="plus-box" size={80} />
-                </TouchableOpacity>
-            } */}
-            <EventImage event = {this.state.eventType} />
-        </View>
-        <BR size={50}/>
+
         <RoundButton
           title="Add Participants"
           onPress={() =>
