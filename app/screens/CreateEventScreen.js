@@ -7,11 +7,15 @@ import CreateEventComponent from "../components/CreateEvent";
 import { API, graphqlOperation } from "aws-amplify";
 import { listEventsShortened } from "../../src/graphql/custom_queries";
 import { Actions } from "react-native-router-flux";
-import { createEvent, deleteEvent, createInvite  } from "../../src/graphql/custom_mutations";
+import {
+  createEvent,
+  deleteEvent,
+  createInvite
+} from "../../src/graphql/custom_mutations";
 import { getloggedInUser } from "../helpers";
 import { getUser } from "../../src/graphql/queries";
 import { View, Text, StyleSheet } from "react-native";
-import { getUTCTime } from '../helpers'
+import { getUTCTime } from "../helpers";
 
 // Create event screen component which renders create event component
 class CreateEventScreen extends Component {
@@ -41,20 +45,54 @@ class CreateEventScreen extends Component {
     participants
   ) => {
     try {
-        const event = await API.graphql(graphqlOperation(createEvent, { userId: loggedInUser, public: publicEnabled, image_url: image_url, end_datetime: getUTCTime(end_time), start_datetime: getUTCTime(start_time), name: event_name, description: description, participants: participants}))
-        const eventID = event.data.createEvent.id;
-        for (let i = 0; i < participants.length; i++){
-          await API.graphql(graphqlOperation(createInvite, { userId: participants[i], eventId: eventID, senderId: loggedInUser }))
-        }
-      } catch (e) {
-        console.log(e);
+      const event = await API.graphql(
+        graphqlOperation(createEvent, {
+          userId: loggedInUser,
+          public: publicEnabled,
+          image_url: image_url,
+          end_datetime: getUTCTime(end_time),
+          start_datetime: getUTCTime(start_time),
+          name: event_name,
+          description: description,
+          participants: participants
+        })
+      );
+      const eventID = event.data.createEvent.id;
+      for (let i = 0; i < participants.length; i++) {
+        await API.graphql(
+          graphqlOperation(createInvite, {
+            userId: participants[i],
+            eventId: eventID,
+            senderId: loggedInUser
+          })
+        );
       }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   // Switch to newsfeed once event is created
-  handleEventCreationSubmit = async (publicEnabled) => {
-    const { user, event_pic, event_name, start_time, end_time, description, participants} = this.state;
-    this.createPost(user.id, publicEnabled, event_pic, end_time, start_time, event_name, description, participants.map(p => p.id));
+  handleEventCreationSubmit = async publicEnabled => {
+    const {
+      user,
+      event_pic,
+      event_name,
+      start_time,
+      end_time,
+      description,
+      participants
+    } = this.state;
+    this.createPost(
+      user.id,
+      publicEnabled,
+      event_pic,
+      end_time,
+      start_time,
+      event_name,
+      description,
+      participants.map(p => p.id)
+    );
     Actions.newsFeed();
   };
 
@@ -66,7 +104,7 @@ class CreateEventScreen extends Component {
   };
 
   // Change start time state
-  handleStartTimeChange = (start_time) => {
+  handleStartTimeChange = start_time => {
     this.setState({
       start_time
     });
@@ -104,14 +142,16 @@ class CreateEventScreen extends Component {
   fetchRequestData = async () => {
     try {
       const user = await getloggedInUser();
-      const loggedInUserData = await API.graphql(graphqlOperation(getUser, { id: user.id }));
+      const loggedInUserData = await API.graphql(
+        graphqlOperation(getUser, { id: user.id })
+      );
       this.setState({ user: user, userData: loggedInUserData });
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-    // Function called in the beginning to request logged in user data before componenet rendered
+  // Function called in the beginning to request logged in user data before componenet rendered
   componentDidMount() {
     this.didFocusListener = this.props.navigation.addListener(
       "didFocus",
@@ -119,7 +159,7 @@ class CreateEventScreen extends Component {
         this.fetchRequestData();
       }
     );
-  };
+  }
 
   // Function to remove listener
   componentWillUnmount() {
@@ -129,16 +169,10 @@ class CreateEventScreen extends Component {
   // Render create event object
   render() {
     const { registerLoading, registerError, registerMessage } = this.props;
-    const {
-      user,
-      start_time,
-      end_time,
-      description,
-    } = this.state;
+    const { user, start_time, end_time, description } = this.state;
 
     // Disable create event button if fields are null
-    const disableCreateEvent =
-      !start_time || !end_time || !description;
+    const disableCreateEvent = !start_time || !end_time || !description;
 
     // Call create event component and return the user input when values are changed
     if (user) {

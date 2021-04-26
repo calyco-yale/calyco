@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import { View, FlatList, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import LottieView from 'lottie-react-native';
-import changeSVGColor from '@killerwink/lottie-react-native-color';
+import {
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity
+} from "react-native";
+import LottieView from "lottie-react-native";
+import changeSVGColor from "@killerwink/lottie-react-native-color";
 
 import {
   getFriendRequests,
@@ -90,36 +97,30 @@ class FriendRequestScreen extends Component {
     return (
       <View requestId={requestId} style={styles.requestList}>
         <View>
-        <TouchableOpacity
+          <TouchableOpacity
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 10,
               left: -15,
-              backgroundColor: 'white',
-              // justifyContent: 'center',
-              // alignContent: 'center',
+              backgroundColor: "white",
               borderColor: sender.image_url,
               borderWidth: 3,
-              borderRadius: (140 / 2),
+              borderRadius: 140 / 2,
               width: 120,
-              height: 120,
+              height: 120
             }}
-            //onPress={pickColor}
           >
-          <LottieView
-            style={{
-              width: 200,
-              height: 200,
-              // justifyContent: 'center',
-              // alignContent: 'center',
-              position: 'absolute',
-              top: -12,
-              left: -14,
-            }}
-            source={changeSVGColor(imagePath, sender.image_url)}
-          />
+            <LottieView
+              style={{
+                width: 200,
+                height: 200,
+                position: "absolute",
+                top: -12,
+                left: -14
+              }}
+              source={changeSVGColor(imagePath, sender.image_url)}
+            />
           </TouchableOpacity>
-          {/* sender.image_url  */}
         </View>
         <View style={{ paddingTop: 6 }}>
           <View
