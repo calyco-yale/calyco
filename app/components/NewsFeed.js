@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import Post from '../components/Post'
 import RoundButton from '../base_components/RoundButton';
 
@@ -28,6 +28,7 @@ class NewsFeedComponent extends Component {
         this.isModalVisible = !this.isModalVisible;
     };
     
+    // Render post item using user data queried from backend
     _renderPost(item){
         if (item.item.public) {
             return <Post
@@ -43,7 +44,7 @@ class NewsFeedComponent extends Component {
         }
     }
 
-
+    // Delete post backend call
     deletePost = async() => {
         try {
             await API.graphql(graphqlOperation(deleteEvent, { id: '3f5a1fc1-30be-4659-aa92-c6c1e9259f72' }))
@@ -52,6 +53,7 @@ class NewsFeedComponent extends Component {
         }
     }
 
+    // Fetch data from backend on current logged in user and set state
     fetchRequestData = async () => {
         try {
             const loggedInUser = await getloggedInUser()
@@ -99,6 +101,7 @@ class NewsFeedComponent extends Component {
             }        
     };
 
+    // Function called in the beginning to request logged in user data before componenet rendered
     componentDidMount() {
         this.didFocusListener = this.props.navigation.addListener(
           'didFocus',
@@ -108,16 +111,19 @@ class NewsFeedComponent extends Component {
         );
       }
     
+    // Fucntion to remove listener
     componentWillUnmount() {
         this.didFocusListener.remove();
     }
 
+  // Render flat list of post component objects  
   render() {
         const { posts } = this.state;
         this.registerForPushNotificationsAsync();
         return (
             <View>    
                 <View style= {{ marginTop: 50}}>
+                    {/* Button which changes display to create event screen */}
                     <RoundButton
                         onPress={() => Actions.createEventScreen()}
                         buttonColor='grey'
@@ -125,6 +131,7 @@ class NewsFeedComponent extends Component {
                     />
                 </View>
                 <View style= {{ marginTop: 10, marginBottom: 275}}>
+                    {/* Flat list that displays participants, posts and likes */}
                     <FlatList
                         data = {posts}
                         keyExtractor={(item) => item.id}
