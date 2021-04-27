@@ -78,6 +78,12 @@ class UpcomingEvent extends Component {
             {afterEvents.map(event => {
               const start_time = convertLocalTime(event.start_datetime);
               const end_time = convertLocalTime(event.end_datetime);
+
+              const temp_start = new Date(start_time.substring(0,4), start_time.substring(5,7) - 1, start_time.substring(8,10), start_time.substring(11,13), start_time.substring(14,16), 0, 0);
+              const temp_string_start = temp_start.toDateString() + " " + start_time.substring(11,16);
+
+              const temp_end = new Date(end_time.substring(0,4), end_time.substring(5,7) - 1, end_time.substring(8,10), end_time.substring(11,13), end_time.substring(14,16), 0, 0);
+              const temp_string_end = temp_end.toDateString() + " " + end_time.substring(11,16);
               return (
                 <BoxSimple style={{ backgroundColor: "#ffffff" }}>
                   <View
@@ -99,7 +105,7 @@ class UpcomingEvent extends Component {
                     {event.name}
                   </Text>
                   <Text>
-                    {start_time} - {end_time}
+                    {temp_string_start} - {temp_string_end}
                   </Text>
                 </BoxSimple>
               );
@@ -114,13 +120,19 @@ class UpcomingEvent extends Component {
             {afterEvents.map(event => {
               const start_time = convertLocalTime(event.start_datetime);
               const end_time = convertLocalTime(event.end_datetime);
+
+              const temp_start = new Date(start_time.substring(0,4), start_time.substring(5,7) - 1, start_time.substring(8,10), start_time.substring(11,13), start_time.substring(14,16), 0, 0);
+              const temp_string_start = temp_start.toDateString() + " " + start_time.substring(11,16);
+
+              const temp_end = new Date(end_time.substring(0,4), end_time.substring(5,7) - 1, end_time.substring(8,10), end_time.substring(11,13), end_time.substring(14,16), 0, 0);
+              const temp_string_end = temp_end.toDateString() + " " + end_time.substring(11,16);
               return (
                 <BoxSimple style={{ backgroundColor: "#ffffff" }}>
                   <Text style={styles.eventText}>
                     {event.name}
                   </Text>
                   <Text>
-                    {start_time} - {end_time}
+                    {temp_string_start} - {temp_string_end}
                   </Text>
                 </BoxSimple>
               );
