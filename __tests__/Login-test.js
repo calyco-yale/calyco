@@ -1,48 +1,35 @@
 import React from "react";
 import renderer from "react-test-renderer";
-// import User from '../app/components/User';
-// import LoginComponent from "../app/components/Login";
+// import { testFunc } from "../app/helpers";
 
-// import PrimaryText from '../app/base_components/PrimaryText';
-// import styled from 'styled-components'
-// import 'jest-styled-components';
+jest.mock("../app/base_components/PrimaryText", () => "PrimaryText");
+jest.mock("../app/base_components/AppBase", () => "AppBase");
+jest.mock("../app/base_components/TextInput", () => "TextInput");
+jest.mock("../app/base_components/BR", () => "BR");
+jest.mock("../app/base_components/RoundButton", () => "RoundButton");
+jest.mock("../app/base_components/SecondaryText", () => "SecondaryText");
+jest.mock("../app/base_components/TextButton", () => "TextButton");
+jest.mock("../app/components/User", () => "UserComponent");
 
-// // Testing Rendering of User Component
-// test('renders correctly', () => {
-//     const tree = renderer.create(<LoginComponent />).toJSON();
-//     expect(tree).toMatchSnapshot();
-// });
+jest.mock("react-native-router-flux", () => ({
+  Actions: {
+    signUpScreen: jest.fn()
+    // whatever other Actions you use in your code
+  }
+}));
 
-// I think you need to first mock the modules that PrimaryText is dependent on
-// jest.mock('../src/constants/colors');
+export const testFunc = () => {
+  return 1;
+};
 
-// jest.mock(
-//     'react-native-router-flux', () => ({
-//         Actions: {
-//         signUpScreen: jest.fn()
-//         // whatever other Actions you use in your code
-//         },
-//     })
-// )
-
-// jest.mock(
-//     'styled-components', () => ({
-//         styled:  {
-//             default: jest.fn()
-//         },
-//     })
-// );
-
-// And then run the Jest test that renders a PrimaryText component and uses
-// snapshot testing (look this up) to check that everything renders properly
-// test('renders correctly', () => {
-//     const tree = renderer.create(<PrimaryText>message</PrimaryText>).toJSON();
-//     expect(tree).toMatchSnapshot();
-// });
-
-// Here's a random test that you can run npm run test on to see that Jest works
-describe("Addition", () => {
-  it("knows that 2 and 2 make 4", () => {
-    expect(2 + 2).toBe(4);
-  });
+// Testing Rendering of User Component
+test("test function", () => {
+  expect(testFunc()).toBe(1);
 });
+
+// Here's a random test that you can run npm test on to see that Jest works
+// describe("Addition", () => {
+//   it("knows that 2 and 2 make 4", () => {
+//     expect(2 + 2).toBe(4);
+//   });
+// });

@@ -5,7 +5,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest":{
+    "preset": "react-native"
   },
   "dependencies": {
     "@killerwink/lottie-react-native-color": "^1.0.2",
@@ -23,6 +27,7 @@
     "expo-notifications": "^0.11.5",
     "expo-status-bar": "~1.0.3",
     "expo-updates": "^0.4.2",
+    "jest": "^26.6.3",
     "lottie-colorify": "^0.8.0",
     "lottie-ios": "^3.1.8",
     "lottie-react-native": "^3.5.0",
@@ -47,6 +52,7 @@
     "react-native-web": "^0.15.0",
     "react-native-wheel-color-picker": "^1.0.2",
     "react-navigation": "^4.4.4",
+    "react-test-renderer": "^16.13.1",
     "react-time-range-select": "^1.0.8",
     "styled-components": "^5.2.1"
   },

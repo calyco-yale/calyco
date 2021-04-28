@@ -1,21 +1,4 @@
-import React from "react";
-import AppBase from "./base_components/AppBase";
-import UserComponent from "./components/User";
-import global from "./global";
-import { Auth } from "aws-amplify";
-import { API, graphqlOperation } from "aws-amplify";
-import { getUser, getEvent, listEvents } from "../src/graphql/queries";
-import {
-  createSimpleFriendship,
-  deleteFriendshipById,
-  deleteEvent,
-  updateUser
-} from "../src/graphql/custom_mutations";
-import {
-  getUsersByEmail,
-  listUsersShortened
-} from "../src/graphql/custom_queries";
-import * as Notifications from "expo-notifications";
+import global from "../app/global";
 
 export const testFunc = () => {
   return 1;
