@@ -6,6 +6,7 @@ import { convertLocalTime } from '../helpers'
 import { API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../src/graphql/queries";
 
+// Function to convert participant ids into participant usernames using backend query
 const convertParticipants = async (userIds) => {
     var outputParticipants = "";
     for (var i = 0; i < userIds.length; i++ ){
@@ -20,6 +21,7 @@ const convertParticipants = async (userIds) => {
     return outputParticipants;
 };
 
+// Post class, displays event info
 class Post extends Component {
     constructor(props) {
         super(props);
@@ -37,20 +39,22 @@ class Post extends Component {
         }
     }
 
+    // Set like button to clicked
     likeToggled(){
         this.setState({
             post_liked: !this.state.post_liked
         })
     }
 
+    // Set participants button to clicked
     participantsToggled(){
         this.setState({
             view_participants: !this.state.view_participants
         })
     }
 
+    // Render the post using arguments passed in via props
     render() {
-
         const heartIconColor = (this.state.post_liked) ? "rgb(252,61,57)" : null;
         return (
 
@@ -112,6 +116,7 @@ class Post extends Component {
       }
     }
     
+    // Styles
     const styles = StyleSheet.create({
         tempNav: {
             width: 100 + "%",

@@ -1,33 +1,38 @@
 import { Calendar } from "react-native-calendars";
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { convertLocalTime } from "../helpers";
+import Colors from "../../src/constants/colors";
 
+// Calender Component to be displayed in User's Profile Page
 class CalendarEvent extends Component {
   constructor(props) {
     super(props);
   }
 
+  // Convert UTC to local time
   timeZoneConvertEvent = events => {
     const change_events = [];
     events.forEach(event => {
-      const _ = require('lodash');
+      const _ = require("lodash");
       var temp_event = _.cloneDeep(event);
       temp_event.start_datetime = convertLocalTime(event.start_datetime);
       temp_event.end_datetime = convertLocalTime(event.end_datetime);
       change_events.push(temp_event);
-    })
+    });
     return change_events;
   };
 
+  /* Parse events to find the start and end datetimes for each event
+    Return a dictionary of marked dates w/ info on how to mark each date on the calendar:
+    has event, color, dot, starting, ending, between */
   parseEvents = events => {
     const listOfMarkedDates = {};
     events.forEach(event => {
       listOfMarkedDates[event.start_datetime.substring(0, 10)] = {
         marked: true,
         dotColor: "#5a5757",
-        // startingDay: true,
-        color: "#f4a95d"
+        color: Colors.calycoColor
       };
     });
 
@@ -39,9 +44,7 @@ class CalendarEvent extends Component {
         listOfMarkedDates[event.start_datetime.substring(0, 10)] = {
           marked: true,
           dotColor: "#5a5757",
-          // startingDay: true,
-          // endingDay: true,
-          color: "#f4a95d"
+          color: Colors.calycoColor
         };
         return listOfMarkedDates;
       }
@@ -50,7 +53,7 @@ class CalendarEvent extends Component {
           event.start_datetime.substring(0, 8) +
           (parseInt(event.start_datetime.substring(8, 10)) + i + 1).toString();
         listOfMarkedDates[newDate] = {
-          color: "#f4a95d"
+          color: Colors.calycoColor
         };
       }
       if (
@@ -61,18 +64,18 @@ class CalendarEvent extends Component {
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
           marked: true,
           dotColor: "#5a5757",
-          color: "#f4a95d"
+          color: Colors.calycoColor
         };
       } else {
         listOfMarkedDates[event.end_datetime.substring(0, 10)] = {
-          // endingDay: true,
-          color: "#f4a95d"
+          color: Colors.calycoColor
         };
       }
     });
     return listOfMarkedDates;
   };
 
+  // Stores the name of the event on a certain day
   parseEventsNames = events => {
     const listOfNames = {};
     events.forEach(event => {
@@ -107,53 +110,63 @@ class CalendarEvent extends Component {
     return listOfNames;
   };
 
+  // called each time a user views the calendar tab in the profile page
   render() {
-    const events = this.props.events
-    const invitedEvents = this.props.invitedEvents
-    
-    if (events) {
-      const second_events = events;
-      const a_events = this.timeZoneConvertEvent(second_events);
-      const listOfMarkedDates = this.parseEvents(a_events);
-      const listOfNames = this.parseEventsNames(a_events);
+    // list of event objects the user created
+    const events = this.props.events;
+    // list of events objects the user was invited to (including nulls due to deleted events)
+    const invitedEvents = this.props.invitedEvents;
+    // list of events objects the user was invited to (without nulls)
+    const newInvitedEvents = [];
+    for (let i = 0; i < invitedEvents.length; i++) {
+      if (invitedEvents[i] != null) {
+        newInvitedEvents.push(invitedEvents[i]);
+      }
+    }
+    // list of all of the events the user is participating in
+    const total_events = events.concat(newInvitedEvents);
+
+    if (total_events) {
+      // list of events with local times
+      const localtimeEvents = this.timeZoneConvertEvent(total_events);
+      const listOfMarkedDates = this.parseEvents(localtimeEvents);
+      const listOfNames = this.parseEventsNames(localtimeEvents);
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Calendar
-            // Collection of dates that have to be marked. Default = {}
             markedDates={listOfMarkedDates}
             markingType={"period"}
+            // alerts only when a day with an event is pressed
             onDayPress={day => {
               if (Object.keys(listOfMarkedDates).includes(day.dateString)) {
                 alert(
                   `There is ${listOfNames[day.dateString]} on ${day.dateString}`
                 );
               }
-              // 1. for each date in event_dates --> mark dates
-              // 2. if pressed date is in list of event dates => alert
             }}
-            style={{width: 350}}
+            style={styles.calendar}
             theme={{
-              backgroundColor: '#ffffff',
-              calendarBackground: '#ffffff',
-              textSectionTitleColor: '#b6c1cd',
-              textSectionTitleDisabledColor: '#d9e1e8',
-              selectedDayBackgroundColor: '#00adf5',
-              selectedDayTextColor: '#ffffff',
-              todayTextColor: '#00adf5',
-              dayTextColor: '#2d4150',
-              textDisabledColor: '#d9e1e8',
-              dotColor: '#00adf5',
-              selectedDotColor: '#ffffff',
-              arrowColor: 'orange',
-              disabledArrowColor: '#d9e1e8',
-              monthTextColor: 'orange',
-              indicatorColor: 'orange',
-              textDayFontFamily: 'Futura',
-              textDayFontWeight: '300',
-              textMonthFontWeight: 'bold',
-              textDayHeaderFontWeight: '300',
+              backgroundColor: "#ffffff",
+              calendarBackground: "#ffffff",
+              textSectionTitleColor: "#b6c1cd",
+              textSectionTitleDisabledColor: "#d9e1e8",
+              selectedDayBackgroundColor: "#00adf5",
+              selectedDayTextColor: "#ffffff",
+              todayTextColor: "#00adf5",
+              dayTextColor: "#2d4150",
+              textDisabledColor: "#d9e1e8",
+              dotColor: "#00adf5",
+              selectedDotColor: "#ffffff",
+              arrowColor: "orange",
+              disabledArrowColor: "#d9e1e8",
+              monthTextColor: "orange",
+              indicatorColor: "orange",
+              textDayFontFamily: "Futura",
+              textDayFontWeight: "300",
+              textMonthFontWeight: "bold",
+              textDayHeaderFontWeight: "300",
               textDayFontSize: 16,
               textMonthFontSize: 16,
               textDayHeaderFontSize: 16
@@ -166,5 +179,11 @@ class CalendarEvent extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  calendar: {
+    width: 350
+  }
+});
 
 export default CalendarEvent;

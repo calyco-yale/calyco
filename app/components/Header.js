@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../src/constants/colors";
 
+// Header component to be placed in the Participants Page
 const Header = ({ title }) => {
   return (
     <View style={styles.header}>

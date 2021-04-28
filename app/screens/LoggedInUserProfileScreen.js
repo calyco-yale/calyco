@@ -17,9 +17,8 @@ import { API, graphqlOperation } from "aws-amplify";
 import { deleteEvent } from "../../src/graphql/custom_mutations";
 import { getInvitedEvents } from "../helpers";
 
-
-
-class UserProfileScreen extends Component {
+// Screen for displaying the profile page of the logged in user
+class LoggedInUserProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +30,8 @@ class UserProfileScreen extends Component {
     };
   };
 
+  // Function to fetch logged in user and their events and invited events
+  // Called when component mounted
   fetchUserData = async () => {
     try {
       const loggedInUser = await getloggedInUser()
@@ -54,6 +55,7 @@ class UserProfileScreen extends Component {
     this.didFocusListener.remove();
   }
 
+  // Function to delete user's event given the eventId
   deleteEvent = async(eventId)  => {
     try {
       await API.graphql(
@@ -65,7 +67,7 @@ class UserProfileScreen extends Component {
     }
   };
 
-  // Sign out Function
+  // Sign out function
   signOutProfile = async () => {
     try {
         await Auth.signOut();
@@ -77,6 +79,8 @@ class UserProfileScreen extends Component {
   }
 
   // Tab Related Functions
+
+  //Showing calendar tab
   FirstRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -92,6 +96,7 @@ class UserProfileScreen extends Component {
     </>
   );
   
+  //Showing upcoming events tab
   SecondRoute = () => (
     <>
     <ScrollView style={{ flex: 2, backgroundColor: '#ffffff' }}>
@@ -100,14 +105,21 @@ class UserProfileScreen extends Component {
     </>
   );
   
+  // Function to render the two tabs
   renderScene = SceneMap({
     first: this.FirstRoute,
     second: this.SecondRoute,
   });
 
+  //output the profile page layout with the 3 parts - 
+  // 1. shows user profile information 
+  // 2. shows user's calendar
+  // 3. shows user's upcoming events
+  // outputs friendships 
   render() {
     const layout = Dimensions.get('window');
     const { loggedInUser, events, invitedEvents, index, routes } = this.state;
+    // Makes sure all data is fetched before rendering information
     if (loggedInUser) {
       return (
         <>
@@ -167,6 +179,7 @@ class UserProfileScreen extends Component {
       );
     } else {
       return (
+      // Loading screen displayed while fetching data
       <AppBase> 
         <Text style = {{fontSize: 25, marginTop: 100, fontFamily: "Futura"}}>
           Loading...
@@ -216,4 +229,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default UserProfileScreen;
+export default LoggedInUserProfileScreen;
