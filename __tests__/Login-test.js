@@ -1,7 +1,7 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 // import User from '../app/components/User';
-import LoginComponent from '../app/components/Login';
+// import LoginComponent from "../app/components/Login";
 
 // import PrimaryText from '../app/base_components/PrimaryText';
 // import styled from 'styled-components'
@@ -16,23 +16,22 @@ import LoginComponent from '../app/components/Login';
 // I think you need to first mock the modules that PrimaryText is dependent on
 // jest.mock('../src/constants/colors');
 
-jest.mock(
-    'react-native-router-flux', () => ({
-        Actions: {
-        signUpScreen: jest.fn()
-        // whatever other Actions you use in your code
-        },
-    })
-)
+// jest.mock(
+//     'react-native-router-flux', () => ({
+//         Actions: {
+//         signUpScreen: jest.fn()
+//         // whatever other Actions you use in your code
+//         },
+//     })
+// )
 
-jest.mock(
-    'styled-components', () => ({
-        styled:  {
-            default: jest.fn()
-        },
-    })
-);
-
+// jest.mock(
+//     'styled-components', () => ({
+//         styled:  {
+//             default: jest.fn()
+//         },
+//     })
+// );
 
 // And then run the Jest test that renders a PrimaryText component and uses
 // snapshot testing (look this up) to check that everything renders properly
@@ -42,8 +41,8 @@ jest.mock(
 // });
 
 // Here's a random test that you can run npm run test on to see that Jest works
-// describe('Addition', () => {
-//     it('knows that 2 and 2 make 4', () => {
-//       expect(2 + 2).toBe(4);
-//     });
-//   });
+describe("Addition", () => {
+  it("knows that 2 and 2 make 4", () => {
+    expect(2 + 2).toBe(4);
+  });
+});
