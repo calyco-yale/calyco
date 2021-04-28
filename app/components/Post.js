@@ -104,6 +104,7 @@ class Post extends Component {
                         event = {this.event_pic}
                     />
                 </View>
+                <BR/>
                 <View style = {styles.iconBar}>
                     {/* like event */}
                     <TouchableOpacity
@@ -111,7 +112,7 @@ class Post extends Component {
                             this.likeToggled();
                         }}>
                         <Image
-                            style={styles.iconPic, {tintColor: heartIconColor}}
+                            style={{tintColor: heartIconColor, marginLeft: 30, height: 33, width: 35}}
                             source={require('../../assets/heart_button.png')}
                         />
                     </TouchableOpacity>
@@ -122,7 +123,7 @@ class Post extends Component {
                             alert("The participants are: " + participantUsernames);
                         }}>
                         <Image
-                            style={styles.iconPic}
+                            style={{ marginLeft: 10, height: 33, width: 35 }}
                             source={require('../../assets/user_count.png')}
                         />
                     </TouchableOpacity>
@@ -190,18 +191,19 @@ class Post extends Component {
         },
     
         iconBar: {
-            height: 50,
+            height: 47,
             width: 90 + "%",
-            marginLeft: 20,
-            borderBottomColor: "rgb(233,233,233)",
-            borderTopWidth: StyleSheet.hairlineWidth,
-            borderBottomWidth: StyleSheet.hairlineWidth,
+            marginTop: 10,
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
             flexDirection: "row"
         },
     
         iconPic: {
-            height: 50,
-            width: 50
+            height: 33,
+            width: 3,
+            marginLeft: 50,
+            marginBottom: 50
         },
     
         userPic: {

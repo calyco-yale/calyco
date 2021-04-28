@@ -88,7 +88,7 @@ class LoggedInUserProfileScreen extends Component {
       <RoundButton
       title="Add Event"
       onPress={() => Actions.createEventScreen()}
-      buttonColor='grey'
+      buttonColor='orange'
       />
       <BR size={5}/>
       <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>

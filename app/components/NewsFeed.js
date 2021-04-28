@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import Post from '../components/Post'
 import RoundButton from '../base_components/RoundButton';
 
@@ -12,7 +12,7 @@ import { listEvents } from '../../src/graphql/queries'
 import { Actions } from 'react-native-router-flux';
 import { deleteEvent } from '../../src/graphql/custom_mutations';
 import { updateUser } from '../../src/graphql/mutations';
-import { getloggedInUser } from '../helpers';
+import { getloggedInUser, convertLocalTime } from '../helpers';
 
 class NewsFeedComponent extends Component {
     constructor(props) {
@@ -30,7 +30,11 @@ class NewsFeedComponent extends Component {
     
     // Render post item using user data queried from backend
     _renderPost(item){
-        if (item.item.public) {
+        const currDate = new Date();
+        const new_time = convertLocalTime(item.item.end_datetime);
+        const temp_date = new Date(new_time.substring(0,4), new_time.substring(5,7) - 1, new_time.substring(8,10), new_time.substring(11,13), new_time.substring(14,16), 0, 0);
+
+        if (item.item.public && temp_date >= currDate) {
             return <Post
             profile_pic={item.item.user.image_url}
             event_pic={item.item.image_url}
@@ -126,7 +130,7 @@ class NewsFeedComponent extends Component {
                     {/* Button which changes display to create event screen */}
                     <RoundButton
                         onPress={() => Actions.createEventScreen()}
-                        buttonColor='grey'
+                        buttonColor='orange'
                         title='Create Event'
                     />
                 </View>
