@@ -192,8 +192,7 @@ class Post extends Component {
     
         iconBar: {
             height: 47,
-            width: 90 + "%",
-            marginTop: 10,
+            width: 100 + "%",
             borderBottomColor: "black",
             borderBottomWidth: 1,
             flexDirection: "row"
