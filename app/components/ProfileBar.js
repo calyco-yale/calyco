@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, Platform, StyleSheet, TouchableOpacity, Button, Text, Dimensions } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getColors } from 'lottie-colorify';
 import LottieView from 'lottie-react-native';
 import RoundButton from '../base_components/RoundButton';
 import changeSVGColor from '@killerwink/lottie-react-native-color';
@@ -18,7 +15,7 @@ import { API, graphqlOperation } from "aws-amplify";
 //renders the profile picture in the profile screen
 export default function ProfileBar() {
   const [image, setImage] = useState(null);
-  const [color, setColor] = useState("#54d05d");
+  const [color, setColor] = useState("#ffa500");
   const [isModalVisible, setModalVisible] = useState(false);
 
   //retrieves color by backend graphql call
@@ -32,7 +29,7 @@ export default function ProfileBar() {
       // console.log(iconColor);
       setColor(iconColor);
     } else {
-      setColor("#54d05d");
+      setColor("#ffa500");
     }
   };
 
@@ -45,19 +42,6 @@ export default function ProfileBar() {
     // console.log(isModalVisible);
   };
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
   const pickColor = async (color) => {
     setColor(color)
     const user = await getloggedInUser();
@@ -67,17 +51,6 @@ export default function ProfileBar() {
   //Lottie file path of profile image
   const profilecat = "../../assets/8874-cat.json";
   const imagePath = require(profilecat);
-
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
-        }
-      }
-    })();
-  }, []);
   
   return (
     <>
@@ -86,41 +59,24 @@ export default function ProfileBar() {
       alignItems: 'center', 
       justifyContent: 'center',
     }}>
-      {/* {image ? 
-        <Image 
-          source={{ uri: image }} 
-          style={styles.image} 
-          onPress={pickImage}/> : 
-        <TouchableOpacity
-          style={styles.selected}
-          onPress={pickImage}
-        >
-          <MaterialCommunityIcons name="account" size={50} />
-        </TouchableOpacity>
-      } */}
       <TouchableOpacity
         style={{
           position: 'absolute',
           top: 15,
           left: 0,
           backgroundColor: 'white',
-          // justifyContent: 'center',
-          // alignContent: 'center',
           borderColor: color,
           borderWidth: 3,
           borderRadius: (140 / 2),
           width: 140,
           height: 140,
         }}
-        //onPress={pickColor}
         onPress={toggleModal}
       >
         <LottieView
           style={{
             width: 200,
             height: 200,
-            // justifyContent: 'center',
-            // alignContent: 'center',
             position: 'absolute',
             top: -10,
             left: -11,
@@ -133,10 +89,15 @@ export default function ProfileBar() {
         <View style={{flex: 1}}>
           <ColorPicker
             // onColorChange={(color) => console.log(color)}
+            color={color}
             onColorChangeComplete={(color) => pickColor(color)}
           />
           {/* <Text>HI There</Text> */}
-          <Button title="Confirm Color" onPress={toggleModal} />
+          <RoundButton
+            title="Confirm Color"
+            onPress={toggleModal}
+            buttonColor="orange"
+          />
         </View>
       </Modal>
     </View>

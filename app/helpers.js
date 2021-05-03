@@ -47,6 +47,18 @@ export const convertLocalTime = date => {
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
   var currDate = new Date(new_string);
   currDate.setMinutes(currDate.getMinutes() - offset);
+  const dayOfWeek = new Date(currDate).getDay();
+  const curr_dayofWeek = isNaN(dayOfWeek)
+    ? null
+    : [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ][dayOfWeek];
   var curr_month = currDate.getMonth() + 1;
   var curr_date = currDate.getDate();
   var curr_year = currDate.getFullYear();
@@ -81,7 +93,7 @@ export const convertLocalTime = date => {
     temp_curr_hour +
     ":" +
     temp_curr_minute;
-  return new_string;
+  return String(new_string);
 };
 
 // Get currently logged in user

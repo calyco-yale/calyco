@@ -88,7 +88,7 @@ class LoggedInUserProfileScreen extends Component {
       <RoundButton
       title="Add Event"
       onPress={() => Actions.createEventScreen()}
-      buttonColor='grey'
+      buttonColor='orange'
       />
       <BR size={5}/>
       <CalendarEvent user = {this.state.loggedInUser} loggedIn = {true} events = {this.state.events} invitedEvents={this.state.invitedEvents}/>
@@ -123,24 +123,18 @@ class LoggedInUserProfileScreen extends Component {
     if (loggedInUser) {
       return (
         <>
-          <View style={{flex: 0.4, marginTop: 35.0 }}>
+          <View style={{ flex: 0.4, marginTop: 35.0 }}>
             <AppBase style={{height: '30%'}}>
               <View style={[styles.container, {
                 flexDirection: "row"
               }]}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginRight: 30 }}>
                   <ProfileBar />
                 </View>
                 <View style={{ flex: 2 }}>
                   <PrimaryText size={'25px'} style={{ left: 15 }}>{loggedInUser.first_name + ' ' + loggedInUser.last_name}</PrimaryText>
                   <PrimaryText size={'15px'} style={{ left: 15, fontFamily: "Futura-MediumItalic" }}>{'@' + loggedInUser.username}</PrimaryText>
                   <BR size={15}/>
-                  
-                  <TextButton
-                    onPress={() => this.signOutProfile()}
-                    title={"Sign Out"}
-                    style={styles.sign_out}
-                  />
 
                   <TextButton
                     onPress={() => Actions.friendScreen({friendships: loggedInUser.friendships.items})}
@@ -152,6 +146,14 @@ class LoggedInUserProfileScreen extends Component {
                     onPress={() => Actions.friendRequestScreen({user: loggedInUser, friendRequests: loggedInUser.friendRequests.items})}
                     title={"Friend Requests"}
                     style={styles.request_displays}
+                  />
+
+                  <TextButton
+                    onPress={() => this.signOutProfile()}
+                    title={"Sign Out"}
+                    style={styles.sign_out}
+                    buttonColor="red"
+                    color="red"
                   />
 
                 </View>

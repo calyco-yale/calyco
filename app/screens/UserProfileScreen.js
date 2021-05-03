@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Dimensions  } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import AppBase from '../base_components/AppBase';
 import PrimaryText from '../base_components/PrimaryText';
 import TextButton from '../base_components/TextButton';
+import BR from '../base_components/BR';
 import CalendarEvent from '../components/CalendarEvent';
 import { isFriend, sentFriendRequest, getloggedInUser, receivedFriendRequest, deleteMutualFriendship, sendFriendNotification, getInvitedEvents } from '../helpers';
 import UpcomingEvent from '../components/UpcomingEvent';
 import { Actions } from 'react-native-router-flux';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getUser } from '../../src/graphql/queries';
+import LottieView from 'lottie-react-native';
+import changeSVGColor from '@killerwink/lottie-react-native-color';
 import { deleteFriendRequestById, createSimpleFriendRequest } from '../../src/graphql/custom_mutations';
 
 // Screen to display given user's profile screen
@@ -18,6 +21,7 @@ class UserProfileScreen extends Component {
     super(props);
     this.state = {
       user: null,
+      userColor: "#ffa500",
       loggedInUser: null,
       loggedIn: false,
       events: [],
@@ -26,6 +30,18 @@ class UserProfileScreen extends Component {
       routes: [{ key: 'first', title: 'Calendar' }, { key: 'second', title: 'Upcoming Events' }]
     };
   };
+
+  getColor = async () => {    
+    const userData = await API.graphql(graphqlOperation(getUser, { id: this.props.userId }));
+    const iconColor = userData.data.getUser.image_url;
+
+    if (iconColor != null) {
+      // console.log('icon Color from db');
+      // console.log(iconColor);
+      this.setState({userColor: iconColor});
+    }
+  };
+
 
   fetchUserData = async () => {
     try {
@@ -152,17 +168,19 @@ class UserProfileScreen extends Component {
     const layout = Dimensions.get('window');
     const { user, loggedInUser, loggedIn, events, invitedEvents, index, routes } = this.state;
 
+
     // Once user data is fetched
     if (user && loggedInUser) {
       let requestOrDelete = null;
       // When the user is not the logged in user
+      this.getColor();
       if (user.id != loggedInUser.id){
         const friendshipId = isFriend(loggedInUser, user)
         if (friendshipId) { // If the user and logged in user are friends
           requestOrDelete = <TextButton
                               onPress={() => this.deleteFriendship(loggedInUser, user)}
                               title={"Remove Friend"}
-                              style={{width: '80%', textAlign: 'center'}}
+                              style={styles.requests}
                             />;
         } else {
           const requestId = sentFriendRequest(loggedInUser, user)
@@ -170,7 +188,7 @@ class UserProfileScreen extends Component {
             requestOrDelete = <TextButton
                                 onPress={() => this.deleteFriendRequest(requestId)}
                                 title={"Undo Friend Request"}
-                                style={{width: '80%', textAlign: 'center'}}
+                                style={styles.requests}
                               />;
           } else {
             const receivedId = receivedFriendRequest(loggedInUser, user)
@@ -180,7 +198,7 @@ class UserProfileScreen extends Component {
               requestOrDelete = <TextButton
                                   onPress={() => this.sendFriendRequest(loggedInUser, user.id)}
                                   title={"Send Friend Request"}
-                                  style={{width: '80%', textAlign: 'center'}}
+                                  style={styles.requests}
                                 />;
             }
           }
@@ -193,27 +211,64 @@ class UserProfileScreen extends Component {
         friendRequestPage = <TextButton
                               onPress={() => Actions.friendRequestScreen({user: user, friendRequests: user.friendRequests.items})}
                               title={"Friend Requests"}
-                              style={{width: '80%', textAlign: 'center'}}
+                              style={styles.requests}
                             />
       }
 
       // Display user details
       return (
         <>
-          <View style={{ flex: 0.4, backgroundColor: '#ffffff'}}>
-            <AppBase style={{flex: 0.4}}>
-              <PrimaryText size={'26px'}>{user.username}</PrimaryText>
-              <PrimaryText size = {'20px'}>{user.first_name + ' ' + user.last_name}</PrimaryText>
-              <PrimaryText>{user.dob}</PrimaryText>
-              <TextButton
-                onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
-                title={"Display Friends"}
-                style={{width: '80%', textAlign: 'center'}}
-              />
+          <View style={{ flex: 0.4, marginTop: 35.0 }}>
+            <AppBase style={{height: '30%'}}>
+              <View style={[styles.container, {
+                  flexDirection: "row"
+                }]}>
+                  <View style={{ flex: 1 }}>
+                    {/* <Text> hi there</Text> */}
+                    <TouchableOpacity
+                        style={{
+                            borderColor: this.state.userColor,
+                            position: 'absolute',
+                            top: 5,
+                            left: 0,
+                            backgroundColor: 'white',
+                            borderWidth: 3,
+                            borderRadius: (140 / 2),
+                            width: 140,
+                            height: 140,
+                        }}
+                    >
+                      <LottieView
+                        style={{
+                          width: 200,
+                          height: 200,
+                          // justifyContent: 'center',
+                          // alignContent: 'center',
+                          position: 'absolute',
+                          top: -10,
+                          left: -11,
+                        }}
+                        source={changeSVGColor(require("../../assets/8874-cat.json"), this.state.userColor)}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ flex: 2 }}>
+                    <PrimaryText size={'25px'} style={{ left: 15 }}>{user.first_name + ' ' + user.last_name}</PrimaryText>
+                    <PrimaryText size={'15px'} style={{ left: 15, fontFamily: "Futura-MediumItalic" }}>{'@' + user.username}</PrimaryText>
+                    <BR size={15}/>
 
-              {friendRequestPage}
-              
-              {requestOrDelete}
+                    <TextButton
+                      onPress={() => Actions.friendScreen({friendships: user.friendships.items})}
+                      title={"Display Friends"}
+                      style={styles.friends}
+                    />
+
+                    {friendRequestPage}
+                    
+                    {requestOrDelete}
+
+                  </View>
+              </View>   
             </AppBase>
           </View>
           <TabView
@@ -246,4 +301,44 @@ class UserProfileScreen extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 20,
+    padding: 20,
+  },
+  friends: {
+    width: '80%',
+    position: 'absolute',
+    top: 1,
+    left: 40, 
+    textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontFamily: 'Futura'
+  },
+  requests: {
+    width: '80%',
+    position: 'absolute',
+    top: 30,
+    left: 40, 
+    textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontFamily: 'Futura'
+  },
+  sign_out: {
+    color: 'red',
+    width: '80%',
+    position: 'absolute',
+    top: 59,
+    left: 40, 
+    textAlign: 'center',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontFamily: 'Futura'
+  },
+  
+});
+
 export default UserProfileScreen;
