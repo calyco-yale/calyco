@@ -34,7 +34,7 @@ If you want to create an event, you can do so by clicking on "Create Event". You
 
 <img width="313" alt="Screen Shot 2021-05-02 at 10 14 41 PM" src="https://user-images.githubusercontent.com/45299876/116836245-cc3ca200-ab93-11eb-859f-6e6e1189c1e9.png">
 
-You can search and add friends using the search bar as well! On their profiles, you can see what events they have in the upcoming weekds, through both a calendar view and a vertical events view. Users also have the functionality to cancel friend requests and even unfriends fellow Cats should there ever need be a reason.
+You can search and add friends using the search bar as well! On their profiles, you can see what events they have in the upcoming weekds, through both a calendar view and a vertical events view. Users also have the functionality to cancel friend requests and even unfriends fellow Cats should there ever need be a reason. If you allow push notifications, you will receive a notification whenever you recieve a friend request!
 
 ### Profile
 
