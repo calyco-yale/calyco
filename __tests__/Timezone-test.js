@@ -7,15 +7,6 @@ export const retrieveOffset = () => {
   return offset;
 };
 
-export const getUTCTime = date => {
-  var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
-  var currDate = new Date(new_string);
-  var curr_string = currDate.toISOString();
-  var new_string =
-    curr_string.substring(0, 10) + " " + curr_string.substring(11, 16);
-  return new_string;
-};
-
 export const convertLocalTime = date => {
   const offset = global.offset;
   var new_string = date.substring(0, 10) + "T" + date.substring(11, 16) + ":00";
@@ -92,7 +83,7 @@ describe("Test for retrieveOffset:", () => {
   });
 });
 
-var testDateObject = new Date("Oct 28 2021 19:59:00 EST");
+var testDateObject = new Date("Oct 28 2021 19:59:00");
 var testDate =
   testDateObject.getFullYear() +
   "-" +
@@ -100,16 +91,9 @@ var testDate =
   "-" +
   testDateObject.getDate() +
   " " +
-  (testDateObject.getHours() - 1) +
+  testDateObject.getHours() +
   ":" +
   testDateObject.getMinutes();
-var testDateObj = new Date(2021, 4, 5, 0, 0, 0);
-describe("Test for getUTCTime:", () => {
-  it("retrieves the correct utc time", () => {
-    var res = getUTCTime(testDate);
-    expect(res).toBe("2021-10-28 23:59");
-  });
-});
 
 describe("Test for convertLocalTime:", () => {
   it("retrieves the correct local time", () => {
@@ -122,19 +106,5 @@ describe("Test for getDateFromDatetime:", () => {
   it("retrieves the date", () => {
     var res = getDateFromDatetime(testDate);
     expect(res).toBe("2021-10-28");
-  });
-});
-
-describe("Test for getDateFromString:", () => {
-  it("retrieves the string date", () => {
-    var res = getDateFromString(testDate);
-    expect(res.toDateString()).toBe("Thu Oct 28 2021");
-  });
-});
-
-describe("Test for getStringFromDate:", () => {
-  it("retrieves the string date", () => {
-    var res = getStringFromDate(testDateObj);
-    expect(res).toBe("2021-05-05 04:00");
   });
 });
