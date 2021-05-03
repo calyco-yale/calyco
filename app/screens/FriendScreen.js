@@ -42,6 +42,7 @@ class FriendScreen extends Component {
   // Display a Flatlist of friends
   render() {
     const { friends } = this.state;
+    console.log(friends);
     return (
       <AppBase>
         <FlatList
