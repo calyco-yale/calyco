@@ -18,7 +18,7 @@ Calyco is a social media platform that consolidates event planning and time sche
 
 <img width="316" alt="Screen Shot 2021-05-02 at 9 57 35 PM" src="https://user-images.githubusercontent.com/45299876/116835656-694a0b80-ab91-11eb-96db-260127b13fad.png">
 
-From the landing page, you can either create an account or log in if you already have one! An email authentication service implemented using AWS will send you a verification email.
+From the landing page, you can either create an account or log in if you already have one! An email authentication service implemented using the AWS Auth API will send you a verification email. If you forget your password, you can also have the API send you a an email to retrieve or create a new password.
 
 ### News Feed
 
