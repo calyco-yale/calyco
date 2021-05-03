@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import BR from '../base_components/BR';
 import { convertLocalTime } from '../helpers'
@@ -34,17 +34,27 @@ class Post extends Component {
         this.event_host = props.event_host;
         this.event_participants = props.event_participants;
         this.event_description = props.event_description;
+        // this.animation = 0;
         this.state = {
             post_liked: false,
             view_participants: false
         }
     }
 
+    animation = null;
+
     // Set like button to clicked
     likeToggled(){
+        if (!this.state.post_liked) {
+            this.animation.play(0, 45);
+        }
+        else {
+            this.animation.play(0, 0);
+        }
         this.setState({
             post_liked: !this.state.post_liked
         })
+        console.log("status updated");
     }
 
     // Set participants button to clicked
@@ -56,7 +66,7 @@ class Post extends Component {
 
     // Render the post using arguments passed in via props
     render() {
-        const heartIconColor = (this.state.post_liked) ? "rgb(252,61,57)" : null;
+        //const heartIconColor = (this.state.post_liked) ? this.animation.play(0, 0) : this.animation.play(37, 37);
         return (
 
             <View style= {{ flex:1, width: 100 + "%", height: 100 + "%"}}>             
@@ -104,16 +114,18 @@ class Post extends Component {
                         event = {this.event_pic}
                     />
                 </View>
-                <BR/>
                 <View style = {styles.iconBar}>
                     {/* like event */}
                     <TouchableOpacity
                         onPress={() =>{
                             this.likeToggled();
                         }}>
-                        <Image
-                            style={{tintColor: heartIconColor, marginLeft: 30, height: 33, width: 35}}
-                            source={require('../../assets/heart_button.png')}
+                        <LottieView
+                            ref = {animation => {this.animation = animation}}
+                            style={styles.heart}
+                            source={require("../../assets/heart.json")}
+                            autoPlay={false}
+                            loop={false}
                         />
                     </TouchableOpacity>
                     {/* view event participants */}
@@ -123,7 +135,7 @@ class Post extends Component {
                             alert("The participants are: " + participantUsernames);
                         }}>
                         <Image
-                            style={{ marginLeft: 10, height: 33, width: 35 }}
+                            style={styles.participants}
                             source={require('../../assets/user_count.png')}
                         />
                     </TouchableOpacity>
@@ -212,7 +224,19 @@ class Post extends Component {
             marginLeft: 20,
             marginTop: 25, 
             borderRadius: 25
-        }
+        },
+        heart: {
+            marginLeft: 1,
+            marginTop: -7,
+            height: 75, 
+            width: 75,
+            //backgroundColor: "blue",
+        },
+        participants: { 
+            marginLeft: 5, 
+            height: 33, 
+            width: 35
+        },
     })
 
 export default Post

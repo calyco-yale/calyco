@@ -31,6 +31,7 @@ class LoginScreen extends Component {
         const offset = retrieveOffset();
         console.log(offset);
         Actions.newsFeed();
+        //Actions.todayEvents();
     } catch (error) {
         console.log('error signing in', error);
         // Display some visible error otherwise!

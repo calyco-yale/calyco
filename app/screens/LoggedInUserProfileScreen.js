@@ -135,12 +135,6 @@ class LoggedInUserProfileScreen extends Component {
                   <PrimaryText size={'25px'} style={{ left: 15 }}>{loggedInUser.first_name + ' ' + loggedInUser.last_name}</PrimaryText>
                   <PrimaryText size={'15px'} style={{ left: 15, fontFamily: "Futura-MediumItalic" }}>{'@' + loggedInUser.username}</PrimaryText>
                   <BR size={15}/>
-                  
-                  <TextButton
-                    onPress={() => this.signOutProfile()}
-                    title={"Sign Out"}
-                    style={styles.sign_out}
-                  />
 
                   <TextButton
                     onPress={() => Actions.friendScreen({friendships: loggedInUser.friendships.items})}
@@ -152,6 +146,14 @@ class LoggedInUserProfileScreen extends Component {
                     onPress={() => Actions.friendRequestScreen({user: loggedInUser, friendRequests: loggedInUser.friendRequests.items})}
                     title={"Friend Requests"}
                     style={styles.request_displays}
+                  />
+
+                  <TextButton
+                    onPress={() => this.signOutProfile()}
+                    title={"Sign Out"}
+                    style={styles.sign_out}
+                    buttonColor="red"
+                    color="red"
                   />
 
                 </View>
