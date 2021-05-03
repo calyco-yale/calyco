@@ -1,3 +1,25 @@
+export const getStringFromDate = date => {
+  const iso = date.toISOString();
+  return iso.substring(0, 10) + " " + iso.substring(11, 16);
+};
+
+export const getDateFromString = datetimeString => {
+  return new Date(
+    Date.UTC(
+      datetimeString.substring(0, 4),
+      datetimeString.substring(5, 7) - 1,
+      datetimeString.substring(8, 10),
+      datetimeString.substring(11, 13),
+      datetimeString.substring(14, 16)
+    )
+  );
+};
+
+export const getDateFromDatetime = datetime => {
+  let arr = datetime.split(" ");
+  return arr[0];
+};
+
 export const getUserSchedule = (user, startDatetime, endDatetime) => {
   // UTC Date objects
   const startDate = getDateFromString(startDatetime);
@@ -76,17 +98,61 @@ export const suggestTimes = (users, startDatetime, endDatetime) => {
   return freeTimes;
 };
 
-export const getFriends = async friendships => {
-  let friends = [];
-  for (let i = 0; i < friendships.length; i++) {
-    try {
-      const friendData = await API.graphql(
-        graphqlOperation(getUser, { id: friendships[i].friendID })
-      );
-      friends.push(friendData.data.getUser);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  return friends;
-};
+
+describe("Test for getUserSchedule", () => {
+  it("retrieves the user's schedule", () => {
+
+    let testUser = { data: {
+        "email": "testuser@yahoo.com",
+        "events": {
+          "items": [
+            {
+              "id": "1",
+              "end_datetime": "2021-04-26 01:00",
+              "start_datetime": "2021-04-26 00:00"
+            },
+          ]
+        }
+      }};
+    
+    let busyTimes = getUserSchedule(testUser.data, "2021-04-26 00:00", "2021-04-26 23:59")
+    expect(busyTimes[0]).toEqual(['2021-04-26 00:00', '2021-04-26 01:00']);
+  });
+});
+
+
+describe("Test for suggestTimes", () => {
+  it("returns available times for all users", () => {
+
+    let testUser = { data: {
+        "email": "testuser@yahoo.com",
+        "events": {
+          "items": [
+            {
+              "id": "1",
+              "end_datetime": "2021-04-26 01:00",
+              "start_datetime": "2021-04-26 00:00"
+            },
+          ]
+        }
+      }};
+
+      let participant = { data: {
+        "email": "participant@yahoo.com",
+        "events": {
+          "items": [
+            {
+              "id": "2",
+              "end_datetime": "2021-04-26 14:00",
+              "start_datetime": "2021-04-26 12:00"
+            },
+          ]
+        }
+      }};
+    
+    let suggested = suggestTimes([testUser.data, participant.data], "2021-04-26 00:00", "2021-04-26 23:59")
+    expect(suggested).toEqual([['2021-04-26 01:00', '2021-04-26 12:00'],
+                              ['2021-04-26 14:00', '2021-04-26 23:59']]);
+  });
+});
+

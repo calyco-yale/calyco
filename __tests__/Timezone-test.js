@@ -92,39 +92,41 @@ describe("Test for retrieveOffset:", () => {
   });
 });
 
-var testDate = "2021-05-05 00:00";
+var testDateObject = new Date('Oct 28 2021 19:59:00 EST')
+var testDate = testDateObject.getFullYear() + '-' + (testDateObject.getMonth() + 1) + '-' + testDateObject.getDate() + ' ' + (testDateObject.getHours() -1) + ':' + testDateObject.getMinutes()
+// var testDate = "2021-05-05 00:00";
 var testDateObj = new Date(2021, 4, 5, 0, 0, 0);
 describe("Test for getUTCTime:", () => {
   it("retrieves the correct utc time", () => {
     var res = getUTCTime(testDate);
-    expect(res).toBe("2021-05-04 15:00");
+    expect(res).toBe("2021-10-28 23:59");
   });
 });
 
 describe("Test for convertLocalTime:", () => {
   it("retrieves the correct local time", () => {
     var res = convertLocalTime(testDate);
-    expect(res).toBe("2021-05-04 23:50");
+    expect(res).toBe("2021-10-28 19:49");
   });
 });
 
 describe("Test for getDateFromDatetime:", () => {
   it("retrieves the date", () => {
     var res = getDateFromDatetime(testDate);
-    expect(res).toBe("2021-05-05");
+    expect(res).toBe("2021-10-28");
   });
 });
 
 describe("Test for getDateFromString:", () => {
   it("retrieves the string date", () => {
     var res = getDateFromString(testDate);
-    expect(res.toDateString()).toBe("Wed May 05 2021");
+    expect(res.toDateString()).toBe("Thu Oct 28 2021");
   });
 });
 
 describe("Test for getStringFromDate:", () => {
   it("retrieves the string date", () => {
     var res = getStringFromDate(testDateObj);
-    expect(res).toBe("2021-05-04 15:00");
+    expect(res).toBe("2021-05-05 04:00");
   });
 });
