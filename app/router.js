@@ -13,7 +13,6 @@ import NewsFeedScreen from './screens/NewsFeedScreen';
 import CreateEventScreen from './screens/CreateEventScreen.js';
 import AddParticipantsScreen from './screens/AddParticipantsScreen';
 import { NewsFeedTab, SearchTab, ProfileTab } from './components/NavBar';
-import TodayEvents from './screens/TodayEvents';
 
 // Primary logic for navigating between each screen of the app
 
@@ -25,13 +24,6 @@ const AppRouter = () => (
         initial
         component={LoginScreen}
         gesturesEnabled={false}
-        hideNavBar
-      />
-
-      <Scene
-        key="todayEvents"
-        component={TodayEvents}
-        //initial
         hideNavBar
       />
 

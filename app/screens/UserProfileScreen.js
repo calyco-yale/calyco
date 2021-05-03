@@ -180,7 +180,7 @@ class UserProfileScreen extends Component {
           requestOrDelete = <TextButton
                               onPress={() => this.deleteFriendship(loggedInUser, user)}
                               title={"Remove Friend"}
-                              style={{width: '80%', textAlign: 'center'}}
+                              style={styles.requests}
                             />;
         } else {
           const requestId = sentFriendRequest(loggedInUser, user)
@@ -188,7 +188,7 @@ class UserProfileScreen extends Component {
             requestOrDelete = <TextButton
                                 onPress={() => this.deleteFriendRequest(requestId)}
                                 title={"Undo Friend Request"}
-                                style={{width: '80%', textAlign: 'center'}}
+                                style={styles.requests}
                               />;
           } else {
             const receivedId = receivedFriendRequest(loggedInUser, user)
