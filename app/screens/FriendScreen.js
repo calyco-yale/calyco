@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { getFriends, renderUserItem, userItemSeparator } from "../helpers";
 
 import AppBase from "../base_components/AppBase";
@@ -43,13 +43,13 @@ class FriendScreen extends Component {
   render() {
     const { friends } = this.state;
     return (
-      <AppBase>
+      <View>
         <FlatList
           data={friends}
           ItemSeparatorComponent={userItemSeparator}
           renderItem={renderUserItem}
         />
-      </AppBase>
+      </View>
     );
   }
 }
