@@ -123,12 +123,12 @@ class LoggedInUserProfileScreen extends Component {
     if (loggedInUser) {
       return (
         <>
-          <View style={{flex: 0.4, marginTop: 35.0 }}>
+          <View style={{ flex: 0.4, marginTop: 35.0 }}>
             <AppBase style={{height: '30%'}}>
               <View style={[styles.container, {
                 flexDirection: "row"
               }]}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginRight: 30 }}>
                   <ProfileBar />
                 </View>
                 <View style={{ flex: 2 }}>

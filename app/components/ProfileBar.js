@@ -59,41 +59,24 @@ export default function ProfileBar() {
       alignItems: 'center', 
       justifyContent: 'center',
     }}>
-      {/* {image ? 
-        <Image 
-          source={{ uri: image }} 
-          style={styles.image} 
-          onPress={pickImage}/> : 
-        <TouchableOpacity
-          style={styles.selected}
-          onPress={pickImage}
-        >
-          <MaterialCommunityIcons name="account" size={50} />
-        </TouchableOpacity>
-      } */}
       <TouchableOpacity
         style={{
           position: 'absolute',
           top: 15,
           left: 0,
           backgroundColor: 'white',
-          // justifyContent: 'center',
-          // alignContent: 'center',
           borderColor: color,
           borderWidth: 3,
           borderRadius: (140 / 2),
           width: 140,
           height: 140,
         }}
-        //onPress={pickColor}
         onPress={toggleModal}
       >
         <LottieView
           style={{
             width: 200,
             height: 200,
-            // justifyContent: 'center',
-            // alignContent: 'center',
             position: 'absolute',
             top: -10,
             left: -11,
